@@ -1,0 +1,187 @@
+.title-head {
+	background: rgb(121 124 128 / 22%);
+	margin-bottom: 25px;
+}
+.title-head h1 ,.introduce-post-forum h1{
+	font-size: 20px;
+    font-weight: bold;
+    padding: 15px 0px;
+    color: #34306b;
+}
+.introduce-post-forum {background:#eaeaea;}
+.introduce-post-forum p {
+    font-size: 18px;
+    line-height: 23px;
+    margin-bottom: 5px;
+}
+/* ====FORUM==== */
+#forum .new-post {
+	padding: 6px;
+    margin-top: 10px;
+    background: rgb(22 7 255 / 25%);
+    height: 30px;
+    display: block;
+    border-radius: 3px;
+    color: #545454;
+    border: 1px solid #030a54;
+}
+#forum .topic-name,.overview-place .topic-name{
+    border-radius: 15px;
+    background: #dadada;
+    padding: 20px 0px;
+    border-top: 5px solid #efa0897a;
+    /* border-bottom: 5px solid #efa0897a; */
+    margin-bottom: 15px;
+}
+#forum .topic-name h1 ,.overview-place .topic-name h1{
+	font-size: 20px;
+	font-weight: bold;
+}
+.pg-p-20 {
+	background: #f9f9f9;
+    padding: 20px 0px;
+}
+#forum .post-forum .name h1,.overview-place .post-feature h1{
+	background: #cad0cf;
+    padding: 4px;
+    font-weight: 600;
+    color: #6b6a6a;
+    margin-bottom: 10px;
+}
+.img-50 {
+	width: 50px !important;
+	height: 50px !important;
+}
+#forum .info-desc .topic ,#detail_post_forum .topic,.overview-place .post-feature .topic,#team .topic,#team-detail .topic{
+	background: #cbcbff;
+    padding: 1px 3px;
+    border-radius: 4px;
+    border: 1px solid #8e81d4;
+}
+.info-desc .title {
+	font-weight: 600;
+    color: #414042;
+    line-height: 20px;
+}
+#forum .list-post li{padding: 10px 0px}
+#forum .list-post li a:hover{
+	text-decoration: underline;
+}
+#forum .list-post li:hover {
+	background: #ececf7;
+}
+/* ==post new== */
+#forum .post-new {
+	border-left: 2px solid #cac8c8;
+}
+@media (max-width: 992px) {
+	#forum .post-new {
+		border-left: none;
+	}
+	#detail_post_forum .topic-title h2 {font-size: 12px}
+}
+.title-new {
+	padding: 10px;
+    background: #33257b;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+#detail_post_forum{background: #d8d8d8;padding-bottom: 20px;}
+#detail_post_forum .topic-title-head {
+	background: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-right: 4px solid #797777;
+    border-radius: 15px;
+    border-bottom: 5px solid #969494;
+}
+#detail_post_forum .topic-title h2 {
+	font-size: 18px;
+    font-weight: 500;
+    color: #131111;
+    margin-left: 5px;
+}
+@media (max-width: 992px) {
+	#detail_post_forum .topic-title h2 {font-size: 12px}
+}
+#detail_post_forum .avatar-center .avatar img {
+	width: 80px;
+    height: 80px;
+
+}
+.avatar-center {
+	text-align: center;
+}
+#detail_post_forum .image-avatar {border-right: 1px solid #e4e4e4;}
+#detail_post_forum .username h1{
+	font-weight: bold;
+
+}
+#detail_post_forum .post-content img{width:100%;border-radius: 5px}
+#detail_post_forum .post-content .date{
+	font-size: 12px;
+    font-weight: bold;
+    color: #a09b9b;
+}
+.p-broder {
+	padding: 10px 0px;
+	border-radius: 5px;
+	background: white;
+	/* margin: 0px;
+	margin-bottom: 15px; */
+
+	margin: 10px 0px 15px 0px;
+}
+@media (max-width: 992px) {
+	#detail_post_forum .avatar img {
+		width: 60px;
+		height: 60px;
+	}
+	.avatar-center {
+		text-align: center;
+	    display: flex;
+	    padding: 10px 15px;
+	    border-bottom: 1px dashed #d8d5d5;
+	    margin-bottom: 5px;
+	}
+	#detail_post_forum .username {padding: 17px 10px}
+	#detail_post_forum .image-avatar {border: none}
+	.post-content p {
+    	font-size: 15px;
+	}
+}
+.form-comment {
+	border: 1px solid #8285ce;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 10px;
+    font-size: 30px;
+    background: rgb(89 151 187 / 54%);
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+}
+/* === STYLE TEAM ==== */
+@media (max-width: 992px) {
+    
+}
+.team-item{
+    padding: 4px;
+    background: #f5f5f7;
+    border-radius: 5px;
+    margin-bottom: 6px;
+}
+.team-item:hover{
+    background: #cfddec;
+}
+#thongkebinhchon {height: 300px;overflow: auto;}
+#thongkebinhchon .team-item{
+    background: none;
+}
+#thongkebinhchon .team-item:hover{
+    background: none;
+}

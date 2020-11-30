@@ -1,0 +1,274 @@
+/* ===	LOGIN, REGISTER=== */
+#login {
+    max-width: 400px;
+    margin: 0px auto;
+    padding: 50px 15px;
+}
+
+#login .wp-form-login ,#register .wp-form-register{
+	padding: 10px;
+    border: 2px solid #bfcaff;
+    border-radius: 5px;
+    background: rgb(43 96 152 / 11%);
+}
+#login .wp-form-login h1 ,.wp-form-register h1{
+    font-size: 20px;
+    padding: 10px;
+    background: #0548ff;
+    margin-bottom: 30px;
+    text-align: center;
+    color: white;
+    border: 2px solid rgb(55 59 86 / 25%);
+}
+#register {
+	max-width: 600px;
+	margin: auto;
+    padding: 50px 15px;
+
+}
+/* PROFILE USER */
+#profile-user .cover-image {
+	/* background-image: url('https://aphoto.vn/wp-content/uploads/2016/07/cach-chup-hinh-dep-bang-dien-thoai.jpg'); */
+	height: 250px;
+	width: 100%;
+	margin-bottom: 100px;
+	/* position: relative; */
+}
+#profile-user {background:#f3f3f3;padding-bottom: 60px}
+#profile-user .border-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 100%;
+    border: 4px solid whitesmoke;
+
+}
+#profile-user .cover-image img,#profile-avatar .border-avatar img{
+	height: 100%;
+	width: 100%;
+}
+#profile-user .position-avatar {
+	position: relative;
+}
+#profile-user .avatar-username {
+	position: absolute;
+    left: 0px;
+    bottom: -65px;
+}
+.setting-profile li a {
+    color: #484545;
+    font-weight: 500;
+}
+#profile-user .avatar-username .username {
+	font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+}
+#profile-user .introduce {
+	font-size: 14px;
+    line-height: 27px;
+    color: #5a5555;
+}
+#profile-user .introduce h1 {
+	font-size: 20px;
+    font-weight: bold;
+    color: #757575;
+    padding: 10px 0px;
+}
+.bg-padding {
+	background: white;
+	padding: 15px;
+}
+#profile-user .menu-profile .menu li a{
+	font-size: 15px;
+    color: #0a0a0ab8;
+    padding: 0px 15px;
+
+}
+#profile-user .menu-profile .menu ul {
+	/* -webkit-transform: translateX(0); */
+	overflow-x: auto;
+	margin: 10px 0px;
+	border: 1px solid #efefef;
+}
+
+/* .image img {
+	width: 100%;
+	height: 150px;
+} */
+.info-content .review-image .thumb,.info-content .review-image .overlayy {padding: 2px !important}
+.p-responsive {
+	padding: 0px 15px;
+}
+@media (max-width: 992px){
+	.p-responsive {
+		padding: 0px;
+	}
+}
+.pt-pb-15 {
+	padding: 15px 0px;
+    border: 1px solid #ccd2ce;
+    border-radius: 7px;
+}
+#profile-user .link .image {
+	width: 150px;
+	height: 100px;
+}
+.report-follow {cursor: pointer}
+#profile-user .link .image img{
+	width: 100%;
+	height: 100%;
+}
+#profile-user .link {
+	border: 1px solid #e2e2e2;
+    color: #5d5d5f;
+}
+#profile-user .info-desc h1{
+	font-size: 15px;
+	text-align: left;
+}
+#profile-user .info-desc {padding: 2px 10px}
+#profile-user .info-desc .num-star {padding: 2px 0px}
+#profile-user .info-desc .location {font-size: 12px}
+#profile-user .rating-comment {
+	overflow-y: scroll;
+	height: 600px;
+}
+
+#profile-user .rating-comment::-webkit-scrollbar {
+    display: none;
+}
+#profile-user .rating-comment {
+  scrollbar-width: none;  /* Firefox */
+}
+#profile-user .listfriend li {
+	padding: 2px;
+	border-radius: 10px;
+}
+.active-user{
+    background: #e4e1e1;
+}
+#profile-user .listfriend li:hover{
+    cursor: pointer;
+	background: #e4e1e1;
+	transition: all 0.5s;
+}
+#profile-user .listfriend .avatar {position: relative}
+#profile-user .listfriend .online {
+	width: 12px;
+    height: 12px;
+    background: #08da5c;
+    position: absolute;
+    bottom: 2px;
+    right: 0px;
+    border: 2px white solid;
+    border-radius: 100%;
+}
+#profile-user .frend-contact h2{
+	font-size: 17px;
+	color: #969696;
+    padding: 10px 0px;
+}
+#profile-user .username h1 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #3e3d3dc7;
+    padding: 10px 0px 5px 10px;
+}
+/* ====EDIT PROFILE */
+.avatar-edit {
+	width: 150px;
+	height: 150px;
+	position: relative;
+}
+.avatar-edit img {
+	width: 100%;
+	height: 100%;
+	border-radius: 100%;
+}
+
+.avatar-edit .overlay-edit, .avatar-edit .input-file-avatar {
+	height: 150px;
+	width: 150px;
+	border-radius: 100%;
+}
+.avatar-edit .overlay-edit {
+    background: rgb(23 19 23 / 12%);
+    text-align: center;
+    top: 0px;
+    position: absolute;
+    left: 0px;
+    cursor: pointer
+
+}
+.avatar-edit .icon-image {
+	position: absolute;
+    top: 40%;
+    left: 37%;
+    font-size: 35px;
+    color: white;
+    cursor: pointer;
+}
+.center-webkit {text-align: -webkit-center;}
+.avatar-edit .input-file-avatar {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    opacity: 0;
+}
+#editAvatarImageCover .title-action h1 {
+	font-size: 20px;
+	font-weight: bold;
+}
+.avarta-lg {
+    /* width: 250px !important;
+    height: 250px !important; */
+}
+#editAvatarImageCover .title-action a {
+	position: relative;
+	width: 80px;
+}
+#editAvatarImageCover .input-file-avatar,#editAvatarImageCover .input-file-imgcover {
+	width: 100%;
+    position: absolute;
+    left: 0px;
+    opacity: 0;
+    cursor: pointer;
+}
+#editAvatarImageCover .image-cover {
+	width: 400px;
+	height: 250px;
+}
+@media (max-width:456px){
+	#editAvatarImageCover .image-cover {width: 100%;}
+}
+#editAvatarImageCover .image-cover img {
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+
+}
+/* ===ACCOUNT VERTIFI======= */
+.account_vertifi h2{
+	font-weight: bold;
+    color: #3c3a3a;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.code-number {
+	display: block;
+	margin: auto;
+	width: 32%;
+}
+.code-number input{
+	border-radius: 20px;
+}
+/* ===BOX MESSAGE */
+#wp-box-messages{
+    /* background: #8a8c8b30; */
+    position: fixed;
+    padding: 2px;
+    width: 370px;
+    bottom: 10px;
+    right: 400px;
+    z-index: 10;
+}

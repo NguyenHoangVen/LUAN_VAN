@@ -1,0 +1,128 @@
+.pd-group{
+	padding: 10px;
+    background: #e3e3fb;
+}
+.group-item a{color: #6f6c6c}
+.group-post{min-height: 450px;}
+.group-post .profile {
+    padding: 15px;
+    background: white;
+    border-radius: 5px;
+}
+.group-post .profile .username {
+	font-size: 20px;
+    padding: 17px;
+}
+.group-post .list-group{
+	padding: 15px;
+    background: white;
+    margin-top: 3px;
+    border-radius: 5px;
+}
+.group-post .avatar img{width: 60px;height: 60px}
+.group-item{
+	padding: 5px;
+    border-bottom: 1px solid #f7f5f5;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.post-content iframe{width: 100%}
+.group-post ul>.group-item:hover{background: #e8e8f5}
+.group-post .group-item .name-group{
+	font-size: 20px;
+    padding: 15px 0px;
+}
+.group-post .group-item .name-group h2{font-weight: bold}
+/* cac bai viet trong group */
+.g-select{
+	background: white ;
+    margin-bottom: 5px;
+}
+.post-group .post-item{
+	padding: 10px;
+    background: white;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+.post-group .post-item .avatar img{width: 40px;height: 40px}
+.post-group .username {
+	font-size: 17px;
+    color: #5d5b5b;
+    font-weight: bold;
+}
+.post-group .time {
+	font-size: 12px;
+    padding-top: 7px;
+}
+.post-group .title {
+	font-size: 18px;
+    padding: 10px 0px;
+    font-weight: bold;
+}
+.post-group .post-content .content{
+    font-size: 16px;
+    line-height: 22px;
+    max-height: 80px;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+/* input comment */
+.post-group .comment-post img {width: 35px;height: 35px}
+.post-group .comment-post{
+	border-top: 1px solid #e0dfdf;
+    margin-top: 10px;
+    padding: 5px 0px;
+}
+.comment-post .user-comment-parent .input-comment,.input-reply .input-comment{
+    width: 100%;
+    border-radius: 47px;
+    border: none;
+    background: #d4d4d4;
+    padding: 3px 10px;
+    height: 35px;
+}
+.font-12{font-size: 12px}
+.font-15{font-size: 15px}	
+.reply b{
+	padding: 3px;
+    cursor: pointer;
+    display: block;
+    color: #2e2e75;
+}
+.list-comment .comment-child{
+	padding-left: 50px;
+}
+.list-comment ul{width: 100%}
+.list-comment ul li:hover{background: none}
+.comment-post .comment-child .avatar img{width: 30px;height: 30px}
+/* style user member in modal member */
+#modalMemberGroup .modal-title{
+	color: #444444;
+    font-weight: bold;
+}
+#modalMemberGroup .info-user {
+	padding: 4px 0px;
+}
+.modal-member-group .info-user .username{
+	color: #444444;
+    font-weight: bold;
+}
+#modalMemberGroup .info-user .time{
+	padding-top: 4px;
+    font-size: 12px;
+}
+/* modal add group */
+#createNewGroup #reviewimg{
+	width: 100%;
+    height: 140px;
+}
+#createNewGroup #reviewimg img{width: 100%;height: 100%;border-radius:5px}
+
+/* ===STYLE GROUP SEARCH=== */
+.num-member{
+    padding-top: 5px;
+    font-size: 15px;
+}

@@ -1,0 +1,20 @@
+@media (min-width: 768px){
+    #team-detail .team-title .callout-info{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+@media (max-width: 768px){
+    #team-detail .team-title .callout-info{
+        /* display: block; */
+    }
+}
+.bg-card{background: #f3f3f3;}
+.right .direct-chat-text {
+    max-width: 400px;
+    margin-left: 0;
+    margin-right: 20px;
+    float: right;
+    /* align-items: normal; */
+}
+.direct-chat-text{max-width: 400px;}
