@@ -81,6 +81,7 @@ $(document).ready(function(){
 	
 	// Upload images add Place (topic)
 	$('#uploadImgAddTopic').on('change',function(e){
+		
 		var files = e.target.files,
 		filesLength = files.length;
 		console.log(filesLength);
@@ -88,11 +89,9 @@ $(document).ready(function(){
 			var f = files[i];
     		var fileReader = new FileReader();
     		fileReader.onload = (function(readerEvt){
-				return function(e){
-					
+				return function(e){	
 					ApplyFileValidationRules(readerEvt);
         			RenderThumbnail(e, readerEvt);
-        			
 				};
     			
     		})(f);

@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ImgPostShareModel extends Model
+class ImagesTopicModel extends Model
 {
     //
     public $timestamps = false;
-    protected $table = 'image_post_share';
-    // fdf
+    protected $table = 'images_topic';
 }

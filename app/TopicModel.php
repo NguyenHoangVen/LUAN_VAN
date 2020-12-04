@@ -20,4 +20,7 @@ class TopicModel extends Model
     public function comments(){
         return $this->hasMany('App\CommentTopicModel','topic_id','id');
     }
+    public function images(){
+    	return $this->hasMany('App\ImagesTopicModel','id_topic','id');
+    }
 }

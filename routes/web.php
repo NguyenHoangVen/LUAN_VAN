@@ -126,6 +126,9 @@ Route::group(['prefix'=>'topic'],function(){
 	Route::post('rating/{topic_id}','PlaceController@ratingTopic');
 	Route::get('post/detail/{id}','PlaceController@postTopicDetail');
 	Route::get('{id}','PlaceController@topicDetail');
+	// 1. Dong gop hinh anh cho dia diem
+	Route::post('add-images','PlaceController@addImages');
+	
 });
 
 // -- Thêm địa điểm mới --

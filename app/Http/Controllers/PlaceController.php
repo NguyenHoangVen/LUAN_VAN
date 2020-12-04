@@ -9,10 +9,43 @@ use App\TopicModel;
 use App\PostReviewModel;
 use App\RatingTopicModel;
 use App\CommentTopicModel;
+use App\ImagesTopicModel;
 use Auth;
 use Session;
 class PlaceController extends Controller
 {
+    // ===DONG GOP HINH ANH CHO DIA DIEM===
+    // 1. AddImages
+    public function addImages(Request $request){
+        if($request->hasFile('image')){
+            $path_upload = public_path('image/image_place/');
+            $countfiles = count($_FILES['image']['name']);
+            // Xu li file
+            $img_select = $request->file_name_image;
+            $img_delete = explode(",", $request->file_delete);
+            $img_delete = array_unique($img_delete);
+            $img_save = array_diff($img_select,$img_delete);
+            $topic_id = $request->topic_id;
+            for($i=0;$i<$countfiles;$i++){
+                $filename = $_FILES['image']['name'][$i];
+                if(in_array($filename, $img_save)){
+                    $name = md5(rand(100, 200));
+                    $ext = pathinfo($_FILES['image']['name'][$i], PATHINFO_EXTENSION);
+                    $filename = 'share'.$name.'.'.$ext;
+                    // --
+                   
+                    move_uploaded_file($_FILES['image']['tmp_name'][$i],$path_upload.$filename);
+                    $images_topic = new ImagesTopicModel();
+                    $images_topic->id_topic = $topic_id;
+                    $images_topic->filename = $filename;
+                    $images_topic->save();
+                }
+                
+            }
+            
+        }
+        return Response()->json(array('ok'=>$request->all(),'success'=>'ok'));   
+    }
     // == BINH LUAN TOPIC ===
     public function commentTopic(Request $request){
         // dd($request);
@@ -101,7 +134,16 @@ class PlaceController extends Controller
         $data_carwl = carwlData($city);//Carwl data Mytour
         // 2. Lay du lieu API TripAdvisor
         $data_tripadvisor = apiTripadvisor($topic->lat,$topic->lng);
+        // Images topic
+        $image_topic1 = json_decode($topic->image);
+        $images_topic = ImagesTopicModel::select('filename')->where('id_topic',$topic->id)->get();
+        $images_topic2 = array();
+        foreach($images_topic as $img){
+            $images_topic2[] = $img->filename;
+        }
+        $images = array_merge($image_topic1,$images_topic2);
         $data = array(
+            'images' => $images,
             'topic' => $topic,
             'star_avg' => $star_avg,
             'star_percent' => $star_percent,
@@ -111,6 +153,7 @@ class PlaceController extends Controller
             'data_carwl' => $data_carwl,
             'data_tripadvisor' => $data_tripadvisor
         );
+
         return view('place.detail',$data);
     }
     //== GET THÊM ĐỊA ĐIỂM==

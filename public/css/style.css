@@ -1096,3 +1096,8 @@ figure {
     color: #3957ea;
     font-size: 20px;
 }
+.add-images{
+    background: #5252f1;
+    color: #edebf5;
+}
+.add-images:hover{color: white;}

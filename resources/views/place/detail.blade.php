@@ -24,30 +24,87 @@
             <!-- Image topic -->
             <div class="row mb-4 review-image">
                 <div class="col-lg-8 col-md-12 bg-white">
-                    <div style="padding: 15px">
+                    <div style="padding: 15px 15px 5px 15px">
                         <div class="row">
-                            @foreach(json_decode($topic->image) as $image)
-
+                            <?php 
+                            $i =0 ;
+                            $num_images = count($images);
+                            ?>
+                            @foreach($images as $image)
+                            <?php $i++ ?>
+                            @if($i <= 6)
                             <div class="col-4 thumb">
                                 <img src="image/image_place/{{$image}}" class="img-fluid mb-2" alt="white sample"
                                     data-toggle='modal' data-target='#modalImage'>
                             </div>
-                            @endforeach
-                            <div class="col-4 thumb">
-                                <img src="image/image_avatar/images.jpg" alt="" data-toggle='modal'
-                                    data-target='#modalImage'>
-                            </div>
+                            @endif
+                            @if($i == 7)
                             <div class="col-4 thumb thumb-relative">
                                 <img src="image/image_avatar/images.jpg" alt="">
                                 <div class="overlayy " data-toggle='modal' data-target='#modalImage'>
-                                    <div class="number"><span>+9</span></div>
+                                    <div class="number"><span>+{{$num_images - 6}}</span></div>
                                 </div>
                             </div>
+                            @endif
+                            @endforeach
+                            
 
 
                         </div>
                     </div>
-
+                    <!-- Them hinh anh cho dia diem -->
+                    <div class="add-images btn" data-toggle="modal" data-target="#modalAddImages"><i
+                            class="fas fa-camera"></i> Thêm hình ảnh</div>
+                    <div id="modalAddImages" class=modal>
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Modal Heading</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="formAddImagesTopic" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div id="reviewimg"></div>
+                                            <div class="col-md-6">
+                                                <div class="img-wrap">
+                                                    <span class="delete">x</span>
+                                                    <div class="thumb-img" style="height: 232px"><img
+                                                            src="https://i.pinimg.com/originals/a8/45/76/a84576a04c1874304735604d9f47d5a4.jpg"
+                                                            alt="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Input hidden -->
+                                        <div class="form-group">
+                                            <label for="email">Tải ảnh lên</label>
+                                            <p class="form-error" id="error-file"></p>
+                                            <div class="choseFile custom-file">
+                                                <input type="file" class="custom-file-input" multiple=""
+                                                    id="uploadImgAddTopic" name="image[]">
+                                                <div class="icon-image"></div>
+                                                <!-- image delete -->
+                                                <div id="file_hidden"></div>
+                                                <input type="hidden" id="file_name_image_delete" name="file_delete">
+                                                <input type="hidden" name=topic_id value={{$topic->id}}> 
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="d-none alert alert-default-primary w-100 mb-1 mt-2">
+                                            Đăng ảnh thành công!</div>
+                                    
+                                        <div class="form-group ">
+                                            <button class="btn btn-success w-100">Đăng ảnh</button>
+                                            
+                                        </div>
+                                        
+                                        <!-- End Input hidden -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-12 sidebar border-left">
                     <div class="location " style="padding: 15px 0px">
@@ -96,15 +153,9 @@
                                     </div>
                                 </div>
                                 <div class="owl-carousel">
-                                    @foreach(json_decode($topic->image) as $image)
+                                    @foreach($images as $image)
                                     <div class="item"> <img src="image/image_place/{{$image}}" alt="image" /> </div>
                                     @endforeach
-                                    <div class="item"> <img
-                                            src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557204172/banner_2.jpg"
-                                            alt="image" /> </div>
-                                    <div class="item"> <img
-                                            src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1557204663/park-4174278_640.jpg"
-                                            alt="image" /> </div>
 
                                 </div>
 
@@ -374,24 +425,26 @@
             </div>
 
             <!-- Cac nha hang khach san xung quanh dia diem -->
-            
+
             <div class="row card mt-2 carwl-data">
                 <div class="near-location">Các địa điểm lân cận</div>
                 <!-- Du lieu Carwl Mytour -->
                 @if($data_carwl != false)
-                <div class="main-title"><h1>Khách Sạn</h1></div>
+                <div class="main-title">
+                    <h1>Khách Sạn</h1>
+                </div>
                 <div class="owl-carousel">
                     @foreach($data_carwl['title_name'] as $key => $value)
                     <div class="item">
                         <a href="https://mytour.vn/<?php echo $data_carwl['links'][$key] ?>" target="_blank">
-                            <img src="<?php echo $data_carwl['images'][$key] ?>"
-                        alt="" class="img-fluid rounded">
+                            <img src="<?php echo $data_carwl['images'][$key] ?>" alt="" class="img-fluid rounded">
                         </a>
                         <div class="info">
                             <div class="title">
-                                <a href="https://mytour.vn/<?php echo $data_carwl['links'][$key] ?>" target="_blank"><?php echo $value ?></a>
+                                <a href="https://mytour.vn/<?php echo $data_carwl['links'][$key] ?>"
+                                    target="_blank"><?php echo $value ?></a>
                             </div>
-                            
+
                             <div class="num-star">
                                 <span class="star">
                                     <i class="fa fa-star checked"></i>
@@ -413,7 +466,9 @@
                 </div>
                 @endif
                 <!-- Du lieu tu Tripadvisor -->
-                <div class="main-title"><h1>Khách Sạn,Nhà Hàng, Điểm du lịch</h1></div>
+                <div class="main-title">
+                    <h1>Khách Sạn,Nhà Hàng, Điểm du lịch</h1>
+                </div>
                 <div class="owl-carousel">
                     @foreach($data_tripadvisor as $item)
                     <div class="item">
@@ -422,7 +477,7 @@
                             <div class="title">
                                 <a href="{{$item->web_url}}" target="_blank">{{$item->name}}</a>
                             </div>
-                            
+
                             <div class="num-star">
                                 <span class="star">
                                     @if($item->rating == null)
@@ -430,9 +485,9 @@
                                     @else
                                     {{$item->rating}}
                                     @for($i=1;$i<= floor($item->rating);$i++)
-                                    <i class="fa fa-star checked"></i>
-                                    @endfor
-                                    @endif
+                                        <i class="fa fa-star checked"></i>
+                                        @endfor
+                                        @endif
                                 </span>
                             </div>
                             <div class="address">
@@ -446,7 +501,7 @@
                     @endforeach
                 </div>
             </div>
-            
+
             <!-- COMMENT, RATING -->
             <div class="row">
                 <div class="container rating-comment">
@@ -533,51 +588,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="row padding">
-				  				<div class="col-12">
-				  					<div class="info-user d-flex mb-3">
-				  						<a href="" class="avatar d-block"><img src="image/image_avatar/images.jpg" alt=""></a>
-				  						<div class="username-time ml-3 d-flex justify-content-between w-100">
-				  							<div>
-				  								<a href="" class="username">Hoangven</a>
-					  							<span class="time">đã viết đánh giá vào 10/12/2020</span>
-				  							</div>
-				  							<div class="report-follow dropdown dropleft"><i class="fas fa-ellipsis-h" data-toggle='dropdown'></i>
-				  								<div class="dropdown-menu ">
-				  									<a href="" class="dropdown-item">Bao cao noi dung</a>
-				  									<a href="" class="dropdown-item">Theo doi</a>
-				  								</div>
-				  							</div>
-				  						</div>
-
-				  					</div>
-				  					<div class="info-content">
-				  						
-				  						<div class="image">
-				  							
-				  							<div class="row">
-				  								
-				  								<div class="col-6 col-sm-6 col-md-3"><img src="image/image_avatar/images.jpg" alt=""></div>
-				  									
-				  							</div>		  							
-				  						</div>
-				  						
-				  						<div class="num-star">
-				  							<span class="star">
-				  								<i class="fa fa-star checked"></i>
-				  								<i class="fa fa-star checked"></i>
-				  								<i class="fa fa-star checked"></i>
-				  								<i class="fa fa-star checked"></i>
-				  								<i class="fa fa-star checked"></i>
-											</span>
-				  						</div>
-				  						<div class="content">
-				  							<h1 class="title">canh dep</h1>
-				  							<p>canh dep</p>
-				  						</div>
-				  					</div>
-				  				</div>
-				  			</div> -->
+                               
                                 @endforeach
                                 @endif
 
@@ -791,7 +802,7 @@
                                         <p class="form-error" id="error-content"></p>
 
                                         <div class="form-group">
-                                            <button class="btn btn-success w-100">Send</button>
+                                            <button class="btn btn-success w-100">Gửi</button>
                                         </div>
                                     </div>
                                 </form>
@@ -832,6 +843,36 @@
             timer: 1500
         })
     }
+
+    // === Dong gop hinh anh===
+    $('#formAddImagesTopic').on('submit',function(e){
+        e.preventDefault();
+       
+        var data = new FormData(this);
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: 'topic/add-images',
+            type: 'post',
+            dataType: 'json',
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                console.log(data);
+                $('#formAddImagesTopic .alert-default-primary')
+                    .removeClass('d-none');
+                var a = setInterval(function() {
+                    $('#formAddImagesTopic .alert-default-primary')
+                        .addClass('d-none');
+                    
+                }, 2000);
+                location.reload();
+            }
+        })
+    })
     // == BINH LUAN TOPIC ===
     commentTopic();
 

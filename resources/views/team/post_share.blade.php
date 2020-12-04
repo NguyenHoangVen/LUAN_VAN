@@ -21,41 +21,6 @@
                             </form>
                         </div>
                         <div class="attachments">
-                            <!-- <ul>
-                                                        <li>
-                                                            <span class="add-loc">
-                                                                <i class="fa fa-map-marker"></i>
-                                                            </span>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fa fa-music"></i>
-                                                            <label class="fileContainer">
-                                                                <input type="file">
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fa fa-image"></i>
-                                                            <label class="fileContainer">
-                                                                <input type="file">
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fa fa-video-camera"></i>
-                                                            <label class="fileContainer">
-                                                                <input type="file">
-                                                            </label>
-                                                        </li>
-                                                        <li>
-                                                            <i class="fa fa-camera"></i>
-                                                            <label class="fileContainer">
-                                                                <input type="file">
-                                                            </label>
-                                                        </li>
-                                                        <li class="preview-btn">
-                                                            <button class="post-btn-preview" type="submit"
-                                                                data-ripple="">Preview</button>
-                                                        </li>
-                                                    </ul> -->
 
                         </div>
 
