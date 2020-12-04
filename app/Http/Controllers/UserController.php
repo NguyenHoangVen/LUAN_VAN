@@ -40,7 +40,7 @@ class UserController extends Controller
         load('Helpfunction','team');
         // $a = apiTripadvisor();
        
-        carwlData();
+        carwlData('can+tho');
        
         
     }

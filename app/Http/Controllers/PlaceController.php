@@ -71,13 +71,14 @@ class PlaceController extends Controller
     // == XEM CHI TIET CAC BAI POST CUA MOT TOPIC===
     public function postTopicDetail($id){
         $post_review = PostReviewModel::find($id);
-        // dd($post_review->topic->image[0]);
+        
         return view('place.post_detail',compact('post_review'));
     }
     // == XEM CAC POST REVIEW VỀ MỘT ĐỊA ĐIỂM (CHỦ ĐỀ)==
     public function topicDetail($id){
         load('Helpfunction','rating');
         load('Helpfunction','team');
+        load('Helpfunction','slug');
         $sum_star = \DB::table('rating_topic')
             ->where('topic_id',$id)
             ->groupBy('topic_id')
@@ -93,10 +94,13 @@ class PlaceController extends Controller
         $topic = TopicModel::find($id);
         $ratings = RatingTopicModel::where('topic_id',$id)->orderBy('created_at', 'DESC')->get();
         $comments = CommentTopicModel::where('topic_id',$id)->orderBy('created_at', 'DESC')->get();
-        // dd($comments);
         // Goi y cac dia diem xung quanh
-        $data_carwl = carwlData();//Carwl data Mytour
-        $data_tripadvisor = apiTripadvisor();
+        // 1. Lay du lieu truyen url tim kiem
+        $a = create_slug($topic->province);
+        $city = str_replace('-','+',$a);
+        $data_carwl = carwlData($city);//Carwl data Mytour
+        // 2. Lay du lieu API TripAdvisor
+        $data_tripadvisor = apiTripadvisor($topic->lat,$topic->lng);
         $data = array(
             'topic' => $topic,
             'star_avg' => $star_avg,
@@ -112,7 +116,7 @@ class PlaceController extends Controller
     //== GET THÊM ĐỊA ĐIỂM==
     public function addPlace(){
         $region = RegionModel::all();
-        // dd($region);
+
     	return view('place.add_place',compact('region'));  
     }
 
@@ -174,7 +178,11 @@ class PlaceController extends Controller
         $topic->lng = $request->lng;
         $topic->user_id = Auth::user()->id;
         $topic->region_id = $request->region;
-       
+        // --
+        $str = explode(",", $request->city);
+        $city = $str[count($str)-2];
+        $topic->province = ltrim($city," ");
+        
         if($request->hasFile('image')){
             $path_upload = public_path('image/image_place/');
             $countfiles = count($_FILES['image']['name']);

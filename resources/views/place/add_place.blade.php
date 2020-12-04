@@ -104,8 +104,12 @@
 									<label for="email">Cập nhật vị trí<span class="text-danger">(bắt buộc *)</span></label>
 									<p class="form-error" id="error-address"></p>
 									<input type="text" class="form-control" placeholder="Nhập vị trí, nơi muốn cập nhật" id="address" name="address">
+									
 
 								</div>	
+								<div class="form-group">
+									<input type="text" name="city" class="city form-control">
+								</div>
 								<div class="map-location form-group" style="width: 100%;height: 350px">
 									<div id="map" style="width: 100%;height: 100%"></div>
 								</div>
@@ -219,9 +223,6 @@
           	zoom: 13
 
         });
-       
-       
-       
         // input text nguoi dung nhap
         var input = document.getElementById("address");
         var autocomplete = new google.maps.places.Autocomplete(input);
@@ -260,14 +261,17 @@
             google.maps.event.addListener(marker, 'dragend', function(event){
 				
 				var geocoder = new google.maps.Geocoder;
+
 				latitude=marker.getPosition().lat();               
 				longitude=marker.getPosition().lng();
 				var latlng = {lat: parseFloat(latitude), lng: parseFloat(longitude)};
 				// ==========
+
 				geocoder.geocode({'location':latlng},function(result,status){
 					if (status === google.maps.GeocoderStatus.OK){
+						console.log(result)
 						if (result[1]) {
-							// alert(result[1].place_id);
+							
 					       	place_detail(result[1].place_id,marker);
 					    } else {
 					        window.alert('No results found');
@@ -281,6 +285,9 @@
 		})
 
 		// ========================
+	
+
+	
 		function place_detail(place_id,marker){
 			// request 
        		var request = {
@@ -306,7 +313,8 @@
               		document.getElementById('address').value = place.formatted_address;
               		document.getElementById('lat').value = place.geometry.location.lat();
               		document.getElementById('lng').value = place.geometry.location.lng();
-              		console.log(place.geometry.location);
+              		console.log(place);
+              		$('#formAddTopic .city').val(place.formatted_address);
               		// Goi su kien click vaf dragend marker
 		   			google.maps.event.addListener(marker,'click',function(){
 			            infowindow.open(map, marker);
@@ -320,6 +328,6 @@
 		}
 	}
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAooDY7d6iFESb-veaQGNNeSVrb_isnJUI&libraries=places&callback=initMap"
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAooDY7d6iFESb-veaQGNNeSVrb_isnJUI&libraries=places&callback=initMap&sensor=false"
 defer></script>
 @endsection

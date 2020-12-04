@@ -2,8 +2,8 @@
 
 // == kiem tra nhom truong, cap nhat thong tin nhom truong
 include "simple_html_dom.php";
-function carwlData(){
-    $url = 'https://mytour.vn/quick-search?keyword=soc+trang';
+function carwlData($city){
+    $url = "https://mytour.vn/quick-search?keyword={$city}";
     $html = file_get_html($url);
     // echo $html;
 
@@ -36,8 +36,8 @@ function carwlData(){
     }
 
 }
-function apiTripadvisor(){
-    $url = "http://api.tripadvisor.com/api/partner/2.0/map/9.603256,105.994979?key=2380ee0b7c304f6eb06625ae38184c8b";
+function apiTripadvisor($lat,$lng){
+    $url = "http://api.tripadvisor.com/api/partner/2.0/map/{$lat},{$lng}?key=2380ee0b7c304f6eb06625ae38184c8b";
     $json = file_get_contents ($url);
     $json = json_decode ($json);
     $result = $json->data;
