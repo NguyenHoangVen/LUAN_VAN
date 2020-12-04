@@ -53,10 +53,12 @@ Route::group(['prefix'=>'group-post'],function(){
 	Route::post('create-ajax','GroupPostController@createGroupAjax');
 	Route::post('ajax-upload-images','GroupPostController@uploadImagePostGroupAjax');
 });
+Route::get('carwl','UserController@carwl');
 // =========== MODULE TEAM PHUOT ======
 Route::group(['prefix'=>'team'],function(){
 	Route::get('/','TeamController@teamIndex');
 	Route::get('search','TeamController@searchTeam');
+	
 	// I. chia se bai viet cong khai
 	Route::get('post-share','TeamController@postShare');
 	// 1. Tao team phuot

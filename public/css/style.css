@@ -1054,3 +1054,45 @@ figure {
     width: 134px;
     /* float: left; */
 }
+/* Carwl da ta */
+.carwl-data .title ,.carwl-data .address p{
+    -webkit-box-orient: vertical;
+    vertical-align: middle;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 5px 0px;
+}
+.carwl-data .owl-carousel .item {
+    border: 1px solid #c6d6ff;
+    border-radius: 3px;
+    padding: 4px;
+    margin: 10px;
+}
+.carwl-data .title a{
+    font-size: 12px;
+    color: #003c71;
+    font-size: 16px;
+    font-weight: bold;
+}
+.near-location{
+    font-size: 20px;
+    text-transform: uppercase;
+    padding: 10px;
+    background: #574bff;
+    color: white;
+}
+.carwl-data .main-title {
+    padding: 10px 0px 20px;
+}
+.carwl-data .main-title h1{
+    font-size: 18px;
+    text-align: center;
+}
+.carwl-data .category{
+    text-align: center;
+    background: #e2efe7c7;
+    padding: 20px;
+    color: #3957ea;
+    font-size: 20px;
+}

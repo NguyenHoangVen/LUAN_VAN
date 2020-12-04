@@ -29,8 +29,6 @@ class UserController extends Controller
                 $friends = FriendsModel::where('id_user_accept',$this->user->id)->orWhere('id_user_send',$this->user->id)->get();
                 view()->share('friends', $friends);
             }
-           
-
             return $next($request);
         });
 
@@ -38,7 +36,14 @@ class UserController extends Controller
     }
   
 
-
+    public function carwl(){
+        load('Helpfunction','team');
+        // $a = apiTripadvisor();
+       
+        carwlData();
+       
+        
+    }
     // ==== DANG NHAP BANG TAI KHOAN XA HOI====
     public function redirect($provider){
         return Socialite::driver($provider)->redirect();

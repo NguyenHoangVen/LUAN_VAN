@@ -23,6 +23,7 @@ class TeamController extends Controller
         Carbon\Carbon::setLocale('vi');
         load('Helpfunction','team');
     }
+    
     // ========= CAC BAI CHIA SE, CHECK IN TU TRONG TEAM ====
     // 23. Xoa bai viet chia se 
     public function deletePostShare($id){

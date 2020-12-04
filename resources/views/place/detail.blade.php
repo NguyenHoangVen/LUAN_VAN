@@ -114,7 +114,7 @@
                 </div>
             </div>
             <!-- End image topic -->
-
+            <!-- Start post topic -->
             <div class="row ">
                 <!-- Tổng hợp các bài viết về topic này -->
                 <div class="col-md-12 col-lg-8 post-content">
@@ -372,6 +372,81 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Cac nha hang khach san xung quanh dia diem -->
+            
+            <div class="row card mt-2 carwl-data">
+                <div class="near-location">Các địa điểm lân cận</div>
+                <!-- Du lieu Carwl Mytour -->
+                @if($data_carwl != false)
+                <div class="main-title"><h1>Khách Sạn</h1></div>
+                <div class="owl-carousel">
+                    @foreach($data_carwl['title_name'] as $key => $value)
+                    <div class="item">
+                        <a href="https://mytour.vn/<?php echo $data_carwl['links'][$key] ?>" target="_blank">
+                            <img src="<?php echo $data_carwl['images'][$key] ?>"
+                        alt="" class="img-fluid rounded">
+                        </a>
+                        <div class="info">
+                            <div class="title">
+                                <a href="https://mytour.vn/<?php echo $data_carwl['links'][$key] ?>" target="_blank"><?php echo $value ?></a>
+                            </div>
+                            
+                            <div class="num-star">
+                                <span class="star">
+                                    <i class="fa fa-star checked"></i>
+                                    <i class="fa fa-star checked"></i>
+                                    <i class="fa fa-star checked"></i>
+                                    <i class="fa fa-star checked"></i>
+                                    <i class="fa fa-star checked"></i>
+                                </span>
+                            </div>
+                            <div class="address">
+                                <p>
+                                    <i class="fas fa-map-marker-alt text-primary"></i>
+                                    <?php echo $data_carwl['address'][$key] ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                @endif
+                <!-- Du lieu tu Tripadvisor -->
+                <div class="main-title"><h1>Khách Sạn,Nhà Hàng, Điểm du lịch</h1></div>
+                <div class="owl-carousel">
+                    @foreach($data_tripadvisor as $item)
+                    <div class="item">
+                        <div class="category">{{$item->category->localized_name}}</div>
+                        <div class="info">
+                            <div class="title">
+                                <a href="{{$item->web_url}}" target="_blank">{{$item->name}}</a>
+                            </div>
+                            
+                            <div class="num-star">
+                                <span class="star">
+                                    @if($item->rating == null)
+                                    0<i class="fa fa-star checked"></i>
+                                    @else
+                                    {{$item->rating}}
+                                    @for($i=1;$i<= floor($item->rating);$i++)
+                                    <i class="fa fa-star checked"></i>
+                                    @endfor
+                                    @endif
+                                </span>
+                            </div>
+                            <div class="address">
+                                <p>
+                                    <i class="fas fa-map-marker-alt text-primary"></i>
+                                    {{$item->address_obj->address_string}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+            
             <!-- COMMENT, RATING -->
             <div class="row">
                 <div class="container rating-comment">
@@ -902,11 +977,11 @@
         nav: true,
         loop: true,
 
-        responsive: {
-            600: {
-                items: 4
-            }
-        }
+        // responsive: {
+        //     600: {
+        //         items: 4
+        //     }
+        // }
     });
     </script>
     <script type="text/javascript"

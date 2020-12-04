@@ -34,7 +34,7 @@
                         </div>
                     </a>
                     <a href="" class="height-2 d-block">
-                        <img src="https://kingtravel.tv/images/seoworld/quangnam/tour-du-lich-mien-trung.jpg" alt="">
+                        <img src="https://wiki-travel.com.vn/Uploads/picture/Thaophuongnguyen-172820042801-quang-7.jpg" alt="">
                         <div class="text">
                             <h2>Miền Trung</h2>
                         </div>
@@ -151,7 +151,7 @@
                 <p class="main-sub-title">Bất tận những cảnh đẹp Việt Nam </p>
             </div>
         </div>
-        <div class="row list-places owl-carousel ">
+        <div class="row list-places owl-carousel">
             <div class="item-place item">
                 <a href="" title="">
                     <img src="https://www.hoaanit.com/travelshare/public/upload_image_blog/khach-san-gan-trung-tam.png"

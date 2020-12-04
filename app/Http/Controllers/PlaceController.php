@@ -77,6 +77,7 @@ class PlaceController extends Controller
     // == XEM CAC POST REVIEW VỀ MỘT ĐỊA ĐIỂM (CHỦ ĐỀ)==
     public function topicDetail($id){
         load('Helpfunction','rating');
+        load('Helpfunction','team');
         $sum_star = \DB::table('rating_topic')
             ->where('topic_id',$id)
             ->groupBy('topic_id')
@@ -93,13 +94,18 @@ class PlaceController extends Controller
         $ratings = RatingTopicModel::where('topic_id',$id)->orderBy('created_at', 'DESC')->get();
         $comments = CommentTopicModel::where('topic_id',$id)->orderBy('created_at', 'DESC')->get();
         // dd($comments);
+        // Goi y cac dia diem xung quanh
+        $data_carwl = carwlData();//Carwl data Mytour
+        $data_tripadvisor = apiTripadvisor();
         $data = array(
             'topic' => $topic,
             'star_avg' => $star_avg,
             'star_percent' => $star_percent,
             'count_star' => $count_star,
             'ratings' => $ratings,
-            'comments' => $comments
+            'comments' => $comments,
+            'data_carwl' => $data_carwl,
+            'data_tripadvisor' => $data_tripadvisor
         );
         return view('place.detail',$data);
     }
