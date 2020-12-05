@@ -104,8 +104,13 @@ class PlaceController extends Controller
     // == XEM CHI TIET CAC BAI POST CUA MOT TOPIC===
     public function postTopicDetail($id){
         $post_review = PostReviewModel::find($id);
-        
-        return view('place.post_detail',compact('post_review'));
+        $topic_id = $post_review->topic_id;
+        $post_new = PostReviewModel::where('topic_id',$topic_id)
+        ->where('id','!=',$id)
+        ->orderBy('created_at','desc')
+        ->take(5)
+        ->get();
+        return view('place.post_detail',compact(['post_review','post_new']));
     }
     // == XEM CAC POST REVIEW VỀ MỘT ĐỊA ĐIỂM (CHỦ ĐỀ)==
     public function topicDetail($id){
@@ -142,6 +147,35 @@ class PlaceController extends Controller
             $images_topic2[] = $img->filename;
         }
         $images = array_merge($image_topic1,$images_topic2);
+        // 3. Cac bai post review ve toptic
+        $post_review = PostReviewModel::where('topic_id',$topic->id)
+            ->where('category','review')
+            ->paginate(2,['*'], 'page_review');
+           
+        $post_review1 = PostReviewModel::where('topic_id',$topic->id)
+            ->where('category','experience')
+            ->paginate(2,['*'], 'page_ex');
+        // 4. Bai viet moi nhat
+        $post_new = PostReviewModel::where('topic_id',$topic->id)
+            ->orderBy('created_at','desc')
+            ->take(5)
+            ->get();
+        // 5. Cac dia diem khac gan do (Pham vi ban kinh)
+        $lat = $topic->lat;
+        $lng = $topic->lng;
+        $place_near = TopicModel::where('id','!=',$id)
+            ->select(
+            \DB::raw("*,( 
+                ROUND(
+                6371 *acos(
+                    (sin(radians($lat))*sin(radians(lat)))+
+                    cos(radians($lat))*cos(radians(lat))
+                    *cos(radians($lng-lng))
+                    
+                ),2)
+            ) as KM ")
+        )->having('KM','<=',10)->get();
+    //    dd(avgStartTopic($id));
         $data = array(
             'images' => $images,
             'topic' => $topic,
@@ -151,9 +185,14 @@ class PlaceController extends Controller
             'ratings' => $ratings,
             'comments' => $comments,
             'data_carwl' => $data_carwl,
-            'data_tripadvisor' => $data_tripadvisor
+            'data_tripadvisor' => $data_tripadvisor,
+            'post_review' => $post_review,
+            'post_review1' => $post_review1,
+            'post_new' => $post_new,
+            'place_near' => $place_near,
         );
-
+        
+       
         return view('place.detail',$data);
     }
     //== GET THÊM ĐỊA ĐIỂM==
@@ -165,14 +204,13 @@ class PlaceController extends Controller
 
     // === POST THÊM ĐỊA ĐIỂM (TOPIC)===
     public function postAddPlace(Request $request){
-       
+        // dd($request);
         $post = new PostReviewModel();
         $this->validate($request,
             [
                 'title' => 'required',
                 'content' =>'required',
                 'id_topic' => 'required'
-
             ],
             [
                 'name_topic.required' => 'Bạn chưa chọn chủ đề (địa điểm)',
@@ -184,6 +222,7 @@ class PlaceController extends Controller
         $post->topic_id = $request->id_topic;
         $post->content = $request->content;
         $post->user_id = Auth::user()->id;
+        $post->category = $request->category;
         $post->save();
         Session::flash('checkin_success','Đăng bài thành công!');
         return redirect()->back();

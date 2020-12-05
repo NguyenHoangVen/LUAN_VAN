@@ -40,7 +40,13 @@
 									@enderror
 									<input type="text" class="form-control" placeholder="Nhập vào tiêu đề" id="name_place" name="title" value="{{ old('title') }}">
 								</div>
-								
+								<div class="form-group">
+									<label for="name_place">Chọn danh mục</label>
+									<select name="category" id="" class="form-control">
+										<option value="review">Review</option>
+										<option value="experience">Kinh nghiệm</option>
+									</select>
+								</div>
 								<div class="introduce-content form-group">
 									<label for="name_place">Nội dung của bài viết <span style="color: red">*</span></label>
 									@error('content')
@@ -159,7 +165,7 @@
         Swal.fire({
 	        position: 'center',
 	        icon: 'success',
-	        title: 'Thêm địa điểm thành công !',
+	        title: 'Chia sẻ bài viết thành công !',
 	        // showConfirmButton: false,
 	        // button:'ok'
 	        // timer: 1800

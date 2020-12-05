@@ -23,10 +23,22 @@ function countStar($table,$filed,$foreign_id){
 	for ($i=5; $i >=1 ; $i--) { 
 		$sum_star =  \DB::table($table)->where($filed, $foreign_id)->where('num_star',$i)->count();
 		// echo $sum_sub;
-		
 		$result[$i] = $sum_star;
 	}
 	return $result;
+	
+}
+// Tong sao cua chu de
+function avgStartTopic($id){
+	$star_avg = \DB::table('rating_topic')
+            ->where('topic_id',$id)
+            ->groupBy('topic_id')
+			->avg('num_star');
+	if(is_null($star_avg)){
+		return 0;
+	}else{
+		return $star_avg;
+	}
 	
 }
 ?>
