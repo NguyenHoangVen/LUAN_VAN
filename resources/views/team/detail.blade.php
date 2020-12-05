@@ -1096,7 +1096,7 @@ function initMap() {
         }
     });
 
-    // ==============
+    // ==============Thong tin cuyen di=====
     autocompleteStart.bindTo("bounds", mapInfoTrip);
     autocompleteStart.setFields(["place_id", "geometry", "name"]);
     autocompleteStart.addListener('place_changed', () => {
@@ -1317,7 +1317,7 @@ function updateInfoTrip() {
                 data: data,
                 cache: false,
                 contentType: false,
-                processData: false,
+                processData: false, 
                 success: function(data) {
                     console.log(data);
                     $('#form-update-info-trip-team .alert-default-info')

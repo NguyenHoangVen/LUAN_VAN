@@ -18,8 +18,8 @@
 	                            	<li><a href="{{url('team')}}">Team phượt</a></li>
 	                            	<li class="dropdown"><a href="" class="dropdown-toggle" data-toggle='dropdown'>Google Map</a>
 	                            		<ul class="dropdown-menu sub-menu">
-	                            			<li><a href="{{url('maps/direction')}}" class="dropdown-item">Map Tìm kiếm</a></li>
-	                            			<li><a href="maps" class="dropdown-item">Chỉ đường</a></li>
+	                            			<li><a href="{{url('maps/direction')}}" class="dropdown-item">Map chỉ đường</a></li>
+	                            			<li><a href="maps" class="dropdown-item">Map tìm kiếm</a></li>
 	                            			
 	                            		</ul>
 	                            	</li>

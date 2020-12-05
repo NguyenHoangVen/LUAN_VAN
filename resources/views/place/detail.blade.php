@@ -274,7 +274,12 @@
                                             <h1>{{$place->name}}</h1>
                                         </div>
                                         <!-- <h1 class="title">hotel1</h1> -->
+                                        <div class="addresss">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            {{$place->address}}
+                                        </div>
                                         <div class="star-date d-flex flex-column pt-1">
+                                            <span class="date">{{$place->KM}} Km</span>
                                             <span class="star">
                                                 @if(avgStartTopic($place->id) > 0)
                                                 @for($i = 0;$i<= floor(avgStartTopic($place->id));$i++)
@@ -286,8 +291,9 @@
                                                                                      
                                             </span>
                                             
-                                            <span class="date">{{$place->KM}} Km</span>
+                                            
                                         </div>
+                                        
                                     </div>
                                 </a>
                             </li>
@@ -601,8 +607,8 @@
                                             <input type="hidden" class="parent-id" value="{{$comment->id}}">
                                             <input type="hidden" class="topic-id" value="{{$topic->id}}">
                                             <div class="pt-4 show-btn">
-                                                <button class="btn btn-primary btn-send mr-2" disabled="">Send</button>
-                                                <button class="btn btn-danger btn-destroy">Huy</button>
+                                                <button class="btn btn-primary btn-send mr-2" disabled="">Gửi</button>
+                                                <button class="btn btn-danger btn-destroy">Hủy</button>
                                             </div>
                                         </form>
                                     </div>

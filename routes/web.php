@@ -128,6 +128,8 @@ Route::group(['prefix'=>'topic'],function(){
 	Route::get('{id}','PlaceController@topicDetail');
 	// 1. Dong gop hinh anh cho dia diem
 	Route::post('add-images','PlaceController@addImages');
+	// 2. Tim kiem dia diem tren map
+	Route::post('search-place','HomeController@searchPlaceOnMap');
 	
 });
 

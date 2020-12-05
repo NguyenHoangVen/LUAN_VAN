@@ -363,14 +363,14 @@ class TeamController extends Controller
         $member_team->save();
         return Response()->json(array('ok'=>$request->all(),'success'=>'ok'));
     }
-    // == CHI TIET VE TEAM ===
+    // == 2. CHI TIET VE TEAM ===
     public function detailTeam($id){
         $team = TeamModel::find($id);
         
         $a = infoTeamEmpty($id);
         $post_shares = PostShareModel::where('team_id',$id)->orderBy('created_at','DESC')->get();
         
-        return view('team._detail',compact('team','post_shares'));
+        return view('team.detail',compact('team','post_shares'));
     }
     //
     public function teamIndex(){
