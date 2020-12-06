@@ -290,8 +290,6 @@ socket.on('laravel_database_comment_post_share:comment_post_share', function(dat
         $('#post-share-id-' + data.data_comment.post_share_id + ' .card-comments').append(data.data_comment
             .html);
     }
-
-
 })
 $(".owl-carousel").owlCarousel({
 

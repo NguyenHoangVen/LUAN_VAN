@@ -110,28 +110,7 @@
 		        <div class="list-friends">
 			       	<div class="row">
 			       		
-			       		<!-- @foreach($list_user as $friend)
-			       		<div class="col-lg-6 col-md-12 mb-1 friend-{{$friend->id}}">
-			       			<div class="card">
-							  	<div class="card-body p-2 ">
-							  		<div class="respon-card">
-								  		<div class="d-flex">
-											<div class="avatar" style="width: 50px;height: 50px">
-												<a href="">
-													<img src="image/image_avatar/{{$friend->avatar}}" alt="" class="w-100 h-100">
-												</a>
-											</div>
-											<div class="username"><a  href="">{{$friend->username}}</a></div>
-										</div>		
-										<div class="send mt-1"><button class="btn btn-success w-100 received-request">Chấp nhận
-											<input type="hidden" class="send_id" value="{{$friend->id}}">
-										</button></div>
-									</div>
-							  	</div>
-							</div>
-			       		</div>
-			       		@endforeach
- -->
+			   
 			       		
 			       	</div>
 			    </div>
@@ -142,46 +121,7 @@
 	        	<div class="list-friends">
 			       	<div class="row">
 			       		
-			       		<!-- @foreach($list_user as $friend)
-			       		<div class="col-lg-6 col-md-12 mb-1 friend-{{$friend->id}}">
-			       			<div class="card">
-							  	<div class="card-body p-2 ">
-							  		<div class="respon-card">
-								  		<div class="d-flex">
-											<div class="avatar" style="width: 50px;height: 50px">
-												<a href="">
-													<img src="https://img3.thuthuatphanmem.vn/uploads/2019/06/08/hinh-nen-hotgirl-duyen-dang_125438813.jpg" alt="" class="w-100 h-100">
-												</a>
-											</div>
-											<div class="username"><a  href="">{{$friend->username}}</a></div>
-										</div>		
-
-										<div class="send mt-1"><button class="btn btn-danger w-100 delete-request">Hủy
-											<input type="hidden" class="receive_id" value="{{$friend->id}}">
-											
-										</button></div>
-									
-									</div>
-							  	</div>
-							</div>
-			       		</div>
-			       		@endforeach
-
-			       		<div class="col-lg-6 col-md-12">
-			       			<div class="card">
-							  	<div class="card-body d-flex p-2">
-									<div class="avatar" style="width: 50px;height: 50px">
-										<a href="">
-											<img src="https://img3.thuthuatphanmem.vn/uploads/2019/06/08/hinh-nen-hotgirl-duyen-dang_125438813.jpg" alt="" class="w-100 h-100">
-										</a>
-									</div>
-									<div class="d-flex justify-content-between w-100">
-										<div class="username"><a  href="">HoangVen</a></div>
-										<div class="send mt-1"><button class="btn btn-info">Gui</button></div>
-									</div>
-							  	</div>
-							</div>
-			       		</div> -->
+			       	
 			       	</div>
 			    </div>
 	      	</div>

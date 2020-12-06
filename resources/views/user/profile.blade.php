@@ -2,193 +2,583 @@
 @section('content')
 @include('layouts.profile.head_profile')
 <div class="col-lg-3 d-none d-md-block">
-	<div class="row bg-padding">
-		<div class="introduce">
-			<div class="col-lg-12">
-				<h1>Gioi Thieu</h1>
-				<div class="address">
-					<span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
-				</div>
-				<div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia 15/09/2020</span></div>
-			</div>
-		</div>
-	</div>
-	<div class="row bg-padding mt-3">
-		<div class="introduce">
-			<div class="col-lg-12">
-				<h1>Chia sẻ các điểm du lịch</h1>
-				<div class="address">
-					<span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
-				</div>
-				<div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia 15/09/2020</span></div>
-			</div>
-		</div>
-	</div>
-	<!-- cac group cong dong -->
-	<?php
+    <div class="row bg-padding">
+        <div class="introduce">
+            <div class="col-lg-12">
+                <h1>Gioi Thieu</h1>
+                <div class="address">
+                    <span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
+                </div>
+                <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia 15/09/2020</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="row bg-padding mt-3">
+        <div class="introduce">
+            <div class="col-lg-12">
+                <h1>Chia sẻ các điểm du lịch</h1>
+                <div class="address">
+                    <span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
+                </div>
+                <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia 15/09/2020</span></div>
+            </div>
+        </div>
+    </div>
+    <!-- cac group cong dong -->
+    <?php
 	$list_group = \DB::table('group_post')->where('user_id',Auth::user()->id)->get();
 	$number = count($list_group);
 	?>
-	@if($number > 0)
-	<div class="row bg-padding mt-3">
-		<div class="introduce">
-			<h1>Group của bạn</h1>
-			<ul>
-				@foreach($list_group as $group)
-				<li>
-					<a href="group-post/admin/{{$group->id}}" class="d-flex">
-						<div class="avatar">
-							<img src="upload/avatar_group/{{$group->avatar}}" alt="">
-							<div class="online"></div>
-						</div>
-						<div class="username"><h1>{{$group->name}}</h1></div>
-					</a>
-				</li>
-				@endforeach
-			</ul>
-		</div>
-	</div>
-	@endif
-	
-	
+    @if($number > 0)
+    <div class="row bg-padding mt-3">
+        <div class="introduce">
+            <h1>Group của bạn</h1>
+            <ul>
+                @foreach($list_group as $group)
+                <li>
+                    <a href="group-post/admin/{{$group->id}}" class="d-flex">
+                        <div class="avatar">
+                            <img src="upload/avatar_group/{{$group->avatar}}" alt="">
+                            <div class="online"></div>
+                        </div>
+                        <div class="username">
+                            <h1>{{$group->name}}</h1>
+                        </div>
+                    </a>
+                </li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endif
+
+
 </div>
 <div class="col-lg-6 col-md-12 diary rating-comment mt-0">
-	@for($i=1;$i<=3;$i++)
-	<div class="row p-responsive mb-4">
-		<div class="bg-white pt-pb-15">
-			<div class="col-12 info-user d-flex mb-3">
-				<a href="" class="avatar d-block"><img src="image/image_avatar/{{$user->avatar}}" alt=""></a>
-				<div class="username-time ml-3 d-flex justify-content-between w-100">
-					<div>
-						<a href="" class="username">hoang ven</a>
-						<span class="time">đã viết bài viêt này vào 4/5/555</span>
-					</div>
-					<div class="report-follow dropdown dropleft"><i class="fas fa-ellipsis-h" data-toggle='dropdown'></i>
-						<div class="dropdown-menu ">
-							<a href="" class="dropdown-item">Báo cáo nội dung</a>
-							<a href="" class="dropdown-item">Theo dõi</a>
-						</div>
-					</div>
-				</div>
+    <!-- Tao bai viet -->
+    <div class="row p-responsive">
 
-			</div>
-			<div class="col-12 info-content">
-				
-				<div class="row review-image">
-					@for($i=1;$i<=6;$i++)
-					<div class="col-6 thumb">
-						<img src="image/image_avatar/images.jpg" alt="" >
-					</div>
-					@endfor
-					<div class="col-6 thumb thumb-relative">
-						<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt="">
-						<div class="overlayy"><div class="number"><span>+ 4</span></div></div>
-					</div>
-					
-					
-				
-				</div>
-				<div class="content">
-					<h1 class="title">cho noi cai rang</h1>
-				</div>
-			</div>
-			<div class="col-12 mt-2">
-				<a class="link d-flex" href="travel/detail/1">
-					<div class="image"><img class="w-100" src="image/image_avatar/images" alt=""></div>
-					<div class="info-desc">
-						<div class="title"><h1>cho noi cai rang</h1></div>
-						<div class="num-star">
-							<span class="star">
-							<i class="fa fa-star checked"></i>
-							<i class="fa fa-star checked"></i>
-							<i class="fa fa-star checked"></i>
-							<i class="fa fa-star checked"></i>
-							<i class="fa fa-star checked"></i>
-						</span>
-						</div>
-						<div class="location"><p>can tho,3/2</p></div>
-					</div>
-					<a href=""></a>
-				</a>
-			</div>
-		
-		</div>
-	</div>
-	@endfor
-	<!-- place user created -->
-	<div class="row p-responsive mb-4">
-		<div class="bg-white pt-pb-15">
-			<div class="col-12 info-user d-flex mb-3">
-				<a href="" class="avatar d-block"><img src="https://img3.thuthuatphanmem.vn/uploads/2019/06/08/hinh-nen-hotgirl-duyen-dang_125438813.jpg" alt=""></a>
-				<div class="username-time ml-3 d-flex justify-content-between w-100">
-					<div>
-						<a href="" class="username">HoangVen</a>
-						<span class="time">đã viết bài viêt này vào 15/09/2020</span>
-					</div>
-					<div class="report-follow dropdown dropleft"><i class="fas fa-ellipsis-h" data-toggle='dropdown'></i>
-						<div class="dropdown-menu ">
-							<a href="" class="dropdown-item">Bao cao noi dung</a>
-							<a href="" class="dropdown-item">Theo doi</a>
-						</div>
-					</div>
-				</div>
+        <div class="col-12 p-0">
+            <div class="central-meta postbox">
+                <span class="create-post">Tạo bài viết</span>
+                <div class="new-postbox">
+                    <div class="avatar d-block float-left"><img
+                            src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                            alt=""></div>
+                    <div class="newpst-input">
+                        <!-- <form method="post"> -->
+                        <textarea rows="2" data-toggle="modal" data-target="#modalCreatPostShare"
+                            placeholder="Hôm nay bạn thế nào ?"></textarea>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </div>
 
-			</div>
-			<div class="col-12 info-content">
-				
-				<div class="row review-image">
-					<div class="col-6 thumb">
-						<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt="" data-toggle='modal' data-target='#modalImage'>
-					</div>
-					<div class="col-6 thumb">
-						<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt="" data-toggle='modal' data-target='#modalImage'>
-					</div>
-					<div class="col-6 thumb">
-						<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt="" data-toggle='modal' data-target='#modalImage'>
-					</div>
-					<div class="col-6 thumb thumb-relative">
-						<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt="">
-						<div class="overlayy " data-toggle='modal' data-target='#modalImage'><div class="number"><span>+9</span></div></div>
-					</div>
-					<!-- <div class="col-6"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt=""></div>
-					<div class="col-6"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt=""></div>
-					<div class="col-6"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt=""></div>
-					<div class="col-6"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&h=200&s=1" alt=""></div> -->
-				</div>
-				<div class="content">
-					<h1 class="title">Đi đến đây là không muốn về</h1>
-				</div>
-			</div>
-			<div class="col-12 mt-2">
-				<a class="link d-flex" href="?page=detail_place">
-					<div class="image"><img class="w-100" src="https://dulichtoday.vn/wp-content/uploads/2017/04/vinh-Ha-Long.jpg" alt=""></div>
-					<div class="info-desc">
-						<div class="title"><h1>Cho noi cai rang</h1></div>
-						<div class="num-star">
-							<span class="star">
-							<i class="fa fa-star checked"></i>
-							<i class="fa fa-star checked"></i>
-							<i class="fa fa-star checked"></i>
-							<i class="fa fa-star checked"></i>
-							<i class="fa fa-star checked"></i>
-						</span>
-						</div>
-						<div class="location"><p>Can Tho, Viet Nam</p></div>
-					</div>
-					<a href=""></a>
-				</a>
-			</div>
-		
-		</div>
-	</div>
+        </div>
+    </div>
+    <!-- Modal create post share -->
+    <div class="modal fade" id="modalCreatPostShare">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Tạo bài viết</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="form-post-share" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="info-user d-flex">
+                                    <div class="avatar d-block mr-3">
+                                        <img class="img-50"
+                                            src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                                            alt="">
+                                    </div>
+                                    <div class="info-desc">
+                                        <p>
+                                            <span class="title">Hoang Ven</span>
+                                            <span class="location"></span>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <input type="hidden" name="checkin_location" class="checkin-location">
+                                <textarea name="content" class="content" class="w-100" rows="5"
+                                    placeholder="Hôm nay bạn thế nào..."></textarea>
+                            </div>
+                            <!-- Image review -->
+                            <div class="col-12 mt-2">
+
+                                <div class="row">
+                                    <div id="reviewimg">
+                                        <input type="hidden" name="numselect" class="numselect" value="1">
+                                        <input type="hidden" name="numdelete" class="numdelete" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="attachments col-12">
+                                <ul>
+                                    <li>
+                                        <span class="add-loc">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-music"></i>
+                                        <label class="fileContainer">
+                                            <input type="file">
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-image"></i>
+                                        <label class="fileContainer">
+
+                                            <input type="file" class="custom-file-input" multiple=""
+                                                id="uploadImgAddTopic" name="image[]">
+                                            <div class="icon-image"></div>
+                                            <!-- image delete -->
+                                            <div id="file_hidden"></div>
+                                            <input type="hidden" id="file_name_image_delete" name="file_delete">
+                                            <input type="hidden" name='team_id' value="">
+                                        </label>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="col-12 wp-input-location-share d-none">
+                                <div class="input-group mt-1 ">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-secondary button-location-share"
+                                            type="button">Tại:</button>
+                                    </div>
+                                    <input type="text" class="form-control locationInPostShare"
+                                        placeholder="Bạn đang ở đâu?">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-none alert alert-default-primary w-100 mb-1 mt-2">
+                                    Đăng bài
+                                    thành công!</div>
+                            </div>
+                            <div class="col-12 mt-2 regime d-flex flex-row-reverse">
+                                <button class="btn btn-success">Đăng</button>
+                                <select class="form-control" name="status">
+                                    <option value="0">Công khai</option>
+                                    <option value="2">Chỉ mình tôi</option>
+                                </select>
+
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ./Tao bai viet -->
+    <!-- Danh sach cac bai viet -->
+    @foreach($posts as $post)
+    <div class="row p-responsive mb-4" id='post-share-id-{{$post->id}}'>
+        <div class="bg-white pt-pb-15 w-100">
+            <div class="col-12 info-user d-flex mb-2">
+                <a href="" class="avatar d-block"><img src="image/image_avatar/{{$post->user->avatar}}" alt=""></a>
+                <div class="username-time ml-3 d-flex justify-content-between w-100">
+                    <div class="info-desc">
+                        <p>
+                            <span class="title">{{$post->user->username}}</span>
+                            @if(!is_null($post->address))
+                            <span class="location"><span>Đang ở
+                                </span><span class="">{{$post->address}}</span></span>
+                            @endif
+
+                        </p>
+                        <p style="font-size:13px;margin-top:2px"><span
+                                class="time mt-1">{{Carbon\Carbon::parse($post->created_at)->diffForHumans()}}</span>
+                        </p>
+
+                    </div>
+                    <div class="report-follow dropdown dropleft"><i class="fas fa-ellipsis-h"
+                            data-toggle="dropdown"></i>
+                        <div class="dropdown-menu ">
+                            <a href="" class="dropdown-item edit-post-share" data-toggle="modal"
+                                data-target="#modalUpdatePostShare">Chỉnh
+                                sửa
+                                <input type="hidden" class="post-share-id" value="{{$post->id}}">
+                            </a>
+                            <a href="team/delete-post-share/{{$post->id}}" class="dropdown-item delete-post-share"
+                                onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">Xóa
+                                bài viết</a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-12 info-content">
+                <div class="post-text">
+                    <p>{{$post->content}}</p>
+                </div>
+                <!-- Hinh anh co trong bai post -->
+                <?php $num_img = count($post->images)?>
+                @if($num_img > 0)
+                <div class="row review-image">
+                    <?php $i=0?>
+                    @foreach($post->images as $img)
+                    <?php $i++?>
+                    @if($i<=3) <div class="col-sm-6 col-md-6 thumb">
+                        <img src="upload/image_post/{{$img->filename}}" class="img-fluid mb-2 w-100" alt="white sample"
+                            data-toggle="modal" data-target="#modalReviewImagePostShare{{$post->id}}" />
+                </div>
+
+                @endif
+                @if($i == 4)
+                <div class="col-sm-6 col-md-6 thumb thumb-relative">
+                    <img src="upload/image_post/{{$img->filename}}" alt="">
+                    <div class="overlayy" data-toggle="modal" data-target="#modalReviewImagePostShare{{$post->id}}">
+                        <div class="number"><span>+
+                                {{$num_img-4}}</span></div>
+                    </div>
+                </div>
+
+                @endif
+
+                @endforeach
+            </div>
+            @endif
+        </div>
+
+        <div class="card-footer card-comments bg-white mt-2">
+            @foreach($post->comments as $comment)
+            <div class="card-comment">
+                <!-- User image -->
+                <img class="img-circle img-sm" src="image/image_avatar/{{$comment->user->avatar}}" alt="User Image">
+
+                <div class="comment-text">
+                    <span class="username">
+                        {{$comment->user->username}}
+                        <span class="text-muted float-right">
+                            {{Carbon\Carbon::parse($comment->created_at)->diffForHumans()}}
+                        </span>
+                    </span><!-- /.username -->
+                    {{$comment->content}}
+                </div>
+                <!-- /.comment-text -->
+            </div>
+            @endforeach
+
+        </div>
+        <div class="card-footer bg-white">
+
+            <img class="img-fluid img-circle img-sm" src="image/image_avatar/{{Auth::user()->avatar}}" alt="Alt Text">
+            <!-- .img-push is used to add margin to elements next to floating images -->
+            <div class="img-push">
+                <input type="text" class="form-control form-control-sm input-coment-post-share"
+                    placeholder="Viết bình luận...">
+                <input type="hidden" class="post-share" value="{{$post->id}}">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+@endforeach
+<!-- Modal review image post share -->
+@foreach($posts as $post)
+<?php $num_img = count($post->images)?>
+@if($num_img > 0)
+<div id="modalReviewImagePostShare{{$post->id}}" class="modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-content">
+                <div class="mainThumbReviewImg">
+                    <img src="upload/image_post/{{$post->images[0]->filename}}" alt="" />
+                </div>
+                <div class="owl-carousel">
+                    @foreach($post->images as $img)
+                    <div class="item"> <img src="upload/image_post/{{$img->filename}}" alt="image" /> </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
+@endforeach
+<!-- Modal Cap nhat lai bai post share trong nhom -->
+<div class="modal fade" id="modalUpdatePostShare">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Chỉnh sửa bài viết của bạn</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form id="form-update-post-share" enctype="multipart/form-data" action="team/update-post-share"
+                    method="post">
+                    @csrf
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="info-user d-flex">
+                                <div class="avatar d-block mr-3">
+                                    <img class="img-50"
+                                        src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                                        alt="">
+                                </div>
+                                <div class="info-desc">
+                                    <p>
+                                        <span class="title">Hoang Ven</span>
+                                        <span class="location"></span>
+                                    </p>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="content-post-share col-12">
+
+
+                            <!-- Image review -->
+
+                        </div>
+                        <div class="attachments col-12">
+                            <ul>
+                                <li>
+                                    <span class="add-loc">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                </li>
+                                <li>
+                                    <i class="fa fa-music"></i>
+                                    <label class="fileContainer">
+                                        <input type="file">
+                                    </label>
+                                </li>
+                                <li>
+                                    <i class="fa fa-image"></i>
+                                    <label class="fileContainer">
+
+                                        <input type="file" class="custom-file-input" multiple="" id="uploadImgPostShare"
+                                            name="image[]">
+                                        <div class="icon-image"></div>
+                                        <!-- image delete -->
+                                        <div id="file_hidden1"></div>
+                                        <input type="hidden" id="file_name_image_delete1" name="file_delete">
+                                        <input type="hidden" name='team_id' value="">
+                                    </label>
+                                </li>
+                            </ul>
+
+                        </div>
+
+                        <div class="col-12 wp-input-location-share d-none">
+                            <div class="input-group mt-1 ">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-secondary button-location-share1" type="button">Tại:</button>
+                                </div>
+                                <input type="text" class="form-control locationInPostShare1"
+                                    placeholder="Bạn đang ở đâu?">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-none alert alert-default-primary w-100 mb-1 mt-2">
+                                Cập nhật
+                                thành công!</div>
+                        </div>
+                        <div class="col-12 mt-2 regime d-flex">
+                            <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal">Hủy</button>
+                            <select class="form-control" name="status">
+                                <option value="0">Công khai</option>
+                                <option value="1">Chỉ trong nhóm</option>
+                            </select>
+                            <button class="btn btn-success">Lưu</button>
+
+
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ./ ket thuc Modal Cap nhat lai bai post share trong nhom -->
+
 </div>
 @include('layouts.profile.bottom_profile')
 @endsection
 @section('script')
-<script  type="text/javascript">
-	$(document).ready(function(){
-		// 1. Change password by ajax
-		
-	})
+<script src="js/uploadfile.js"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAooDY7d6iFESb-veaQGNNeSVrb_isnJUI&libraries=places&callback=initMap"
+    defer>
+</script>
+
+
+<script>
+// 2. Binh luan post share
+var user_id = "{{Auth::user()->id}}";
+var socket = io('http://localhost:6001');
+socket.on('laravel_database_comment_post_share:comment_post_share', function(data) {
+    if (user_id != data.data_comment.user_id) {
+        $('#post-share-id-' + data.data_comment.post_share_id + ' .card-comments').append(data.data_comment
+            .html);
+    }
+})
+// Map lay dia diem check in
+function initMap() {
+    // =======Tao bai viet, status, dong thoi gian,Checkin======
+    var geocoder = new google.maps.Geocoder();
+    var input_location_share = document.getElementsByClassName("locationInPostShare")[0];
+    var autoComplateShare = new google.maps.places.Autocomplete(input_location_share);
+    autoComplateShare.setFields(["place_id", "geometry", "name", "formatted_address"]);
+    autoComplateShare.addListener('place_changed', () => {
+        var place = autoComplateShare.getPlace();
+        var place_id = place.place_id;
+        console.log(place);
+        var html = '<span>Đang ở </span>' +
+            '<span class="title"> ' + place.formatted_address + '</span>';
+        $('#form-post-share .info-desc .location').html(html);
+        $('#form-post-share .checkin-location').val(place.formatted_address);
+
+    })
+    var locationButtonShare = document.getElementsByClassName("button-location-share")[0];
+    // Su kien click ay vi tri hien tai
+    locationButtonShare.addEventListener("click", () => {
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    // console.log(position)
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    // Lay vi tri nguoc
+                    geocoder.geocode({
+                        location: pos
+                    }, (results, status) => {
+                        // console.log(results)
+                        if (status === "OK") {
+                            if (results[0]) {
+                                var html = '<span>Đang ở </span>' +
+                                    '<span class="title"> ' + results[0].formatted_address +
+                                    '</span>';
+                                $('#form-post-share .info-desc .location').html(html);
+                                $('#form-post-share .checkin-location').val(results[0]
+                                    .formatted_address);
+                            } else {
+                                window.alert("No results found");
+                            }
+                        } else {
+                            window.alert("Geocoder failed due to: " + status);
+                        }
+                    });
+                }, () => {
+                    handleLocationError(true, infoWindow, mapRoute.getCenter());
+                }
+            );
+        } else {
+
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    });
+    // ===========CAP NHAT BAI VIET===========
+    // =======Tao bai viet, status, dong thoi gian,Checkin======
+
+    var input_location_share1 = document.getElementsByClassName("locationInPostShare1")[0];
+    var autoComplateShare1 = new google.maps.places.Autocomplete(input_location_share1);
+    autoComplateShare1.setFields(["place_id", "geometry", "name", "formatted_address"]);
+    autoComplateShare1.addListener('place_changed', () => {
+        var place = autoComplateShare1.getPlace();
+        var place_id = place.place_id;
+        console.log(place);
+        var html = '<span>Đang ở </span>' +
+            '<span class="title"> ' + place.formatted_address + '</span>';
+        $('#form-update-post-share .info-desc .location').html(html);
+        $('#form-update-post-share .checkin-location').val(place.formatted_address);
+
+    })
+    var locationButtonShare1 = document.getElementsByClassName("button-location-share1")[0];
+    // Su kien click ay vi tri hien tai
+    locationButtonShare1.addEventListener("click", () => {
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    // console.log(position)
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    // Lay vi tri nguoc
+                    geocoder.geocode({
+                        location: pos
+                    }, (results, status) => {
+                        // console.log(results)
+                        if (status === "OK") {
+                            if (results[0]) {
+                                var html = '<span>Đang ở </span>' +
+                                    '<span class="title"> ' + results[0].formatted_address +
+                                    '</span>';
+                                $('#form-update-post-share .info-desc .location').html(html);
+                                $('#form-update-post-share .checkin-location').val(results[0]
+                                    .formatted_address);
+                            } else {
+                                window.alert("No results found");
+                            }
+                        } else {
+                            window.alert("Geocoder failed due to: " + status);
+                        }
+                    });
+                }, () => {
+                    handleLocationError(true, infoWindow, mapRoute.getCenter());
+                }
+            );
+        } else {
+
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    });
+
+}
+// === Show input location in check in share post==
+$('#form-post-share .fa-map-marker-alt,#form-update-post-share .fa-map-marker-alt').click(function() {
+    $('.wp-input-location-share').toggleClass('d-none');
+})
+$(".owl-carousel").owlCarousel({
+
+    // autoPlay: 3000,
+    items: 4,
+    itemsDesktop: [1199, 3],
+    itemsDesktopSmall: [979, 3],
+    center: true,
+    nav: true,
+    loop: true,
+
+    responsive: {
+        600: {
+            items: 4
+        }
+    }
+});
 </script>
 @endsection

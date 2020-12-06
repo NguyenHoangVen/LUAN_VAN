@@ -17,4 +17,5 @@ class PostShareModel extends Model
     public function comments(){
     	return $this->hasMany('App\CommentPostShareModel','post_share_id','id');
     }
+  
 }

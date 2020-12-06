@@ -176,14 +176,18 @@ Route::group(['prefix'=>'user'],function(){
 	Route::post('search-all-friend','UserController@searchAllFriend');
 	// 2. Yeu cau ket ban
 	Route::post('send-request-add-friend','UserController@sendRequestAddFriend');
-	// 3. Xoa yeu cau ket ba
+	// 3. Xoa yeu cau ket ban
 	Route::post('delete-request-add-friend','UserController@deleteRequestAddFriend');
-	// 4. Chap nhan yeu cau ket ba
+	// 4. Chap nhan yeu cau ket ban
 	Route::post('accept-request-add-friend','UserController@acceptRequestAddFriend');
 	// 5. Get tab ban be, yeu cau ket, yeu cau da gui, tat ca ban be
 	Route::post('get-tab-friend','UserController@getTabFriends');
 	// 6. Xoa ban be
 	Route::post('delete-friend','UserController@deleteFriend');
+	// 7. Xem trang ca nhan cua nguoi dung khac
+	Route::get('{id}/info','UserController@infoAccountUser');
+	// 8. Xam trang ca nhan (Ban be)
+	Route::get('{id}/info/friends','UserController@frinedAccountUser');
 
 });
 

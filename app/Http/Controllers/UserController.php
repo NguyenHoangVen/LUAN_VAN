@@ -11,12 +11,15 @@ use App\UserModel;
 use App\InviteFriendModel;
 use App\FriendsModel;
 use App\SocialNetworksModel;
+use App\PostShareModel;
 use App\Events\AddFriendEvent;
 use App\Events\UnfriendEvent;
 use App\Events\AcceptAddFriendEvent;
 use Socialite;
 // use Auth;
 use Illuminate\Support\Facades\Auth;
+use Carbon;
+Carbon\Carbon::setLocale('vi');
 class UserController extends Controller
 {
     //
@@ -35,15 +38,6 @@ class UserController extends Controller
         load('Helpfunction','user');
     }
   
-
-    public function carwl(){
-        load('Helpfunction','team');
-        // $a = apiTripadvisor();
-       
-        carwlData('can+tho');
-       
-        
-    }
     // ==== DANG NHAP BANG TAI KHOAN XA HOI====
     public function redirect($provider){
         return Socialite::driver($provider)->redirect();
@@ -102,12 +96,38 @@ class UserController extends Controller
         // }
     }
 
-
+    // ========TRANG CA NHAN CUA NGUOI DUNG KHAC=======
+    // 8. Xem trang cac nhan, ban be cua nguoi khac
+    public function frinedAccountUser($user_id){
+        $user = UserModel::find($user_id);
+        // $list_user = UserModel::where('id','!=',$user_id)->get();
+        $friend_of_user = $friends = FriendsModel::where('id_user_accept',$user_id)
+            ->orWhere('id_user_send',$user_id)->get();
+        // dd($friend_of_user);
+        return view('user.account_friends',compact('user','friend_of_user'));
+    }
+    // 7.Xem trang ca nhan, bai viet cua nguoi khac
+    public function infoAccountUser($user_id){
+        $user = UserModel::find($user_id);
+        // 1. Bai viet cua user (status)
+        $posts = PostShareModel::where('user_id',$user_id)->orderBy('created_at','DESC')->get(); 
+        $data = array(
+            'user' => $user,
+            'posts' => $posts
+        );
+        return view('user.account_post',$data);
+    }
     // ======PROFILE USER======
     // 1. thong tin ca nhan, trang chu
     public function profileUser($user_id){
         $user = UserModel::find($user_id);
-        return view('user.profile',compact('user'));
+        // 1. Bai viet cua user (status)
+        $posts = PostShareModel::where('user_id',$user_id)->orderBy('created_at','DESC')->get(); 
+        $data = array(
+            'user' => $user,
+            'posts' => $posts
+        );
+        return view('user.profile',$data);
     }
     // 2. Thong tin ve cac bai post tren dien dan cua user
     public function userForum($user_id){

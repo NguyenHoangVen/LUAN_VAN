@@ -16,7 +16,6 @@ class UserModel extends Model
     }
     // thanh vien nhom
     public function groups(){ 
-    	return $this->hasManyThrough('App\GroupPostModel','App\MemberGroupPostModel','user_id','group_id','id');
-    	
+    	return $this->hasManyThrough('App\GroupPostModel','App\MemberGroupPostModel','user_id','group_id','id');	
     }
 }
