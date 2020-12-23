@@ -5,9 +5,7 @@ io.on('error',function(socket){
 })
 io.on('connection',function(socket){
 	console.log('Co nguoi ket noi toi'+socket.id);
-	socket.on('live-chat',function(data){
-		console.log(data);
-	})
+	
 })
 var Redis = require('ioredis');
 var redis = new Redis(1000);

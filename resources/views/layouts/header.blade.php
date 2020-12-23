@@ -7,7 +7,7 @@
 						?>">
 						<div class="col-12 d-flex justify-content-between">
 							<div id="logo">
-								<a href="{{url('home')}}" title="" class="d-block"><img src="https://staticproxy.mytourcdn.com/200x58,q90/themes/images/logo-mytour.png?v=1.0.1" alt=""></a>
+								<a href="{{url('home')}}" title="" class="d-block"><img src="https://staticproxy.mytourcdn.com/200x58,q90/themes/images/logo-mytour.png?v=1.0.2" alt="" ></a>
 							</div>
 							<div id="nav-respon" class="d-block d-md-none">
                                 <i class="fas fa-bars"></i>

@@ -58,7 +58,7 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Modal Heading</h4>
+                                <h4 class="modal-title">Thêm hình ảnh</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
@@ -163,7 +163,7 @@
                 <div class="container">
                     <div class="row mt-2 mb-2">
                         <div class="col-12 near-location">
-                            Review, Chia se kinh nghem
+                            Review, Chia sẻ kinh nghiệm
                         </div>
                     </div>
                    
@@ -332,7 +332,7 @@
 
 
                     </div>
-                    <div class="send-rating" data-toggle='modal' data-target='#myRatingPlace'>Gui danh gia</div>
+                    <div class="send-rating" data-toggle='modal' data-target='#myRatingPlace'>Gửi đánh giá</div>
                 </div>
             </div>
         </div>

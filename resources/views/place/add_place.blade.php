@@ -5,7 +5,7 @@
 		<div class="head-title">
 			<div class="container">
 				<div class="row">
-					<div class="col-12"><h1><i class="fas fa-map-marker-alt mr-2"></i>CheckIn chia sẻ địa điểm</h1></div>
+					<div class="col-12"><h1><i class="fas fa-map-marker-alt mr-2"></i>Checkin chia sẻ địa điểm</h1></div>
 				</div>
 			</div>
 		</div>
@@ -18,7 +18,12 @@
 							<div class="col-2"></div>
 							<!-- <div class="name-title">Địa điểm</div> -->
 							<div class="col-lg-8 bg-white pt-4 pb-4">
-								<div class="name-title">Thông tin nơi bạn muốn chia sẻ</div>
+
+								<div class="name-title">
+								Thông tin nơi bạn muốn chia sẻ
+
+								</div>
+								<div class="alert alert-default-primary">Bạn cần phải nhập địa điểm muốn chia sẻ, nếu hệ thống không tìm thấy thì bạn cần phải tự tạo chủ đề này và tiếp tục chia sẻ bài viết.</div>
 								<div class="form-group mt-4 ralative-live-search">
 									<label for="name_place">Tên địa điểm <span style="color: red">*</span></label>
 									@error('id_topic')

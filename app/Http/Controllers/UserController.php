@@ -44,6 +44,7 @@ class UserController extends Controller
     }
     public function callback($provider){
         $getInfo = Socialite::driver($provider)->user(); 
+        // dd($getInfo);
         $this-> findOrCreateUser($getInfo,$provider);
         return redirect()->to('/home');
     }
