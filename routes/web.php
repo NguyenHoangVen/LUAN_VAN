@@ -64,7 +64,7 @@ Route::group(['prefix'=>'team'],function(){
 	// 1. Tao team phuot
 	Route::post('create-team','TeamController@createTeam');
 	//2. Chi tiet ve team phuot
-	Route::get('{id}','TeamController@detailTeam');
+	Route::get('{id}','TeamController@detailTeam')->middleware('loginMiddle');
 	//3. Tham gia vao team
 	Route::post('join-team','TeamController@joinTeam');
 	//4. Lay view chat (ajax)
@@ -109,6 +109,14 @@ Route::group(['prefix'=>'team'],function(){
 	Route::get('get-view-content-post-share/{id}','TeamController@getViewContentPostShare');
 	// 23. Xoa bai viet chia se
 	Route::get('delete-post-share/{id}','TeamController@deletePostShare');
+	// 24. Thanh vien rời nhóm
+	Route::get('leave-team/{id}','Teamcontroller@leaveTeam');
+	// 25. Chuyển quyền nhóm trưởng
+	Route::get('change-leader/{user_id}/{team_id}','TeamController@changeLeader');
+	// 26. Moi thanh vien ra khoi nhom
+	Route::get('delete-member-ajax/{user_id}/{team_id}','TeamController@deleteMemberAjax');
+	// 27. Xoa, giai tan nhom
+	Route::get('delete-team/{team_id}','TeamController@deleteTeam');
 });
 
 // =============MODULE PLACE =============
@@ -130,6 +138,8 @@ Route::group(['prefix'=>'topic'],function(){
 	Route::post('add-images','PlaceController@addImages');
 	// 2. Tim kiem dia diem tren map
 	Route::post('search-place','HomeController@searchPlaceOnMap');
+	// 3. Xoa binh luan ajax
+	Route::post('delete-comment-ajax','PlaceController@deleteCommentAjax');
 	
 });
 

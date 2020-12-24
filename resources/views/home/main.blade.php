@@ -15,7 +15,7 @@
             </div>
             <div class="row">
                 <div class="col-md-5">
-                    <a href="" class="h-100 d-block h-md-200 respon">
+                    <a class="h-100 d-block h-md-200 respon">
                         <img src="https://indochinapost.com/wp-content/uploads/chuyen-phat-nhanh-tu-sai-gon-di-Myanmar-gia-re-chuyen-nghiep-an-toan.jpg"
                             alt="">
                         <div class="text">
@@ -26,14 +26,14 @@
 
                 </div>
                 <div class="col-md-7">
-                    <a href="" class="height-2 d-block mb-20">
+                    <a  class="height-2 d-block mb-20">
                         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRjYczJsu_cc1AZgm5fFk9sgLvCrWBUmQ2G5g&usqp=CAU"
                             alt="">
                         <div class="text">
                             <h2>Miền Bắc</h2>
                         </div>
                     </a>
-                    <a href="" class="height-2 d-block">
+                    <a  class="height-2 d-block">
                         <img src="https://wiki-travel.com.vn/Uploads/picture/Thaophuongnguyen-172820042801-quang-7.jpg" alt="">
                         <div class="text">
                             <h2>Miền Trung</h2>
@@ -62,12 +62,14 @@
                     <div class="info">
                         <a href="" class="title">{{$item->name}}</a>
                         <div class="star-date d-flex justify-content-between">
+                            <?php
+
+                            $num_star = floor(avgStartTopic($item->id));
+                            ?>
                             <span class="star">
+                                @for($i= 1;$i<=5;$i++)
                                 <i class="fa fa-star checked"></i>
-                                <i class="fa fa-star checked"></i>
-                                <i class="fa fa-star checked"></i>
-                                <i class="fa fa-star checked"></i>
-                                <i class="fa fa-star checked"></i>
+                                @endfor
                             </span>
                             <span class="date">
                                 <i class="fas fa-calendar-alt">{{$item->created_at->format('d-m-Y')}}</i>
@@ -250,7 +252,7 @@ console.log(JSON.parse(a)[0])
 <script>
 $(".owl-carousel").owlCarousel({
 
-    autoPlay: 3000,
+    autoPlay: 3500,
     items: 4,
 
     center: true,

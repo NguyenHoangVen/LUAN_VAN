@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TopicModel;
 use App\RegionModel;
+use Auth;
 class HomeController extends Controller
 {
     //
 
     public function home_view(){
+        load('Helpfunction','rating');
        	$topic = TopicModel::all();
+        // if(Auth::check()){
+        //     dd('ok');
+        // }else{
+        //     dd('nook');
+        // }
+        // dd(floor(avgStartTopic(15)));
     	return view('home.main',compact('topic'));
     }
     // HIỂN THỊ MARKER CÁC ĐỊA ĐIỂM LÊN BẢN ĐỒ

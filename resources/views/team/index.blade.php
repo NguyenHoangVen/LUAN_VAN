@@ -28,11 +28,7 @@
 	        			<a href="" class="avatar d-block mr-3"><img class="img-50" src="image/image_avatar/{{$team->user->avatar}}" alt=""></a>
 					<div class="info-desc">
 						<div class="topic-title">
-							@if($team->status == 0)
-							<span class="topic">[chưa chốt đoàn]</span>
-							@else
-							<span class="topic">[đã chốt đoàn]</span>
-							@endif
+							<span class="topic">[{{$status[$team->status]}}]</span>
 							<a href="team/{{$team->id}}" class="title">{{ucwords($team->title)}}</a>
 						</div>
 						<div class="time mt-2"><i class="fas fa-calendar-alt mr-1"></i> {{$team->created_at->format('d-m-Y')}}</div>
@@ -61,4 +57,14 @@
 	
 </div>
 
+@endsection
+@section('script')
+<script>
+var topic_comment = '{{Session::has('delete_team_success')}}';
+if (topic_comment) {
+    toastr.success('Đã xóa team phượt', '', {
+        timeOut: 1800
+    })
+}
+</script>
 @endsection

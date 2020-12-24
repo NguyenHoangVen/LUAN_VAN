@@ -267,7 +267,7 @@
                                 <a href="topic/{{$place->id}}" class="d-flex item">
                                     <div class="thumb w-50">
                                         <img class="rounded" src="image/image_place/{{json_decode($place->image)[0]}}" alt="">
-                                        <span class="price">54645 đ</span>
+                                       <!--  <span class="price">54645 đ</span> -->
                                     </div>
                                     <div class="info w-50">
                                         <div class="title">
@@ -280,7 +280,7 @@
                                         </div>
                                         <div class="star-date d-flex flex-column pt-1">
                                             <span class="date">{{$place->KM}} Km</span>
-                                            <span class="star">
+                                            <span class="star mt-2">
                                                 @if(avgStartTopic($place->id) > 0)
                                                 @for($i = 0;$i<= floor(avgStartTopic($place->id));$i++)
                                                 <span class="fa fa-star checked"></span>
@@ -383,9 +383,11 @@
                 <h1>Khách Sạn,Nhà Hàng, Điểm du lịch</h1>
             </div>
             <div class="owl-carousel">
+                @foreach($cat_tripadvisor as $key => $value)
                 @foreach($data_tripadvisor as $item)
+                @if($item->category->name == $key)
                 <div class="item">
-                    <div class="category">{{$item->category->localized_name}}</div>
+                    <div class="category">{{$value}}</div>
                     <div class="info">
                         <div class="title">
                             <a href="{{$item->web_url}}" target="_blank">{{$item->name}}</a>
@@ -411,6 +413,8 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                @endforeach
                 @endforeach
             </div>
         </div>
@@ -423,15 +427,15 @@
                         <li class="nav-item col-6 bg-ignfo text-center">
                             <a class="nav-link active d-flex flex-column" data-toggle="tab" href="#rating">
                                 <span><i class="fas fa-edit"></i></span>
-                                <span class="number">123</span>
-                                <span class="name">Danh gia</span>
+                                <span class="number">{{count($topic->ratings)}}</span>
+                                <span class="name">Đánh giá</span>
                             </a>
                         </li>
                         <li class="nav-item col-6 bg-ignfo text-center">
                             <a class="nav-link d-flex flex-column" data-toggle="tab" href="#comment">
                                 <span><i class="far fa-comment-alt"></i></span>
-                                <span class="number">123</span>
-                                <span class="name">Binh luan</span>
+                                <span class="number">{{count($topic->comments)}}</span>
+                                <span class="name">Bình luận</span>
                             </a>
                         </li>
 
@@ -443,17 +447,18 @@
                     <!-- RATING -->
                     <div class=" tab-pane active" id="rating">
                         <div class="row d-flex justify-content-between p-3 bg-white">
+                            @if(Auth::check())
                             <div class="dropdown col-6 text-cdenter border-bottom pb-1">
                                 <button type="button" class="btn btn-dark dropdown-toggle w-2"
                                     data-toggle="dropdown">Viết đánh giá</button>
                                 <div class="dropdown-menu">
                                     <a href="" class="dropdown-item" data-toggle='modal'
                                         data-target='#myRatingPlace'>Viết đánh giá</a>
-                                    <a href="" class="dropdown-item">Đăng ảnh</a>
                                     <a href="" class="dropdown-item " data-toggle='modal'
                                         data-target='#myCommentQuestion'>Viết bình luận</a>
                                 </div>
                             </div>
+                            @endif
                             <div class="col-6  border-bottom pb-1">
                                 <h1 class="title text-cdenter">Đánh giá</h1>
                             </div>
@@ -512,16 +517,19 @@
                     <!-- COMMENT -->
                     <div class=" tab-pane" id="comment">
                         <div class="row d-flex justify-content-between p-3 bg-white">
+                            @if(Auth::check())
                             <div class="dropdown col-6 text-cdenter border-bottom pb-1">
                                 <button type="button" class="btn btn-dark dropdown-toggle w-2"
                                     data-toggle="dropdown">Viết bình luận</button>
                                 <div class="dropdown-menu">
-                                    <a href="" class="dropdown-item">Viết đánh giá</a>
-                                    <a href="" class="dropdown-item">Đăng ảnh</a>
+                                   <a href="" class="dropdown-item" data-toggle='modal'
+                                        data-target='#myRatingPlace'>Viết đánh giá</a>
+                                    
                                     <a href="" class="dropdown-item" data-toggle='modal'
                                         data-target='#myCommentQuestion'>Viết bình luận</a>
                                 </div>
                             </div>
+                            @endif
                             <div class="col-6  border-bottom pb-1">
                                 <h1 class="title text-cdenter">Bình luận</h1>
                             </div>
@@ -545,13 +553,20 @@
                                                     <span class="time">đã bình luận vào
                                                         {{$comment->created_at->format('d-m-Y')}}</span>
                                                 </div>
+                                                @if(Auth::check())
+                                                @if(checkCommentTopic(Auth::user()->id,$comment->id))
                                                 <div class="report-follow dropdown dropleft"><i
                                                         class="fas fa-ellipsis-h" data-toggle='dropdown'></i>
                                                     <div class="dropdown-menu ">
                                                         <a href="" class="dropdown-item">Bao cao noi dung</a>
-                                                        <a href="" class="dropdown-item">Theo doi</a>
+                                                        <a  class="delete-comment dropdown-item">Xóa
+                                                            <input type="hidden" class="hidden-comment" value="parent">
+                                                            <input type="hidden" class="hidden-comment-id" value="{{$comment->id}}">
+                                                        </a>
                                                     </div>
                                                 </div>
+                                                @endif
+                                                @endif
                                             </div>
 
                                         </div>
@@ -577,15 +592,20 @@
                                                             class="time d-flex">{{$comment_child->created_at->format('d-m-Y')}}</span>
 
                                                     </div>
+                                                    @if(Auth::check())
+                                                    @if(checkCommentTopic(Auth::user()->id,$comment_child->id))
                                                     <div class="report-follow dropdown dropleft"><i
                                                             class="fas fa-ellipsis-h" data-toggle='dropdown'></i>
                                                         <div class="dropdown-menu ">
-                                                            <a href="" class="dropdown-item">Bao cao noi dung</a>
-                                                            <a href="" class="dropdown-item delete-comment-topic">Xóa
-
+                                                            
+                                                            <a class="dropdown-item delete-comment">Xóa
+                                                                <input type="hidden" class="hidden-comment" value="child">
+                                                                <input type="hidden" class="hidden-comment-id" value="{{$comment_child->id}}">
                                                             </a>
                                                         </div>
                                                     </div>
+                                                    @endif
+                                                    @endif
                                                 </div>
 
                                             </div>
@@ -597,13 +617,16 @@
                                         @endforeach
                                     </div>
                                     <!-- form comment -->
+                                    @if(Auth::check())
                                     <div class="wp-form-comment child-comment d-flex p-2">
                                         <a href="" class="avatar d-inline-block"><img
-                                                src="https://img3.thuthuatphanmem.vn/uploads/2019/06/08/hinh-nen-hotgirl-duyen-dang_125438813.jpg"
+                                                src="image/image_avatar/{{Auth::user()->avatar}}"
                                                 alt=""></a>
                                         <form method="post" class="w-100 pl-2 form-comment-child">
+                                            
                                             <textarea name="content" class="w-50 input-text"
                                                 placeholder="Nhap noi dung vao day..."></textarea>
+                                            
                                             <input type="hidden" class="parent-id" value="{{$comment->id}}">
                                             <input type="hidden" class="topic-id" value="{{$topic->id}}">
                                             <div class="pt-4 show-btn">
@@ -612,6 +635,7 @@
                                             </div>
                                         </form>
                                     </div>
+                                    @endif
                                 </div>
 
                             </div>
@@ -629,6 +653,7 @@
         </div>
 
         <!-- popup user write question , comment -->
+        @if(Auth::check())
         <div class="modal" id="myCommentQuestion">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -717,6 +742,7 @@
 
             </div>
         </div>
+        @endif
 
 
 
@@ -729,22 +755,59 @@
 <script src="js/uploadfile.js"></script>
 
 <script>
+// === XOA BINH LUAN=== 
+delete_comment();
+function delete_comment(){
+    $('.delete-comment').on('click',function(e){
+        var check = confirm("Bạn có muốn xóa bình luân này?");
+        var level = $(this).find('.hidden-comment').val();
+        var id = $(this).find('.hidden-comment-id').val();
+        var topic_id = '{{$topic->id}}'
+        
+        
+        if (check == true) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: 'topic/delete-comment-ajax',
+                dataType: 'json',
+                data: {
+                    level: level,
+                    id: id,
+                    topic_id: topic_id
+                },
+                type: 'post',
+                success: function(data) {
+                    console.log(data);
+                    
+                    if(data.ok.level == 'parent'){
+                        $('.comment'+data.ok.id).remove();
+                    }
+                    if(data.ok.level == 'child'){
+                        $('.child-comment-'+data.ok.id).remove();
+                    }
+                }
+            })
+        }
+      
+    })
+}
 // ==Alert rating success
-var topic_comment = '{{Session::has('
-comment_topic_success ')}}';
+var topic_comment = '{{Session::has('comment_topic_success')}}';
 if (topic_comment) {
     toastr.success('Đã gửi bình luận', '', {
         timeOut: 1500
     })
 }
-var exist = '{{Session::has('
-rating_success ')}}';
+var exist = '{{Session::has('rating_success')}}';
 if (exist) {
     Swal.fire({
         position: 'center',
         icon: 'success',
         title: 'Đã gửi đánh giá !',
-        timer: 1500
+        // timer: 1500,
+        button:'ok'
     })
 }
 
@@ -785,6 +848,7 @@ function commentTopic() {
         var content = $(this).find('.input-text').val();
         var parent_id = $(this).find('.parent-id').val();
         var topic_id = $(this).find('.topic-id').val();
+        $(this).find('.input-text').val('');
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -801,6 +865,7 @@ function commentTopic() {
                 console.log(data);
                 if (data.success) {
                     $('.comment' + parent_id + ' .list-child-comment').append(data.html);
+                    delete_comment();
                 }
             }
         })

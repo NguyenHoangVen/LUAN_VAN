@@ -16,6 +16,7 @@ use Auth;
 use App\Events\MessageRoom;
 use App\Events\CommentPostShareEvent;
 use Carbon;
+use Session;
 
 class TeamController extends Controller
 {
@@ -23,7 +24,45 @@ class TeamController extends Controller
         Carbon\Carbon::setLocale('vi');
         load('Helpfunction','team');
     }
-    
+    // 27. Xoa, giai tan nhom
+    public function deleteTeam($team_id){
+
+        TeamModel::where('id',$team_id)->delete();
+        Session::flash('delete_team_success','Gửi bình luận thành công!');
+        return redirect('team');
+    }
+    // 26. Moi thanh vien ra khoi nhom
+    public function deleteMemberAjax($user_id,$team_id){
+        MemberTeamModel::where('user_id',$user_id)->where('team_id',$team_id)->delete();
+        return Response()->json(array('user_id'=>$user_id,'d'=>$team_id));
+    }
+    // 25. Chuyển quyền nhóm trưởng
+    public function changeLeader($user_id,$team_id){
+        // 1. Doi trong team thanh nhom truong
+        \DB::table('member_team')->where('team_id',$team_id)
+            ->where('user_id',$user_id)
+            ->update(['level'=>1]);
+        \DB::table('member_team')->where('team_id',$team_id)
+            ->where('user_id',Auth::user()->id)
+            ->update(['level'=>0]);
+        return redirect()->back();
+    }
+    // 24. Thanh vien roi nhom
+    public function leaveTeam($team_id){
+        MemberTeamModel::where('team_id',$team_id)
+            ->where('user_id',Auth::user()->id)
+            ->delete();
+        // xoa bo cac binh chon cua no
+      
+        $row = \DB::table('comfirm_tool')
+            ->leftJoin('tool','tool.id','=','comfirm_tool.tool_id')
+            ->leftJoin('team','team.id','=','tool.team_id')
+            ->where('comfirm_tool.user_id',1)
+            ->where('team.id',$team_id)
+            ->delete();
+       
+        return redirect()->back();
+    }
     // ========= CAC BAI CHIA SE, CHECK IN TU TRONG TEAM ====
     // 23. Xoa bai viet chia se 
     public function deletePostShare($id){
@@ -374,9 +413,15 @@ class TeamController extends Controller
     }
     //
     public function teamIndex(){
+        $status = array(
+            0 => 'Chưa chốt đoàn',
+            1 => 'Đang đi',
+            2 => 'Đã đi'
+        );
+        // dd($status);
         $teams = TeamModel::orderBy('created_at', 'DESC')->get();
         // dd($teams);
-    	return view('team.index',compact('teams'));
+    	return view('team.index',compact('teams','status'));
     }
     public function searchTeam(){
         $key = $_GET['key'];

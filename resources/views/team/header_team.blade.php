@@ -15,8 +15,13 @@
     <div class="col-lg-12 col-md-12">
         <div class="callout callout-info d-flex justify-content-between">
             <div class="btn">Tạo team,tìm bạn đồng hành</div>
+            @if(Auth::check())
             <div class="create-team btn btn-info text-right" data-toggle="modal" data-target="#createTeam"><i
                     class="fas fa-plus"></i> Tạo Team Mới</div>
+            @else
+            <button type="" class="create-team btn btn-info text-right" disabled=""><i
+                    class="fas fa-plus"></i> Tạo Team Mới</button> 
+            @endif
         </div>
 
     </div>

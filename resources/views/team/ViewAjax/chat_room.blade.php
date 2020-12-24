@@ -33,7 +33,7 @@
                    
                     <div class="direct-chat-text">
                         <div>{{$message->content}}</div>
-                        <span class="direct-chat-timestamp float-left mt-2">2:05
+                        <span class="direct-chat-timestamp float-left mt-2">{{Carbon\Carbon::parse($message->created_at)->diffForHumans()}}
                         </span>
                     </div>
                    
@@ -51,7 +51,7 @@
                     <!-- /.direct-chat-img -->
                     <div class="direct-chat-text">
                         <div class="mb-2">{{$message->content}}</div>
-                        <span class="direct-chat-timestamp"> 2:06
+                        <span class="direct-chat-timestamp"> {{Carbon\Carbon::parse($message->created_at)->diffForHumans()}}
                         </span>
                     </div>
                     <!-- /.direct-chat-text -->
@@ -62,39 +62,14 @@
 
 
         </div>
-        <!--/.direct-chat-messages-->
 
-        <!-- Contacts are loaded here -->
-        <div class="direct-chat-contacts">
-            <ul class="contacts-list">
-                @for($i=1;$i<=5;$i++) <li>
-                    <a href="#">
-                        <img class="contacts-list-img" src="{{asset('Admin/dist/img/user1-128x128.jpg')}}"
-                            alt="User Avatar">
-
-                        <div class="contacts-list-info">
-                            <span class="contacts-list-name">
-                                Count Dracula
-                                <small class="contacts-list-date float-right">2/28/2015</small>
-                            </span>
-                            <span class="contacts-list-msg">How have you been? I
-                                was...</span>
-                        </div>
-                        <!-- /.contacts-list-info -->
-                    </a>
-                    </li>
-                    @endfor
-            </ul>
-            <!-- /.contacts-list -->
-        </div>
-        <!-- /.direct-chat-pane -->
     </div>
     <!-- /.card-body -->
 
     <div class="card-footer">
         @if(isMemberTeam(Auth::user()->id,$team_id))
         <div class="input-group">
-            <input type="text" name="message" placeholder="Type Message ..." class="form-control send-message">
+            <input type="text" name="message" placeholder="Trò chuyện với nhóm ..." class="form-control send-message">
         </div>
         @endif
     </div>

@@ -14,6 +14,20 @@ use Auth;
 use Session;
 class PlaceController extends Controller
 {
+    // 3. Xoa binh luan ajax
+    public function deleteCommentAjax(Request $request){
+       
+        if($request->level == 'parent'){
+            CommentTopicModel::where('id',$request->id)
+                ->orWhere('parent_id',$request->id)
+                ->delete();
+        }
+        if($request->level == 'child'){
+            CommentTopicModel::where('id',$request->id)
+                ->delete();
+        }
+        return Response()->json(array('ok'=>$request->all()));
+    }
     // ===DONG GOP HINH ANH CHO DIA DIEM===
     // 1. AddImages
     public function addImages(Request $request){
@@ -55,7 +69,7 @@ class PlaceController extends Controller
         $comment->content = $request->content_comment;
         $comment->parent_id = 0;
         $comment->save();
-        Session::flash('comment_topic_success','Đăng bài thành công!');
+        Session::flash('comment_topic_success','Gửi bình luận thành công!');
         return redirect()->back();
     }
     public function commentAjax(Request $request){
@@ -68,7 +82,7 @@ class PlaceController extends Controller
 
         $idInserted = $comment->id;
         $comment = CommentTopicModel::find($idInserted);
-        $html_result ='<div class="child-comment">
+        $html_result ='<div class="child-comment child-comment-'.$comment->id.'">
             <div class="info-user d-flex mb-3">
             <a href="" class="avatar d-block"><img src="image/image_avatar/'.$comment->user->avatar.'" alt=""></a>
             <div class="username-time ml-3 d-flex justify-content-between w-100">
@@ -77,8 +91,11 @@ class PlaceController extends Controller
             <span class="time d-flex">'.$comment->created_at->format("d-m-Y").'</span></div>
             <div class="report-follow dropdown dropleft"><i class="fas fa-ellipsis-h" data-toggle="dropdown"></i>
                     <div class="dropdown-menu ">
-                        <a href="" class="dropdown-item">Bao cao noi dung</a>
-                        <a href="" class="dropdown-item">Theo doi</a>
+                        
+                        <a class="dropdown-item delete-comment">Xóa
+                            <input type="hidden" class="hidden-comment" value="child">
+                            <input type="hidden" class="hidden-comment-id" value="'.$comment->id.'">
+                        </a>
                     </div>
                 </div>
             </div>
@@ -117,6 +134,7 @@ class PlaceController extends Controller
         load('Helpfunction','rating');
         load('Helpfunction','team');
         load('Helpfunction','slug');
+        // dd(checkCommentTopic(2,9));
         $sum_star = \DB::table('rating_topic')
             ->where('topic_id',$id)
             ->groupBy('topic_id')
@@ -130,6 +148,7 @@ class PlaceController extends Controller
         $count_star = countStar('rating_topic','topic_id',$id);
         // dd($count_star);
         $topic = TopicModel::find($id);
+
         $ratings = RatingTopicModel::where('topic_id',$id)->orderBy('created_at', 'DESC')->get();
         $comments = CommentTopicModel::where('topic_id',$id)->orderBy('created_at', 'DESC')->get();
         // Goi y cac dia diem xung quanh
@@ -138,7 +157,14 @@ class PlaceController extends Controller
         $city = str_replace('-','+',$a);
         $data_carwl = carwlData($city);//Carwl data Mytour
         // 2. Lay du lieu API TripAdvisor
+        $cat_tripadvisor = array(
+            'hotel' => 'Khách Sạn',
+            'restaurant' => 'Nhà Hàng',
+            'attraction' => 'Hoạt động'
+        );
+        // dd($cat_tripadvisor);
         $data_tripadvisor = apiTripadvisor($topic->lat,$topic->lng);
+        // dd($data_tripadvisor);
         // Images topic
         $image_topic1 = json_decode($topic->image);
         $images_topic = ImagesTopicModel::select('filename')->where('id_topic',$topic->id)->get();
@@ -147,6 +173,7 @@ class PlaceController extends Controller
             $images_topic2[] = $img->filename;
         }
         $images = array_merge($image_topic1,$images_topic2);
+
         // 3. Cac bai post review ve toptic
         $post_review = PostReviewModel::where('topic_id',$topic->id)
             ->where('category','review')
@@ -190,6 +217,7 @@ class PlaceController extends Controller
             'post_review1' => $post_review1,
             'post_new' => $post_new,
             'place_near' => $place_near,
+            'cat_tripadvisor' => $cat_tripadvisor,
         );
         
        

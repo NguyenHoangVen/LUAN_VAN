@@ -41,4 +41,13 @@ function avgStartTopic($id){
 	}
 	
 }
+// == KIEM TRA BINH LUAN CUA MINH
+function checkCommentTopic($user_id,$comment_id){
+	$row = \DB::table('comment_topic')->where('id',$comment_id)->where('user_id',$user_id)->count();
+	if($row>0){
+		return true;
+	}else{
+		return false;
+	}
+}
 ?>

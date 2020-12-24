@@ -10,14 +10,44 @@
                 <div class="col-lg-10 col-md-12 p-3 text-left">
                     <h1 style="font-weight:bold;font-size:1rem">{{$team->title}}</h1>
                 </div>
+              
                 <div class="col-lg-2 col-md-12 text-left text-lg-right">
                     @if(isMemberTeam(Auth::user()->id,$team->id))
-                    <div class="btn btn-success">Thanh vien</div>
+                    @if(isLeader(Auth::user()->id,$team->id))
+                    <div class="dropdown ">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                          Nhóm trưởng
+                        </button>
+                        @if(count($team->members) >1)
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" onclick="alert ('Bạn cần phải chuyển quyền nhóm trưởng rồi mới có thể rời nhóm')">Rời khỏi nhóm</a>
+                        </div>
+                        @else
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a href="team/delete-team/{{$team->id}}" class="dropdown-item" onclick="return confirm('Hiện nhóm chỉ có một thành viên, bạn có muốn xóa nhóm?');">Rời khỏi nhóm</a>
+                        </div>
+                        @endif
+                    </div>
+                    @else
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                          Thành viên
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right">
+                          <a class="dropdown-item" href="team/leave-team/{{$team->id}}" 
+                        onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">Rời khỏi nhóm</a>
+                         
+                         
+                        </div>
+                    </div>
+                    @endif
+                    
                     @else
                     <div class="btn btn-success" data-toggle="modal" data-target="#join-team"><i
-                            class="fas fa-plus"></i>Tham gia nhóm</div>
+                        class="fas fa-plus"></i>Tham gia nhóm</div>
                     @endif
                 </div>
+                
             </div>
         </div>
         <!--  -->
@@ -49,6 +79,7 @@
                                 </a>
                             </li>
                             <!-- neu thanh vien moi dc xem thong tin ca nhan -->
+                           
                             @if(isMemberTeam(Auth::user()->id,$team->id))
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-info-profile-member" data-toggle="pill"
@@ -61,6 +92,7 @@
                                 </a>
                             </li>
                             @endif
+
                             <!-- Ke hoach -->
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-plan" data-toggle="pill" href="#plan" role="tab"
@@ -126,9 +158,14 @@
                                                             alt=""></div>
                                                     <div class="newpst-input">
                                                         <!-- <form method="post"> -->
+                                                        @if(isMemberTeam(Auth::user()->id,$team->id))
                                                         <textarea rows="2" data-toggle="modal"
                                                             data-target="#modalCreatPostShare"
                                                             placeholder="Hôm nay bạn thế nào ?"></textarea>
+                                                        @else
+                                                        <textarea rows="2" disabled="" 
+                                                            placeholder="Hôm nay bạn thế nào ?"></textarea>
+                                                        @endif
                                                         <!-- </form> -->
                                                     </div>
                                                 </div>
@@ -245,12 +282,14 @@
                                                             @endforeach
 
                                                         </div>
+                                                        @if(isMemberTeam(Auth::user()->id,$team->id))
                                                         <div class="card-footer bg-white">
 
                                                             <img class="img-fluid img-circle img-sm"
                                                                 src="image/image_avatar/{{Auth::user()->avatar}}"
                                                                 alt="Alt Text">
                                                             <!-- .img-push is used to add margin to elements next to floating images -->
+                                                            
                                                             <div class="img-push">
                                                                 <input type="text"
                                                                     class="form-control form-control-sm input-coment-post-share"
@@ -258,8 +297,11 @@
                                                                 <input type="hidden" class="post-share"
                                                                     value="{{$post_share->id}}">
                                                             </div>
+                                                            
 
                                                         </div>
+                                                        
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
@@ -267,122 +309,7 @@
                                             @endforeach
                                             @endif
                                             <!-- Cai lam chuan -->
-                                            <div class="col-12 diary mt-0">
-                                                <div class="row mb-4">
-                                                    <div class="bg-white pt-pb-15">
-
-                                                        <div class="col-12 info-user d-flex mb-2">
-                                                            <a href="" class="avatar d-block"><img
-                                                                    src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
-                                                                    alt=""></a>
-                                                            <div
-                                                                class="username-time ml-3 d-flex justify-content-between w-100">
-                                                                <div>
-                                                                    <a href="" class="username">Carter Post
-                                                                        Album</a>
-                                                                    <span class="time">đã viết bài viêt này vào
-                                                                        4/5/555</span>
-                                                                </div>
-                                                                <div class="report-follow dropdown dropleft"><i
-                                                                        class="fas fa-ellipsis-h"
-                                                                        data-toggle="dropdown"></i>
-                                                                    <div class="dropdown-menu ">
-                                                                        <a href="" class="dropdown-item">Báo cáo nội
-                                                                            dung</a>
-                                                                        <a href="" class="dropdown-item">Theo
-                                                                            dõi</a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="col-12 info-content">
-                                                            <div class="post-text">
-                                                                <p>Lorem ipsum, dolor sit amet consectetur
-                                                                    adipisicing elit. Neque, tempora.</p>
-                                                                <p>Lorem ipsum dolor sit amet consectetur
-                                                                    adipisicing elit. Suscipit, aspernatur!</p>
-                                                            </div>
-                                                            <div class="row review-image">
-                                                                <div class="col-sm-6 col-md-6 thumb">
-                                                                    <img src="image/image_avatar/images.jpg" alt="">
-                                                                </div>
-                                                                <div class="col-sm-6 col-md-6 thumb">
-                                                                    <img src="image/image_avatar/images.jpg" alt="">
-                                                                </div>
-                                                                <div class="col-sm-6 col-md-6 thumb">
-                                                                    <img src="image/image_avatar/images.jpg" alt="">
-                                                                </div>
-                                                                <div class="col-sm-6 col-md-6 thumb thumb-relative">
-                                                                    <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&amp;h=200&amp;s=1"
-                                                                        alt="">
-                                                                    <div class="overlayy">
-                                                                        <div class="number"><span>+ 4</span></div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer card-comments bg-white mt-2">
-                                                            <div class="card-comment">
-                                                                <!-- User image -->
-                                                                <img class="img-circle img-sm"
-                                                                    src="image/image_avatar/{{Auth::user()->avatar}}"
-                                                                    alt="User Image">
-
-                                                                <div class="comment-text">
-                                                                    <span class="username">
-                                                                        Maria Gonzales
-                                                                        <span class="text-muted float-right">8:03 PM
-                                                                            Today</span>
-                                                                    </span><!-- /.username -->
-                                                                    It is a long established fact that a reader will
-                                                                    be distracted
-                                                                    by the readable content of a page when looking
-                                                                    at its layout.
-                                                                </div>
-                                                                <!-- /.comment-text -->
-                                                            </div>
-                                                            <!-- /.card-comment -->
-                                                            <div class="card-comment">
-                                                                <!-- User image -->
-                                                                <img class="img-circle img-sm"
-                                                                    src="image/image_avatar/{{Auth::user()->avatar}}"
-                                                                    alt="User Image">
-
-                                                                <div class="comment-text">
-                                                                    <span class="username">
-                                                                        Nora Havisham
-                                                                        <span class="text-muted float-right">8:03 PM
-                                                                            Today</span>
-                                                                    </span><!-- /.username -->
-                                                                    The point of using Lorem Ipsum is that it hrs a
-                                                                    morer-less
-                                                                    normal distribution of letters, as opposed to
-                                                                    using
-                                                                    'Content here, content here', making it look
-                                                                    like readable English.
-                                                                </div>
-                                                                <!-- /.comment-text -->
-                                                            </div>
-                                                            <!-- /.card-comment -->
-                                                        </div>
-                                                        <div class="card-footer bg-white">
-                                                            <form action="#" method="post">
-                                                                <img class="img-fluid img-circle img-sm"
-                                                                    src="image/image_avatar/{{Auth::user()->avatar}}"
-                                                                    alt="Alt Text">
-                                                                <!-- .img-push is used to add margin to elements next to floating images -->
-                                                                <div class="img-push">
-                                                                    <input type="text"
-                                                                        class="form-control form-control-sm"
-                                                                        placeholder="Viết bình luận...">
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
+                                           
                                         </div>
 
 
@@ -803,28 +730,7 @@
                                     <div id="mapInfoTrip" style="width:100%;height:300px"></div>
                                 </div>
                                 <!-- 1 -->
-                                <div class="card collapsed-card">
-                                    <div class="card-header bg-light">
-                                        <h3 class="card-title">Kế hoạch, lộ trình</h3>
-                                        <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                <i class="fas fa-plus"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="card-body" style="display: none;">
-                                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal"
-                                            data-target="#editTeam"><i class="fas fa-edit"></i> Chỉnh
-                                            sửa</button>
-                                        <div class="alert alert-warning mt-2">Bạn cần cập nhật kế hoạch cho
-                                            chuyên
-                                            đi
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <!-- 2 -->
+                                
                             </div>
                         </div>
                         <!-- Ban do lo trinh chuyen di -->
@@ -1338,7 +1244,26 @@ function updateInfoTrip() {
 // =====================================================================
 // =============== PHAN KE HOACH, VAT DUNG =================
 // =====================================================================
-
+// Mời thành viên ra khỏi nhóm
+function delete_member_out_team(){
+    var team_id = '{{$team->id}}'
+    
+    $('.delete-member-team').on('click',function(e){
+        var user_id = $(this).find('.member_id').val();
+        var check = confirm("Bạn có chắc mời người này ra khỏi nhóm ?");
+        if(check == true){
+            $.ajax({
+                url: 'team/delete-member-ajax/' +user_id+'/'+team_id,
+                type: "get",
+                success: function(data) {
+                    console.log(data);
+                    $('#member-team .member-'+data.user_id).remove();
+                },
+            });
+        }
+        return false;
+    })
+}
 // 1. Lay view ke hoach
 $('#custom-tabs-plan').click(function() {
     $.ajax({
@@ -1608,6 +1533,7 @@ $('#custom-tabs-member-team').click(function() {
         success: function(data) {
             $('#member-team').html(data);
             updateProfileMember();
+            delete_member_out_team();
         },
     });
 })
@@ -1737,7 +1663,7 @@ function chatRoom() {
                     },
 
                 });
-                $(this).val(' ');
+                $(this).val('');
             }
         }
     })

@@ -1127,3 +1127,10 @@ figure {
     font-size: 18px;
     color: #3c1892;
 }
+.dropdown-item {
+    text-decoration: none !important;
+    color: #403b3e !important;
+}
+.dropdown-item:hover{
+    /* color: blue !important; */
+}

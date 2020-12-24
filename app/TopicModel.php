@@ -8,6 +8,9 @@ class TopicModel extends Model
 {
     //
     protected $table = 'topic';
+    public function region(){
+        return $this->belongsTo('App\RegionModel','region_id','id');
+    }
     public function user(){
     	return $this->belongsTo('App\UserModel','user_id','id');
     }

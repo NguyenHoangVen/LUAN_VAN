@@ -204,7 +204,11 @@
                 class="fas fa-edit"></i> Chỉnh sửa</button>
         @endif
         @if(empty($team->content))
-        <div class="alert alert-warning mt-2">Bạn cần cập nhật kế hoạch cho chuyên đi</div>
+        @if(isLeader(Auth::user()->id,$team->id))
+        <div class="alert alert-default-primary mt-2">Bạn cần cập nhật kế hoạch cho chuyên đi</div>
+        @else
+        <div class="alert alert-default-primary mt-2">Bạn cần chờ nhóm trưởng cập nhật kế hoạch cho chuyên đi</div>
+        @endif
         @else
         <div class="p-2 mt-1" id="result-content-plan-team">
             {!!$team->content!!}c
