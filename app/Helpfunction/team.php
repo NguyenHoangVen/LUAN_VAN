@@ -103,3 +103,10 @@ function userCreatePostShare($post_id,$user_id){
         return false;
     }
 }
+// ===HAM SELECTED===
+function selected($value1,$value2){
+    if($value1 == $value2){
+        echo 'selected="selected"';
+    }
+}
+

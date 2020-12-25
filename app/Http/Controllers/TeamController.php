@@ -192,7 +192,7 @@ class TeamController extends Controller
     }
     // I. chia se bai viet cong khai
     public function postShare(){
-        $post_shares = PostShareModel::all();
+        $post_shares = PostShareModel::orderBy('created_at','DESC')->get();
         return view('team._post_share',compact('post_shares'));
     }
     public function updateInfoTripTeam(Request $request){
@@ -204,6 +204,7 @@ class TeamController extends Controller
         $team->end_place = $request->place_end;
         $team->id_place_start = $request->placeIdStart;
         $team->id_place_end = $request->placeIdEnd;
+        $team->status = $request->status;
         $team->save();
         return Response()->json(array('ok'=>$request->all(),'success'=>$team));
     }

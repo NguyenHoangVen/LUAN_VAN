@@ -175,7 +175,7 @@ Route::group(['prefix'=>'chat'],function(){
 	Route::get('video','ChatController@chatVideo');
 });
 Route::group(['prefix'=>'user'],function(){
-	Route::get('{id}','UserController@profileUser');
+	Route::get('{id}/account','UserController@profileUser');
 	Route::get('{id}/forum','UserController@userForum');
 	Route::get('{id}/create-topic','UserController@userCreateTopic');
 	Route::get('{id}/review-topic','UserController@userReviewTopic');
@@ -183,7 +183,7 @@ Route::group(['prefix'=>'user'],function(){
 	
 	// === Tab ban be
 	// 1. Tim ban
-	Route::post('search-all-friend','UserController@searchAllFriend');
+	Route::get('search-all-friend','UserController@searchAllFriend');
 	// 2. Yeu cau ket ban
 	Route::post('send-request-add-friend','UserController@sendRequestAddFriend');
 	// 3. Xoa yeu cau ket ban
@@ -196,10 +196,13 @@ Route::group(['prefix'=>'user'],function(){
 	Route::post('delete-friend','UserController@deleteFriend');
 	// 7. Xem trang ca nhan cua nguoi dung khac
 	Route::get('{id}/info','UserController@infoAccountUser');
-	// 8. Xam trang ca nhan (Ban be)
+	// 8. Xem trang ca nhan (Ban be)
 	Route::get('{id}/info/friends','UserController@frinedAccountUser');
+	// 9. Lay view ajax ban be co the pjt
+	Route::get('get-view-friend/suggestions','UserController@friendSuggestions');
 
 });
+// Route::get('get-view-friend-suggestions','UserController@friendSuggestions');
 
 Route::get('login','UserController@getLogin');
 Route::post('post-login','UserController@postLogin');

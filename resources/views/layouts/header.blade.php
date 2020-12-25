@@ -55,7 +55,7 @@
 	                            		
 	                            		<a href="{{url('add-place')}}" class="write-post"><i class="fas fa-pencil-alt"></i></a>
 	                            		
-                            			<a href="{{url('user')}}/{{Auth::user()->id}}" class="avatar d-block "><img class="avatar{{Auth::user()->id}}" src="image/image_avatar/{{Auth::user()->avatar}}" alt=""></a>
+                            			<a href="{{url('user')}}/{{Auth::user()->id}}/account" class="avatar d-block "><img class="avatar{{Auth::user()->id}}" src="image/image_avatar/{{Auth::user()->avatar}}" alt=""></a>
 	                            			
 	                            		</div>
 	                            	</div>

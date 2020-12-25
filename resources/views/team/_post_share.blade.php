@@ -275,11 +275,122 @@
         </div>
     </div>
     <!-- ./ ket thuc Modal Cap nhat lai bai post share trong nhom -->
+     <!-- Modal create post share -->
+    <div class="modal fade" id="modalCreatPostShare">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Tạo bài viết</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="form-post-share" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="info-user d-flex">
+                                    <div class="avatar d-block mr-3">
+                                        <img class="img-50"
+                                            src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                                            alt="">
+                                    </div>
+                                    <div class="info-desc">
+                                        <p>
+                                            <span class="title">Hoang Ven</span>
+                                            <span class="location"></span>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <input type="hidden" name="checkin_location" class="checkin-location">
+                                <textarea name="content" class="content" class="w-100" rows="5"
+                                    placeholder="Hôm nay bạn thế nào..."></textarea>
+                            </div>
+                            <!-- Image review -->
+                            <div class="col-12 mt-2">
+
+                                <div class="row">
+                                    <div id="reviewimg">
+                                        <input type="hidden" name="numselect" class="numselect" value="1">
+                                        <input type="hidden" name="numdelete" class="numdelete" value="1">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="attachments col-12">
+                                <ul>
+                                    <li>
+                                        <span class="add-loc">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-music"></i>
+                                        <label class="fileContainer">
+                                            <input type="file">
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-image"></i>
+                                        <label class="fileContainer">
+
+                                            <input type="file" class="custom-file-input" multiple=""
+                                                id="uploadImgAddTopic" name="image[]">
+                                            <div class="icon-image"></div>
+                                            <!-- image delete -->
+                                            <div id="file_hidden"></div>
+                                            <input type="hidden" id="file_name_image_delete" name="file_delete">
+                                            <input type="hidden" name='team_id' value="">
+                                        </label>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="col-12 wp-input-location-share d-none">
+                                <div class="input-group mt-1 ">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-secondary button-location-share"
+                                            type="button">Tại:</button>
+                                    </div>
+                                    <input type="text" class="form-control locationInPostShare"
+                                        placeholder="Bạn đang ở đâu?">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-none alert alert-default-primary w-100 mb-1 mt-2">
+                                    Đăng bài
+                                    thành công!</div>
+                            </div>
+                            <div class="col-12 mt-2 regime d-flex flex-row-reverse">
+                                <button class="btn btn-success">Đăng</button>
+                                <select class="form-control" name="status">
+                                    <option value="0">Công khai</option>
+                                    <option value="2">Chỉ mình tôi</option>
+                                </select>
+
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 @section('script')
 <script src="js/uploadfile.js"></script>
-<!-- owlcarowsel -->
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAooDY7d6iFESb-veaQGNNeSVrb_isnJUI&libraries=places&callback=initMap"
+    defer>
+</script>
+
 
 <script>
 // 2. Binh luan post share
@@ -290,6 +401,129 @@ socket.on('laravel_database_comment_post_share:comment_post_share', function(dat
         $('#post-share-id-' + data.data_comment.post_share_id + ' .card-comments').append(data.data_comment
             .html);
     }
+})
+// Map lay dia diem check in
+function initMap() {
+    // =======Tao bai viet, status, dong thoi gian,Checkin======
+    var geocoder = new google.maps.Geocoder();
+    var input_location_share = document.getElementsByClassName("locationInPostShare")[0];
+    var autoComplateShare = new google.maps.places.Autocomplete(input_location_share);
+    autoComplateShare.setFields(["place_id", "geometry", "name", "formatted_address"]);
+    autoComplateShare.addListener('place_changed', () => {
+        var place = autoComplateShare.getPlace();
+        var place_id = place.place_id;
+        console.log(place);
+        var html = '<span>Đang ở </span>' +
+            '<span class="title"> ' + place.formatted_address + '</span>';
+        $('#form-post-share .info-desc .location').html(html);
+        $('#form-post-share .checkin-location').val(place.formatted_address);
+
+    })
+    var locationButtonShare = document.getElementsByClassName("button-location-share")[0];
+    // Su kien click ay vi tri hien tai
+    locationButtonShare.addEventListener("click", () => {
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    // console.log(position)
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    // Lay vi tri nguoc
+                    geocoder.geocode({
+                        location: pos
+                    }, (results, status) => {
+                        // console.log(results)
+                        if (status === "OK") {
+                            if (results[0]) {
+                                var html = '<span>Đang ở </span>' +
+                                    '<span class="title"> ' + results[0].formatted_address +
+                                    '</span>';
+                                $('#form-post-share .info-desc .location').html(html);
+                                $('#form-post-share .checkin-location').val(results[0]
+                                    .formatted_address);
+                            } else {
+                                window.alert("No results found");
+                            }
+                        } else {
+                            window.alert("Geocoder failed due to: " + status);
+                        }
+                    });
+                }, () => {
+                    handleLocationError(true, infoWindow, mapRoute.getCenter());
+                }
+            );
+        } else {
+
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    });
+    // ===========CAP NHAT BAI VIET===========
+    // =======Tao bai viet, status, dong thoi gian,Checkin======
+
+    var input_location_share1 = document.getElementsByClassName("locationInPostShare1")[0];
+    var autoComplateShare1 = new google.maps.places.Autocomplete(input_location_share1);
+    autoComplateShare1.setFields(["place_id", "geometry", "name", "formatted_address"]);
+    autoComplateShare1.addListener('place_changed', () => {
+        var place = autoComplateShare1.getPlace();
+        var place_id = place.place_id;
+        console.log(place);
+        var html = '<span>Đang ở </span>' +
+            '<span class="title"> ' + place.formatted_address + '</span>';
+        $('#form-update-post-share .info-desc .location').html(html);
+        $('#form-update-post-share .checkin-location').val(place.formatted_address);
+
+    })
+    var locationButtonShare1 = document.getElementsByClassName("button-location-share1")[0];
+    // Su kien click ay vi tri hien tai
+    locationButtonShare1.addEventListener("click", () => {
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    // console.log(position)
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude,
+                    };
+                    // Lay vi tri nguoc
+                    geocoder.geocode({
+                        location: pos
+                    }, (results, status) => {
+                        // console.log(results)
+                        if (status === "OK") {
+                            if (results[0]) {
+                                var html = '<span>Đang ở </span>' +
+                                    '<span class="title"> ' + results[0].formatted_address +
+                                    '</span>';
+                                $('#form-update-post-share .info-desc .location').html(html);
+                                $('#form-update-post-share .checkin-location').val(results[0]
+                                    .formatted_address);
+                            } else {
+                                window.alert("No results found");
+                            }
+                        } else {
+                            window.alert("Geocoder failed due to: " + status);
+                        }
+                    });
+                }, () => {
+                    handleLocationError(true, infoWindow, mapRoute.getCenter());
+                }
+            );
+        } else {
+
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    });
+
+}
+// === Show input location in check in share post==
+$('#form-post-share .fa-map-marker-alt,#form-update-post-share .fa-map-marker-alt').click(function() {
+    $('.wp-input-location-share').toggleClass('d-none');
 })
 $(".owl-carousel").owlCarousel({
 

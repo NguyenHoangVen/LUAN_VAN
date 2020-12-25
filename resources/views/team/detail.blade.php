@@ -35,7 +35,7 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right">
                           <a class="dropdown-item" href="team/leave-team/{{$team->id}}" 
-                        onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">Rời khỏi nhóm</a>
+                        onclick="return confirm('Bạn có chắc rời nhóm không?');">Rời khỏi nhóm</a>
                          
                          
                         </div>
@@ -43,8 +43,12 @@
                     @endif
                     
                     @else
+                    @if($team->status !=2)
                     <div class="btn btn-success" data-toggle="modal" data-target="#join-team"><i
                         class="fas fa-plus"></i>Tham gia nhóm</div>
+                    @else
+                    <button class="btn btn-success" disabled=""><i class="fas fa-plus"></i>Tham gia nhóm</button>
+                    @endif
                     @endif
                 </div>
                 
@@ -61,11 +65,7 @@
                                 <a class="nav-link " id="custom-tabs-chat-room" data-toggle="pill" href="#chat-room"
                                     role="tab" aria-controls="custom-tabs-four-home" aria-selected="false">Chat</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link " id="custom-tabs-four-profile-tab" data-toggle="pill"
-                                    href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile"
-                                    aria-selected="false">Profile</a>
-                            </li>
+                            
                             <li class="nav-item">
                                 <a class="nav-link active" id="custom-tabs-post-share-team" data-toggle="pill"
                                     href="#post-share" role="tab" aria-controls="custom-tabs-four-settings"
@@ -126,15 +126,7 @@
 
                             </div>
                             <!-- Profile -->
-                            <div class="tab-pane fade " id="custom-tabs-four-profile" role="tabpanel"
-                                aria-labelledby="custom-tabs-four-profile-tab">
-                                Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus
-                                ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-                                posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula
-                                placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet
-                                ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
-                            </div>
+                           
 
                             <!-- Thanh Vien -->
                             <div class="tab-pane fade" id="member-team" role="tabpanel"
@@ -380,12 +372,7 @@
                                                                     <i class="fas fa-map-marker-alt"></i>
                                                                 </span>
                                                             </li>
-                                                            <li>
-                                                                <i class="fa fa-music"></i>
-                                                                <label class="fileContainer">
-                                                                    <input type="file">
-                                                                </label>
-                                                            </li>
+                                                            
                                                             <li>
                                                                 <i class="fa fa-image"></i>
                                                                 <label class="fileContainer">
@@ -484,12 +471,7 @@
                                                                     <i class="fas fa-map-marker-alt"></i>
                                                                 </span>
                                                             </li>
-                                                            <li>
-                                                                <i class="fa fa-music"></i>
-                                                                <label class="fileContainer">
-                                                                    <input type="file">
-                                                                </label>
-                                                            </li>
+                                                           
                                                             <li>
                                                                 <i class="fa fa-image"></i>
                                                                 <label class="fileContainer">
@@ -659,11 +641,22 @@
                                                 <input type="date" class="form-control end-day" name="end_day" value="">
                                                 @endif
                                             </div>
+                                            <div class="form-group">
+                                                <label for="fullname">Trạng thái chuyến đi:</label>
+                                                <select class="form-control status" name="status">
+                                                    <option value="0" <?php selected($team->status,0) ?>>Chưa chốt đoàn</option>
+                                                    <option value="1" <?php selected($team->status,1) ?>>Đang đi</option>
+                                                    <option value="2" <?php selected($team->status,2) ?>>Đã đi</option>
+                                                   
+                                                </select>
+                                                
+                                            </div>
+
                                             <!-- input hidden -->
                                             <input type="hidden" id="id_place_start" name="placeIdStart"
-                                                placeholder="place id start">
+                                                placeholder="place id start" value="{{$team->id_place_start}}">
                                             <input type="hidden" id="id_place_end" name="placeIdEnd"
-                                                placeholder="place id end">
+                                                placeholder="place id end" value="{{$team->id_place_end}}">
                                             <input type="hidden" name="team_id" value="{{$team->id}}">
                                             <div class="alert alert-default-info d-none">Cập nhật thành công
                                             </div>
@@ -719,6 +712,16 @@
                                                     disabled="">
                                                 @endif
                                             </div>
+                                            <div class="form-group">
+                                                <label for="fullname">Trạng thái chuyến đi:</label>
+                                                <select class="form-control status" name="status" disabled="">
+                                                    <option value="0" <?php selected($team->status,0) ?>>Chưa chốt đoàn</option>
+                                                    <option value="1" <?php selected($team->status,1) ?>>Đang đi</option>
+                                                    <option value="2" <?php selected($team->status,2) ?>>Đã đi</option>
+                                                   
+                                                </select>
+                                                
+                                            </div>
 
                                         </form>
                                         @endif
@@ -749,21 +752,7 @@
                                         <div class="alert tutorial-direction">Hướng dẫn đường đi</div>
                                         <!-- Tra ve ket qua chi duong -->
                                         <div id="result_derection">
-                                            <div class="item mt-1">
-                                                <div class="btn btn-info w-100" data-toggle="collapse"
-                                                    data-target="#street0" aria-expanded="true">Mậu Thân(2,1 km)
-                                                </div>
-                                                <div id="street" class=" text-left collapse show" style="">
-                                                    <h5 class="distance">Thời gian: 6 phút</h5>
-                                                    <h5 class="start_address">Từ: Khu II, Đ. 3/2, Xuân Khánh,
-                                                        Ninh
-                                                        Kiều, Cần Thơ, Việt Nam</h5>
-                                                    <h5 class="end_address">Đến: 84 Mậu Thân, An Hoà, Ninh Kiều,
-                                                        Cần
-                                                        Thơ, Việt Nam</h5>
-
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -1187,7 +1176,7 @@ function updateInfoTrip() {
         var end_day = $('#form-update-info-trip-team .end-day').val();
         var id_place_start = $('#form-update-info-trip-team #id_place_start').val();
         var id_place_end = $('#form-update-info-trip-team #id_place_end').val();
-
+       
         // kiem tra rong
         $('#error-title-trip').html('');
         $('#error-place-start').html('');

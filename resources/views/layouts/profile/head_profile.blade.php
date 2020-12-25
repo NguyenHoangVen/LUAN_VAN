@@ -1,5 +1,5 @@
 <?php 
-// $user = Auth::user();
+$user = Auth::user();
 ?>
 <div id="content">
 	<div id="profile-user">
@@ -16,7 +16,7 @@
 									<a href="" class="avatar "><img class="avatar{{$user->id}}" src="image/image_avatar/{{$user->avatar}}" alt=""></a>
 								</div>
 								<div class="username">
-									<h1>HoangVen</h1>
+									<h1>{{$user->username}}</h1>
 								</div>
 							</div>
 						</div>
@@ -38,8 +38,7 @@
 				<div class="col-lg-8 col-md-12 menu">
 					<ul class="d-flex btn ">
 						<li><a href="{{url('user')}}/{{$user->id}}">Dòng thời gian</a></li>
-						<li><a href="{{url('user')}}/{{$user->id}}/forum">Diễn đàn</a></li>
-						<li><a href="{{url('user')}}/{{$user->id}}/create-topic">Bản đồ du lịch</a></li>
+						
 						<li><a href="{{url('user')}}/{{$user->id}}/friends">Bạn bè</a></li>
 
 					</ul>

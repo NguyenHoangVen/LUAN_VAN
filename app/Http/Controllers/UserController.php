@@ -86,17 +86,16 @@ class UserController extends Controller
         }
 
 
-        // $user = UserModel::where('email',$email)->first();
-        // if(!$user){
 
-        // }
-        // if (Auth::loginUsingId($user->id)) {
-        //     dd(Auth::user());
-        // } else {
-        //     dd('dang nhap that bai');
-        // }
     }
 
+    // 9. Lay tab ban be co the quen biet
+    public function friendSuggestions(){
+        $list_user = UserModel::where('id','!=',Auth::user()->id)->get();
+
+        
+        return view('user.friend_sug',compact('list_user'));
+    }
     // ========TRANG CA NHAN CUA NGUOI DUNG KHAC=======
     // 8. Xem trang cac nhan, ban be cua nguoi khac
     public function frinedAccountUser($user_id){
@@ -155,7 +154,15 @@ class UserController extends Controller
         return view('user.friends',compact('user','list_user'));
     }
     // 6. Tim kim ban be
-    public function searchAllFriend(Request $request){
+    public function searchAllFriend(){
+        $key = $_GET['key'];
+
+        $list_user = UserModel::where('username','like','%'.$key.'%')
+            ->where('id','!=',Auth::user()->id)
+            ->get();
+        return view('user.search_friend',compact('list_user'));
+    }
+    public function searchAllFriende(Request $request){
         $key = $request->key;
         $user = UserModel::where('username','like','%'.$key.'%')->get();
         $result = '<div class="row">';

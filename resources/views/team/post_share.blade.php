@@ -4,147 +4,421 @@
 <div id="content">
 
     <div class="container" id="team" style="height:800px;overflow-y:scroll">
-
-
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6 col-md-12">
                 <div class="central-meta postbox">
-                    <span class="create-post">Create post</span>
+                    <span class="create-post">Tạo bài viết</span>
                     <div class="new-postbox">
                         <div class="avatar d-block float-left"><img
                                 src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
                                 alt=""></div>
                         <div class="newpst-input">
-                            <form method="post">
-                                <textarea rows="2" placeholder="Share some what you are thinking?"></textarea>
-                            </form>
+                            <!-- <form method="post"> -->
+                            <textarea rows="2" data-toggle="modal" data-target="#modalCreatPostShare"
+                                placeholder="Hôm nay bạn thế nào ?"></textarea>
+                            <!-- </form> -->
                         </div>
-                        <div class="attachments">
-
-                        </div>
-
                     </div>
                 </div>
                 <!-- Danh sach cac bao chia se trong team -->
                 <div class="share-post">
-                    @for($i = 0;$i <=5;$i++) <div class="col-12 diary mt-0">
+                    @if(count($post_shares) > 0)
+                    @foreach($post_shares as $post_share)
+                    <div class="col-12 diary mt-0" id='post-share-id-{{$post_share->id}}'>
                         <div class="row mb-4">
-                            <div class="bg-white pt-pb-15">
+                            <div class="bg-white pt-pb-15 w-100">
+
                                 <div class="col-12 info-user d-flex mb-2">
-                                    <a href="" class="avatar d-block"><img
-                                            src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
-                                            alt=""></a>
+                                    <a href="" class="avatar d-block ">
+                                        <img src="image/image_avatar/{{$post_share->user->avatar}}" alt="">
+                                    </a>
                                     <div class="username-time ml-3 d-flex justify-content-between w-100">
-                                        <div>
-                                            <a href="" class="username">Carter Post Album</a>
-                                            <span class="time">đã viết bài viêt này vào
-                                                4/5/555</span>
+                                        <div class="info-desc">
+                                            <p>
+                                                <span class="title">{{$post_share->user->username}}</span>
+                                                @if(!is_null($post_share->address))
+                                                <span class="location"><span>Đang ở
+                                                    </span><span class="">{{$post_share->address}}</span></span>
+                                                @endif
+
+                                            </p>
+                                            <p><span
+                                                    class="time mt-1">{{Carbon\Carbon::parse($post_share->created_at)->diffForHumans()}}</span>
+                                            </p>
+
                                         </div>
+
+                                        @if(userCreatePostShare($post_share->id,Auth::user()->id))
                                         <div class="report-follow dropdown dropleft"><i class="fas fa-ellipsis-h"
                                                 data-toggle="dropdown"></i>
                                             <div class="dropdown-menu ">
-                                                <a href="" class="dropdown-item">Báo cáo nội
-                                                    dung</a>
-                                                <a href="" class="dropdown-item">Theo
-                                                    dõi</a>
+                                                <a href="team/delete-post-share/{{$post_share->id}}"
+                                                    class="dropdown-item delete-post-share"
+                                                    onclick="return confirm('Bạn có chắc chắn muốn xóa không?');">Xóa
+                                                    bài viết</a>
+                                                <a href="" class="dropdown-item edit-post-share" data-toggle="modal"
+                                                    data-target="#modalUpdatePostShare">Chỉnh
+                                                    sửa
+                                                    <input type="hidden" class="post-share-id"
+                                                        value="{{$post_share->id}}">
+                                                </a>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
 
                                 </div>
                                 <div class="col-12 info-content">
                                     <div class="post-text">
-                                        <p>Lorem ipsum, dolor sit amet consectetur
-                                            adipisicing elit. Neque, tempora.</p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                            Suscipit, aspernatur!</p>
+                                        <p>{{$post_share->content}}</p>
                                     </div>
+                                    <!-- Hinh anh co trong bai post -->
+                                    <?php $num_img = count($post_share->images)?>
+                                    @if($num_img > 0)
                                     <div class="row review-image">
-                                        <div class="col-sm-6 col-md-6 thumb">
-                                            <img src="image/image_avatar/images.jpg" alt="">
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 thumb">
-                                            <img src="image/image_avatar/images.jpg" alt="">
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 thumb">
-                                            <img src="image/image_avatar/images.jpg" alt="">
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 thumb thumb-relative">
-                                            <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/6f/e6/7c/r-t-trong.jpg?w=400&amp;h=200&amp;s=1"
-                                                alt="">
-                                            <div class="overlayy">
-                                                <div class="number"><span>+ 4</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card-footer card-comments bg-white mt-2">
-                                    <div class="card-comment">
-                                        <!-- User image -->
-                                        <img class="img-circle img-sm" src="image/image_avatar/{{Auth::user()->avatar}}"
-                                            alt="User Image">
+                                        <?php $i=0?>
+                                        @foreach($post_share->images as $img)
+                                        <?php $i++?>
+                                        @if($i<=3) <div class="col-sm-6 col-md-6 thumb">
 
-                                        <div class="comment-text">
-                                            <span class="username">
-                                                Maria Gonzales
-                                                <span class="text-muted float-right">8:03 PM
-                                                    Today</span>
-                                            </span><!-- /.username -->
-                                            It is a long established fact that a reader will
-                                            be distracted
-                                            by the readable content of a page when looking
-                                            at its layout.
-                                        </div>
-                                        <!-- /.comment-text -->
-                                    </div>
-                                    <!-- /.card-comment -->
-                                    <div class="card-comment">
-                                        <!-- User image -->
-                                        <img class="img-circle img-sm" src="image/image_avatar/{{Auth::user()->avatar}}"
-                                            alt="User Image">
 
-                                        <div class="comment-text">
-                                            <span class="username">
-                                                Nora Havisham
-                                                <span class="text-muted float-right">8:03 PM
-                                                    Today</span>
-                                            </span><!-- /.username -->
-                                            The point of using Lorem Ipsum is that it hrs a
-                                            morer-less
-                                            normal distribution of letters, as opposed to
-                                            using
-                                            'Content here, content here', making it look
-                                            like readable English.
-                                        </div>
-                                        <!-- /.comment-text -->
+                                            <img src="upload/image_post/{{$img->filename}}" class="img-fluid mb-2 w-100"
+                                                alt="white sample" data-toggle="modal"
+                                                data-target="#modalReviewImagePostShare{{$post_share->id}}" />
+
                                     </div>
-                                    <!-- /.card-comment -->
-                                </div>
-                                <div class="card-footer bg-white">
-                                    <form action="#" method="post">
-                                        <img class="img-fluid img-circle img-sm"
-                                            src="image/image_avatar/{{Auth::user()->avatar}}" alt="Alt Text">
-                                        <!-- .img-push is used to add margin to elements next to floating images -->
-                                        <div class="img-push">
-                                            <input type="text" class="form-control form-control-sm"
-                                                placeholder="Press enter to post comment">
+                                    @endif
+                                    @if($i == 4)
+                                    <div class="col-sm-6 col-md-6 thumb thumb-relative">
+                                        <img src="upload/image_post/{{$img->filename}}" alt="">
+                                        <div class="overlayy">
+                                            <div class="number"><span>+
+                                                    {{$num_img-4}}</span></div>
                                         </div>
-                                    </form>
+                                    </div>
+                                    @endif
+                                    @endforeach
                                 </div>
+                                @endif
+                            </div>
+                            <div class="card-footer card-comments bg-white mt-2">
+                                @foreach($post_share->comments as $comment)
+                                <div class="card-comment">
+                                    <!-- User image -->
+                                    <img class="img-circle img-sm" src="image/image_avatar/{{$comment->user->avatar}}"
+                                        alt="User Image">
+
+                                    <div class="comment-text">
+                                        <span class="username">
+                                            {{$comment->user->username}}
+                                            <span class="text-muted float-right">
+                                                {{Carbon\Carbon::parse($comment->created_at)->diffForHumans()}}
+                                            </span>
+                                        </span><!-- /.username -->
+                                        {{$comment->content}}
+                                    </div>
+                                    <!-- /.comment-text -->
+                                </div>
+                                @endforeach
+
+                            </div>
+                            <div class="card-footer bg-white">
+
+                                <img class="img-fluid img-circle img-sm"
+                                    src="image/image_avatar/{{Auth::user()->avatar}}" alt="Alt Text">
+                                <!-- .img-push is used to add margin to elements next to floating images -->
+                                <div class="img-push">
+                                    <input type="text" class="form-control form-control-sm input-coment-post-share"
+                                        placeholder="Viết bình luận...">
+                                    <input type="hidden" class="post-share" value="{{$post_share->id}}">
+                                </div>
+
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                @endforeach
+                @endif
+
+
+            </div>
+
+
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+    <!-- Modal review image post share -->
+    @foreach($post_shares as $post_share)
+    <?php $num_img = count($post_share->images)?>
+    @if($num_img > 0)
+    <div id="modalReviewImagePostShare{{$post_share->id}}" class="modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-content">
+                    <div class="mainThumbReviewImg">
+                        <img src="upload/image_post/{{$post_share->images[0]->filename}}" alt="" />
+                    </div>
+                    <div class="owl-carousel">
+                        @foreach($post_share->images as $img)
+                        <div class="item"> <img src="upload/image_post/{{$img->filename}}" alt="image" /> </div>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+    @endforeach
+    <!-- .ket thuc modal image post share -->
+    <!-- Modal Cap nhat lai bai post share trong nhom -->
+    <div class="modal fade" id="modalUpdatePostShare">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Chỉnh sửa bài viết của bạn</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form id="form-update-post-share" enctype="multipart/form-data" action="team/update-post-share"
+                        method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="info-user d-flex">
+                                    <div class="avatar d-block mr-3">
+                                        <img class="img-50"
+                                            src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                                            alt="">
+                                    </div>
+                                    <div class="info-desc">
+                                        <p>
+                                            <span class="title">Hoang Ven</span>
+                                            <span class="location"></span>
+                                        </p>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="content-post-share col-12">
+                                <!-- Image review -->
+                            </div>
+                            <div class="attachments col-12">
+                                <ul>
+                                    <li>
+                                        <span class="add-loc">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-music"></i>
+                                        <label class="fileContainer">
+                                            <input type="file">
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <i class="fa fa-image"></i>
+                                        <label class="fileContainer">
+
+                                            <input type="file" class="custom-file-input" multiple=""
+                                                id="uploadImgPostShare" name="image[]">
+                                            <div class="icon-image"></div>
+                                            <!-- image delete -->
+                                            <div id="file_hidden1"></div>
+                                            <input type="hidden" id="file_name_image_delete1" name="file_delete">
+
+                                        </label>
+                                    </li>
+                                </ul>
+
+                            </div>
+
+                            <div class="col-12 wp-input-location-share d-none">
+                                <div class="input-group mt-1 ">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-secondary button-location-share1"
+                                            type="button">Tại:</button>
+                                    </div>
+                                    <input type="text" class="form-control locationInPostShare1"
+                                        placeholder="Bạn đang ở đâu?">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="d-none alert alert-default-primary w-100 mb-1 mt-2">
+                                    Cập nhật
+                                    thành công!</div>
+                            </div>
+                            <div class="col-12 mt-2 regime d-flex">
+                                <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal">Hủy</button>
+                                <select class="form-control" name="status">
+                                    <option value="0">Công khai</option>
+                                    <option value="1">Chỉ trong nhóm</option>
+                                </select>
+                                <button class="btn btn-success">Lưu</button>
+
+
+                            </div>
+                        </div>
+                    </form>
 
                 </div>
-                @endfor
             </div>
-            <div class="col-lg-3"></div>
         </div>
-
-
-
     </div>
+    <!-- ./ ket thuc Modal Cap nhat lai bai post share trong nhom -->
+     <!-- Modal create post share -->
+                            <div class="modal fade" id="modalCreatPostShare">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Tạo bài viết</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+                                            <form id="form-post-share" enctype="multipart/form-data">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="info-user d-flex">
+                                                            <div class="avatar d-block mr-3">
+                                                                <img class="img-50"
+                                                                    src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                                                                    alt="">
+                                                            </div>
+                                                            <div class="info-desc">
+                                                                <p>
+                                                                    <span class="title">Hoang Ven</span>
+                                                                    <span class="location"></span>
+                                                                </p>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-12">
+                                                        <input type="hidden" name="checkin_location"
+                                                            class="checkin-location">
+                                                        <textarea name="content" class="content" class="w-100" rows="5"
+                                                            placeholder="Hôm nay bạn thế nào..."></textarea>
+                                                    </div>
+
+                                                    <!-- Image review -->
+                                                    <div class="col-12 mt-2">
+
+                                                        <div class="row">
+                                                            <div id="reviewimg">
+                                                                <input type="hidden" name="numselect" class="numselect"
+                                                                    value="1">
+                                                                <input type="hidden" name="numdelete" class="numdelete"
+                                                                    value="1">
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+                                                    <div class="attachments col-12">
+                                                        <ul>
+                                                            <li>
+                                                                <span class="add-loc">
+                                                                    <i class="fas fa-map-marker-alt"></i>
+                                                                </span>
+                                                            </li>
+                                                            
+                                                            <li>
+                                                                <i class="fa fa-image"></i>
+                                                                <label class="fileContainer">
+
+                                                                    <input type="file" class="custom-file-input"
+                                                                        multiple="" id="uploadImgAddTopic"
+                                                                        name="image[]">
+                                                                    <div class="icon-image"></div>
+                                                                    <!-- image delete -->
+                                                                    <div id="file_hidden"></div>
+                                                                    <input type="hidden" id="file_name_image_delete"
+                                                                        name="file_delete">
+                                                                   
+                                                                </label>
+                                                            </li>
+                                                        </ul>
+
+                                                    </div>
+
+                                                    <div class="col-12 wp-input-location-share d-none">
+                                                        <div class="input-group mt-1 ">
+                                                            <div class="input-group-prepend">
+                                                                <button class="btn btn-secondary button-location-share"
+                                                                    type="button">Tại:</button>
+                                                            </div>
+                                                            <input type="text" class="form-control locationInPostShare"
+                                                                placeholder="Bạn đang ở đâu?">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="d-none alert alert-default-primary w-100 mb-1 mt-2">
+                                                            Đăng bài
+                                                            thành công!</div>
+                                                    </div>
+                                                    <div class="col-12 mt-2 regime d-flex flex-row-reverse">
+                                                        <button class="btn btn-success">Đăng</button>
+                                                        <select class="form-control" name="status">
+                                                            <option value="0">Công khai</option>
+                                                            <option value="1">Chỉ trong nhóm</option>
+                                                        </select>
+
+
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 </div>
+@endsection
+@section('script')
+<script src="js/uploadfile.js"></script>
+<!-- owlcarowsel -->
 
+<script>
+// 2. Binh luan post share
+var user_id = "{{Auth::user()->id}}";
+var socket = io('http://localhost:6001');
+socket.on('laravel_database_comment_post_share:comment_post_share', function(data) {
+    if (user_id != data.data_comment.user_id) {
+        $('#post-share-id-' + data.data_comment.post_share_id + ' .card-comments').append(data.data_comment
+            .html);
+    }
+})
+$(".owl-carousel").owlCarousel({
 
+    // autoPlay: 3000,
+    items: 4,
+    itemsDesktop: [1199, 3],
+    itemsDesktopSmall: [979, 3],
+    center: true,
+    nav: true,
+    loop: true,
+
+    responsive: {
+        600: {
+            items: 4
+        }
+    }
+});
+</script>
 @endsection

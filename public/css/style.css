@@ -1129,8 +1129,8 @@ figure {
 }
 .dropdown-item {
     text-decoration: none !important;
-    color: #403b3e !important;
+    /* color: #403b3e !important; */
 }
 .dropdown-item:hover{
-    /* color: blue !important; */
+    color: blue !important;
 }
