@@ -4,7 +4,7 @@
     --primary-color-dark: #da2314;
     --secondary-color: #00527d;
     --dark-color: #002133;
-    --root-color: #36c5f4;
+    --root-color: #187888b8;
 }
 
 html {
@@ -31,7 +31,11 @@ a:hover {
 }
 
 .height-2{height: 200px}
-#logo {padding: 11px 0px}
+#logo {
+    padding: 5px 0px;
+    height: 80px;
+}
+#logo img{height: 100%}
 #image-fb {
     width: 25px;
     margin-right: 5px;
@@ -44,17 +48,28 @@ a:hover {
     width: 22px;
     margin-right: 4px;
 }
-#header {background: var(--primary-color)}
+#header {
+    border-bottom: 1px solid #50cff5;
+    background: #e9fbff;
+}
 #main-menu>li>a{
     display: block;
     padding: 34px 15px;
     font-size: 15px;
     font-weight: 600;
-    color: white;
+    color: #16a4bb;
 }
 #main-menu>li:hover>a{color: var(--root-color)}
-#main-menu .dropdown-menu {background: var(--primary-color);padding: 0px}
-#main-menu .dropdown-menu a {color: white;border-bottom: 1px solid #5e6eb9}
+#main-menu .dropdown-menu {
+    background: #e9fbff;
+    padding: 0px;
+    border: 1px solid #09c1f3;
+}
+#main-menu .dropdown-menu a {
+    color: #16a4bb;
+    border-bottom: 1px solid #5e6eb9;
+    padding: 7px;
+}
 #main-menu .dropdown-menu li:hover a {color: var(--root-color);background: none;}
 #main-menu .dropdown-menu li:last-child a {border-bottom: none}
 @media (max-width: 992px){
@@ -66,6 +81,11 @@ a:hover {
 }
 .loged-in{padding: 20px 0px}
 .not-loged-in {padding: 22px 0px;}
+.not-loged-in .btn-danger{
+    color: #ffffff;
+    background-color: #579ea0;
+    border-color: #f9baba;
+}
 .avatar img {
     width: 40px;
     height: 40px;
@@ -75,7 +95,7 @@ a:hover {
 .loged-in .fas{
     margin: 15px 20px 5px 0px;
     font-size: 20px;
-    color: white
+    color: #16a4bb;
 }
 /* icon menu-respon */
 #nav-respon {
@@ -809,7 +829,7 @@ a:hover {
     border-radius: 3px;
 }
 .overview-place {
-    background: #d2d2d2;
+    background: #e3e3fb;
 }
 #modalImage .owl-carousel .owl-prev{left: 0px;}
 #modalImage .owl-carousel .owl-next{right: 0px;}
@@ -1133,4 +1153,26 @@ figure {
 }
 .dropdown-item:hover{
     color: blue !important;
+}
+/* ============== */
+.scroll-sidebar-group{
+    height: 578px;
+    overflow-y: auto;
+}
+.scroll-post-group{
+    height: 500px;
+    overflow-y: auto;
+}
+.scroll-sidebar-group::-webkit-scrollbar,.scroll-post-group::-webkit-scrollbar{
+    display: none;
+}
+.scroll-sidebar-group,.scroll-post-group{
+  scrollbar-width: none;
+}
+.post-content{
+    overflow: hidden;
+}
+.modal-header{
+    font-size: 18px;
+    background: rgb(196 244 255 / 20%);
 }

@@ -100,6 +100,7 @@ class UserController extends Controller
     // 8. Xem trang cac nhan, ban be cua nguoi khac
     public function frinedAccountUser($user_id){
         $user = UserModel::find($user_id);
+       
         // $list_user = UserModel::where('id','!=',$user_id)->get();
         $friend_of_user = $friends = FriendsModel::where('id_user_accept',$user_id)
             ->orWhere('id_user_send',$user_id)->get();

@@ -15,6 +15,22 @@ use Session;
 class GroupPostController extends Controller
 {
     // ==QUAN TRI GROUP POST===
+    // Moi thanh vien khoi nhom
+    public function leaveGroupMember(Request $request){
+        MemberGroupPostModel::where('user_id',$request->user_id)
+            ->where('group_id',$request->group_id)->delete();
+        return Response()->json(array('ok'=>'Thanh vien da roi nhom'));
+    }
+    // Thanh vien trong nhom
+    public function membersGroup($group_id){
+        $group = GroupPostModel::find($group_id);
+        $members = MemberGroupPostModel::where('group_id',$group_id)
+            ->where('status','member')
+            ->where('user_id','!=',Auth::user()->id)
+            ->get();
+        // dd($members);
+            return view('group_post.admin_group.members',compact('members','group'));
+    }
     // Xoa bai viet bi bao cao
     public function deletePostReport(Request $request){
         PostGroupModel::find($request->post_id)->delete();
@@ -51,6 +67,11 @@ class GroupPostController extends Controller
         $post_pending = PostGroupModel::where('group_id',$group->id)->where('status',0)->get();
         return view('group_post.admin_group.post_pending',compact('group','post_pending'));
     }
+    // ============= NGUOI DUNG ==========
+    public function leaveGroup($user_id,$group_id){
+        MemberGroupPostModel::where('user_id',$user_id)->where('group_id',$group_id)->delete();
+        return redirect('group-post');
+    }
     public function joinGroup($id){
         $group = GroupPostModel::find($id);
         $user_join = \DB::table('member_group_post')
@@ -60,7 +81,7 @@ class GroupPostController extends Controller
             ->select('users.*','member_group_post.created_at as ngaygui')
             ->get();
         // dd($user_join);
-        return view('group_post.admin_group.join_group',compact('group','user_join'));
+        return view('group_post.admin_group._join_group',compact('group','user_join'));
     }
     // -- Create Group--
     public function createGroupAjax(Request $request){
@@ -229,7 +250,7 @@ class GroupPostController extends Controller
         $list_post = PostGroupModel::where('group_id',$id)->orderBy('created_at','DESC')->get();
 
         $a = PostGroupModel::where('user_id',2)->where('group_id',24)->orderBy('created_at','DESC')->get();
-
+        // dd($group->members);
         return view('group_post.group_detail',compact('group','list_post'));  
     }
     // -- Yeu cau tham gia nhom

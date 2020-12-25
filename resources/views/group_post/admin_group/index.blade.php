@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Dashboard 2</title>
+  <title>Quản trị nhóm</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -12,11 +12,12 @@
   <link rel="stylesheet" href="{{asset('Admin/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('Admin/dist/css/adminlte.min.css')}}">
+  <link rel="stylesheet" href="{{asset('Admin/dist/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('Admin/dist/scss/_main-sidebar.scss')}}">
   <!-- Summernote -->
   <link rel="stylesheet" href="{{asset('Admin/plugins/summernote/summernote-bs4.min.css')}}">
   <script src="{{asset('Admin/plugins/jquery/jquery.min.js')}}"></script>
-  <script src="{{asset('Admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
+  <!-- <script src="{{asset('Admin/plugins/summernote/summernote-bs4.min.js')}}"></script> -->
   <script src="{{asset('Toastr/toastr.min.js')}}"></script>
   <link rel="stylesheet" href="{{asset('Toastr/toastr.min.css')}}">
  
@@ -199,11 +200,18 @@
             </ul>
           </li>
           
-          <li class="nav-header">YÊU CẦU THAM GIA NHÓM</li>
+          <li class="nav-header">THÀNH VIÊN NHÓM</li>
           <li class="nav-item">
             <a href="{{url('group-post/admin/'.$group->id.'/join-group')}}" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>Danh sách yêu cầu</p>
+            </a>
+          </li>
+        
+          <li class="nav-item">
+            <a href="{{url('group-post/admin/'.$group->id.'/members')}}" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
+              <p>Danh sách thành viên</p>
             </a>
           </li>
          

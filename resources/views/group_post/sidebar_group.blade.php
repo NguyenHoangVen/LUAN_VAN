@@ -2,7 +2,7 @@
 $user = Auth::user();
 
 ?>
-<div class="col-lg-4 col-md-12 your-group p-0">
+<div class="col-lg-4 col-md-12 your-group p-0 scroll-sidebar-group">
 	<div class="profile">
 		<div class="d-flex">
 			<div class="image-avatar">

@@ -47,13 +47,13 @@
                                             <div class="respon-card">
                                                 <div class="d-flex">
                                                     <div class="avatar" style="width: 50px;height: 50px">
-                                                        <a href="">
+                                                        <a href="user/{{$friend->user_accept->id}}/info">
                                                             <img src="image/image_avatar/{{$friend->user_accept->avatar}}"
                                                                 alt="" class="w-100 h-100">
                                                         </a>
                                                     </div>
                                                     <div class="username"><a
-                                                            href="">{{$friend->user_accept->username}}</a></div>
+                                                            href="user/{{$friend->user_accept->id}}/info">{{$friend->user_accept->username}}</a></div>
                                                 </div>
 
                                                 <div class="send mt-1 dropdown">
@@ -77,13 +77,13 @@
                                             <div class="respon-card">
                                                 <div class="d-flex">
                                                     <div class="avatar" style="width: 50px;height: 50px">
-                                                        <a href="">
+                                                        <a href="user/{{$friend->user_send->id}}/info">
                                                             <img src="image/image_avatar/{{$friend->user_send->avatar}}"
                                                                 alt="" class="w-100 h-100">
                                                         </a>
                                                     </div>
                                                     <div class="username"><a
-                                                            href="">{{$friend->user_send->username}}</a></div>
+                                                            href="user/{{$friend->user_send->id}}/info">{{$friend->user_send->username}}</a></div>
                                                 </div>
 
                                                 <div class="send mt-1 dropdown">
@@ -238,7 +238,7 @@ $('#form-search-all-friends').on('submit', function(e) {
 
     if (key != "") {
         $.ajax({
-            url: 'user/search-all-friend?key='+key,
+            url: 'user/search-all/friend?key='+key,
             type: 'get',
             success: function(data) {
                 $('#search-all-friend .result-search').html(data);

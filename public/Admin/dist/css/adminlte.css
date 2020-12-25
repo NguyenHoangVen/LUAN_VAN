@@ -1,4 +1,4 @@
-/*!
+!
  *   AdminLTE v3.1.0-pre
  *   Author: Colorlib
  *   Website: AdminLTE.io <https://adminlte.io>
@@ -99,7 +99,9 @@ abbr[data-original-title] {
   -webkit-text-decoration-skip-ink: none;
   text-decoration-skip-ink: none;
 }
-
+/* STYLE */
+.avatar img{border-radius: 50%}
+/* /STYLE */
 address {
   margin-bottom: 1rem;
   font-style: normal;
@@ -31288,4 +31290,4 @@ a.text-muted:hover {
 [class*="accent-"] a.btn-dark {
   color: #fff;
 }
-/*# sourceMappingURL=adminlte.css.map */
+/*# sourceMappingURL=adminlte.css.map 

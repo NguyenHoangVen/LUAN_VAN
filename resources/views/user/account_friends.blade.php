@@ -97,32 +97,38 @@
                                                                             href="">{{$friend->user_accept->username}}</a>
                                                                     </div>
                                                                 </div>
-                                                                @if(Auth::user()->id == $friend->id_user_send)
-                                                                @else
-                                                                @if(checkFriend(Auth::user()->id,$friend->id_user_send))
-                                                                <div class="send mt-1 dropdown">
-
-                                                                    <button class="btn btn-light w-100"
-                                                                        data-toggle='dropdown'>Bạn bès</button>
-                                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                                        <div class="dropdown-item delete-friend">Xóa bạn
-                                                                            <input type="hidden" class="friend-id"
-                                                                                value="{{$friend->user_accept->id}}">
+                                                                @if(checkFriend(Auth::user()->id,$friend->user_accept->id))
+                                                                <div class="action">
+                                                                   <div class="send mt-1 dropdown">
+                                                                        <button class="btn btn-light w-100" data-toggle="dropdown" aria-expanded="false">Bạn bè</button>
+                                                                        <div class="dropdown-menu dropdown-menu-right" style="">
+                                                                            <div class="dropdown-item delete-friend">Xóa bạn <input type="hidden" class="friend-id" value="{{$friend->user_accept->id}}"></div>
                                                                         </div>
                                                                     </div>
-
+                                                                </div>
+                                                                @elseif(checkSendInvite(Auth::user()->id,$friend->user_accept->id))
+                                                                <div class="action">
+                                                                    <div class="send mt-1">
+                                                                        <button class="btn btn-danger w-100 delete-request">Hủy
+                                                                            <input type="hidden" class="receive_id" value="{{$friend->user_accept->id}}">
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                @elseif(checkReceiveInvite(Auth::user()->id,$friend->user_accept->id))
+                                                                <div class="action">
+                                                                    <div class="send mt-1"><button class="btn btn-success w-100 received-request">Chấp nhận
+                                                                    <input type="hidden" class="send_id" value="{{$friend->user_accept->id}}">
+                                                                    </button></div>
                                                                 </div>
                                                                 @else
-                                                                <div class="send mt-1"><button
-                                                                        class="btn btn-primary w-100 send-request">Thêm
-                                                                        bạn
-                                                                        <input type="hidden" class="receive_id"
-                                                                            value="{{$friend->id_user_send}}">
-                                                                        <!-- <input type="hidden" class="status" value="send"> -->
-                                                                    </button></div>
-                                                                @endif
+                                                                <div class="action">
+                                                                    <div class="send mt-1"><button class="btn btn-primary w-100 send-request">Thêm bạn
+                                                                            <input type="hidden" class="receive_id" value="{{$friend->user_accept->id}}">
+                                                                        </button></div>
+                                                                </div>
                                                                 @endif
 
+                                                               
                                                             </div>
                                                         </div>
                                                     </div>
@@ -144,28 +150,35 @@
                                                                             href="">{{$friend->user_send->username}}</a>
                                                                     </div>
                                                                 </div>
-                                                                @if(Auth::user()->id == $friend->id_user_accept)
-                                                                @else
-                                                                @if(checkFriend(Auth::user()->id,$friend->id_user_accept))
-                                                                <div class="send mt-1 dropdown">
-                                                                    <button class="btn btn-light w-100"
-                                                                        data-toggle='dropdown'>Bạn bv</button>
-                                                                    <div class="dropdown-menu dropdown-menu-right">
-                                                                        <div class="dropdown-item delete-friend">Xóa bạn
-                                                                            <input type="hidden" class="friend-id"
-                                                                                value="{{$friend->id_user_accept}}">
+                                                                @if(checkFriend(Auth::user()->id,$friend->user_send->id))
+                                                                <div class="action">
+                                                                   <div class="send mt-1 dropdown">
+                                                                        <button class="btn btn-light w-100" data-toggle="dropdown" aria-expanded="false">Bạn bè</button>
+                                                                        <div class="dropdown-menu dropdown-menu-right" style="">
+                                                                            <div class="dropdown-item delete-friend">Xóa bạn <input type="hidden" class="friend-id" value="{{$friend->user_send->id}}"></div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                @else
-                                                                <div class="send mt-1"><button
-                                                                        class="btn btn-primary w-100 send-request">Thêm
-                                                                        bạn
-                                                                        <input type="hidden" class="receive_id"
-                                                                            value="{{$friend->id_user_accept}}">
-                                                                        <!-- <input type="hidden" class="status" value="send"> -->
+                                                                @elseif(checkSendInvite(Auth::user()->id,$friend->user_send->id))
+                                                                <div class="action">
+                                                                    <div class="send mt-1">
+                                                                        <button class="btn btn-danger w-100 delete-request">Hủy
+                                                                            <input type="hidden" class="receive_id" value="{{$friend->user_send->id}}">
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                @elseif(checkReceiveInvite(Auth::user()->id,$friend->user_send->id))
+                                                                <div class="action">
+                                                                    <div class="send mt-1"><button class="btn btn-success w-100 received-request">Chấp nhận
+                                                                    <input type="hidden" class="send_id" value="{{$friend->user_send->id}}">
                                                                     </button></div>
-                                                                @endif
+                                                                </div>
+                                                                @else
+                                                                <div class="action">
+                                                                    <div class="send mt-1"><button class="btn btn-primary w-100 send-request">Thêm bạn
+                                                                            <input type="hidden" class="receive_id" value="{{$friend->user_send->id}}">
+                                                                        </button></div>
+                                                                </div>
                                                                 @endif
 
                                                             </div>
@@ -205,116 +218,37 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-// === CLICK LAY TAT CA TRANG THAI THEO TAB===
-// 1. Tab all friend
-$('.tab-friend').on('click', function() {
-    var status = $(this).find('.status').val();
 
-    $.ajax({
-        url: "{{url('user/get-tab-friend')}}",
-        dataType: 'json',
-        data: {
-            status: status
-        },
-        type: 'post',
-        success: function(data) {
-            if (status == 'request') {
-                $('#received-request .list-friends .row').html(data.html_result);
-                receiveReuqest();
-            }
-            if (status == 'sended') {
-                $('#sended-request .list-friends .row').html(data.html_result);
-                deleteRequest();
-            }
-            if (status == 'all-friend') {
-                $('#all-friends .list-friends .row').html(data.html_result);
-                deleteFriend()
-                // console.log(data)
-            }
-
-
-        }
-    })
-
-})
-// == TIM KIEM TAT CA BAN BE ==
-$('#form-search-all-friends').on('submit', function(e) {
-    e.preventDefault();
-    var key = $(this).find('.key').val();
-
-    if (key != "") {
+receiveReuqest2();
+function receiveReuqest2() {
+    $('.received-request').click(function(e) {
+        e.preventDefault();
+        // 1. Chap nhan yeu cau cua ai, send_id
+        var send_id = $(this).find('.send_id').val();
         $.ajax({
-            url: "{{url('user/search-all-friend')}}",
+            url: "{{url('user/accept-request-add-friend')}}",
             dataType: 'json',
             data: {
-                key: key
+                send_id: send_id
             },
             type: 'post',
             success: function(data) {
-                console.log(data)
-                if (data.success) {
-                    $('#search-all-friend .list-friends').html(data.user);
-                    sendRequest();
-                }
-            }
-        })
-    }
-
-})
-
-
-// == XOA YEU CAU KET BAN ===
-deleteRequest();
-
-function deleteRequest() {
-    $('.delete-request').click(function() {
-        var receive_id = $(this).find('.receive_id').val();
-
-        $.ajax({
-            url: "{{url('user/delete-request-add-friend')}}",
-            dataType: 'json',
-            data: {
-                receive_id: receive_id
-            },
-            type: 'post',
-            success: function(data) {
-
-                $('#sended-request .friend-' + data.result).remove();
-                console.log(data)
-
-            }
-        })
-    })
-}
-// == GUI YEU CAU KET BAN AJAX ==
-sendRequest();
-
-function sendRequest() {
-    $('.send-request').click(function() {
-
-        var receive_id = $(this).find('.receive_id').val();
-        alert(receive_id)
-        $.ajax({
-            url: "{{url('user/send-request-add-friend')}}",
-            dataType: 'json',
-            data: {
-                receive_id: receive_id
-            },
-            type: 'post',
-            success: function(data) {
-                $('#suggestions-friend .friend-' + receive_id).remove();
-                deleteRequest();
+                var html = '<div class="send mt-1 dropdown">'
+                        +'<button class="btn btn-light w-100" data-toggle="dropdown"'
+                        +'aria-expanded="false">Bạn bè</button>'
+                        +'<div class="dropdown-menu dropdown-menu-right" style="">'
+                        +'<div class="dropdown-item delete-friend">Xóa bạn <input '
+                        +'type="hidden" class="friend-id" value="'+send_id+'"></div>'
+                        +'</div></div>';
+                $('.friend-'+send_id +' .action').html(html)
+                deleteFriend2();
             }
         })
 
     })
 }
-
-
-// == XOA BAN BE ===
-deleteFriend()
-
-function deleteFriend() {
+deleteFriend2();
+function deleteFriend2() {
     $('.delete-friend').on('click', function() {
         var friend_id = $(this).find('.friend-id').val();
 
@@ -326,9 +260,57 @@ function deleteFriend() {
             },
             type: 'post',
             success: function(data) {
+                var html = '<div class="send mt-1"><button class="btn btn-primary w-100 send-request">Thêm bạn'
+                    +'<input type="hidden" class="receive_id" value="'+friend_id+'">'
+                    +'</button></div>';
+                $('.friend-'+friend_id +' .action').html(html)
+                sendRequest2();
+            }
+        })
+    })
+}
+sendRequest2();
+function sendRequest2() {
+    $('.send-request').click(function() {
+        var receive_id = $(this).find('.receive_id').val();
+        $.ajax({
+            url: "{{url('user/send-request-add-friend')}}",
+            dataType: 'json',
+            data: {
+                receive_id: receive_id
+            },
+            type: 'post',
+            success: function(data) {
+                var html = '<div class="action">'
+                            +'<div class="send mt-1">'
+                            +'<button class="btn btn-danger w-100 delete-request">Hủy'
+                            +'<input type="hidden" class="receive_id" value="'+receive_id+'">'
+                            +'</button></div></div>'
+                           
+                $('.friend-'+receive_id +' .action').html(html)
+                deleteRequest2();
+            }
+        })
 
-                $('#all-friends .friend-' + friend_id).remove()
-                console.log(data)
+    })
+}
+deleteRequest2();
+function deleteRequest2() {
+    $('.delete-request').click(function() {
+        var receive_id = $(this).find('.receive_id').val();
+        $.ajax({
+            url: "{{url('user/delete-request-add-friend')}}",
+            dataType: 'json',
+            data: {
+                receive_id: receive_id
+            },
+            type: 'post',
+            success: function(data) {
+                var html = '<div class="send mt-1"><button class="btn btn-primary w-100 send-request">Thêm bạn'
+                    +'<input type="hidden" class="receive_id" value="'+receive_id+'">'
+                    +'</button></div>';
+                $('.friend-'+receive_id +' .action').html(html)
+                sendRequest2();
             }
         })
     })

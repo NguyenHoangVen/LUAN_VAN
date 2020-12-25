@@ -13,18 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-	// $chuoi1 = "nguyen,hoangven,hoang,ven";
-	// $chuoi2 = "nguyen,hoang";
-	// $chuoi1 = explode(',',$chuoi1);
-	// $chuoi2 = explode(',',$chuoi2);
-	$chuoi1 = '["hoangven","nguyen","ven"]';
-	$chuoi2 = ['nguyen','ven'];
+// Route::get('/', function () {
+// 	// $chuoi1 = "nguyen,hoangven,hoang,ven";
+// 	// $chuoi2 = "nguyen,hoang";
+// 	// $chuoi1 = explode(',',$chuoi1);
+// 	// $chuoi2 = explode(',',$chuoi2);
+// 	$chuoi1 = '["hoangven","nguyen","ven"]';
+// 	$chuoi2 = ['nguyen','ven'];
 
-	dd(json_decode($chuoi1));
-	$c = json_encode($chuoi1);
+// 	dd(json_decode($chuoi1));
+// 	$c = json_encode($chuoi1);
 
-});
+// });
 
 // =============MODULE GROUP POST=========
 Route::group(['prefix'=>'group-post'],function(){
@@ -36,6 +36,8 @@ Route::group(['prefix'=>'group-post'],function(){
 	Route::get('admin/{id}/post-report','GroupPostController@postReport');
 	Route::get('admin/{id}/join-group','GroupPostController@joinGroup');
 	Route::get('admin/{id}','GroupPostController@adminGroup');
+	Route::get('admin/{id}/members','GroupPostController@membersGroup');
+	Route::post('admin/leave-group-member','GroupPostController@leaveGroupMember');
 	// =====USER==== 
 	Route::post('delete-post','GroupPostController@deletePost');
 	// Edit
@@ -52,6 +54,8 @@ Route::group(['prefix'=>'group-post'],function(){
 	Route::get('search','GroupPostController@searchGroup');
 	Route::post('create-ajax','GroupPostController@createGroupAjax');
 	Route::post('ajax-upload-images','GroupPostController@uploadImagePostGroupAjax');
+	Route::get('leave-group/{id_user}/{id_group}','GroupPostController@leaveGroup');
+
 });
 Route::get('carwl','UserController@carwl');
 // =========== MODULE TEAM PHUOT ======
@@ -152,7 +156,7 @@ Route::post('add-topic-ajax','PlaceController@addTopicAjax');
 
 
 // =============MODULE USER==============
-
+Route::get('/','HomeController@home_view');
 Route::get('home','HomeController@home_view');
 // thong tin tai khoan
 Route::post('view-profile-ajax','UserController@viewProfileAjax');
@@ -175,7 +179,7 @@ Route::group(['prefix'=>'chat'],function(){
 	Route::get('video','ChatController@chatVideo');
 });
 Route::group(['prefix'=>'user'],function(){
-	Route::get('{id}/account','UserController@profileUser');
+	Route::get('{id}','UserController@profileUser');
 	Route::get('{id}/forum','UserController@userForum');
 	Route::get('{id}/create-topic','UserController@userCreateTopic');
 	Route::get('{id}/review-topic','UserController@userReviewTopic');
@@ -183,7 +187,7 @@ Route::group(['prefix'=>'user'],function(){
 	
 	// === Tab ban be
 	// 1. Tim ban
-	Route::get('search-all-friend','UserController@searchAllFriend');
+	Route::get('search-all/friend','UserController@searchAllFriend');
 	// 2. Yeu cau ket ban
 	Route::post('send-request-add-friend','UserController@sendRequestAddFriend');
 	// 3. Xoa yeu cau ket ban

@@ -1,0 +1,15 @@
+/* STYLE */
+.avatar img{border-radius: 50%}
+/* /STYLE */
+.username{
+	font-weight: bold;
+    color: #5d5d5d;
+}
+.username a{
+	font-size: 18px;
+    font-weight: bold;
+    color: #3e3d3dc7;
+    margin-top: 10px;
+    margin-left: 10px;
+    display: block;
+}

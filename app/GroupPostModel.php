@@ -14,4 +14,7 @@ class GroupPostModel extends Model
    	public function posts(){
     	return $this->hasMany('App\PostGroupModel','group_id','id');
     }
+    public function members(){
+    	return $this->hasMany('App\MemberGroupPostModel','group_id','id');
+    }
 }

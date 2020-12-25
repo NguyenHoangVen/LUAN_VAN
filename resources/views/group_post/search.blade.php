@@ -57,25 +57,26 @@
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h4 class="modal-title">Thành viên của nhóm (18 Thành viên)</h4>
+									<?php $num = count($item->members)?>
+									<h4 class="modal-title">Thành viên của nhóm ({{$num}} Thành viên)</h4>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 									
 								</div>
 								<div class="modal-content container">
 									<div class="row">
-										@for($j=1;$j<=5;$j++)
+										@foreach($item->members as $member)
 										<div class="col-6">
-											<div class="info-user d-flex p-2">
+											<div class="info-user d-flex">
 												<div class="image-avatar mr-3">
-													<a href="" class="avatar d-block"><img src="https://img3.thuthuatphanmem.vn/uploads/2019/06/08/hinh-nen-hotgirl-duyen-dang_125438813.jpg" alt="" style="width: 40px;height: 40px"></a>
+													<a href="" class="avatar d-block"><img src="image/image_avatar/{{$member->user->avatar}}" alt=""></a>
 												</div>
 												<div class="create">
-													<a href="" class="username">HoangVen</a>
-													<div class="time">10/12/2000</div>
+													<a href="" class="username">{{$member->user->username}}</a>
+													<div class="time">{{$member->created_at->format('d-m-Y')}}</div>
 												</div>
 											</div>
 										</div>
-										@endfor
+										@endforeach
 
 									</div>
 								</div>

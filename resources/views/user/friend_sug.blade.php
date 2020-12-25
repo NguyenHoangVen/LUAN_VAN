@@ -10,11 +10,11 @@
                     <div class="respon-card">
                         <div class="d-flex">
                             <div class="avatar" style="width: 50px;height: 50px">
-                                <a href="">
+                                <a href="user/{{$friend->id}}/info">
                                     <img src="image/image_avatar/{{$friend->avatar}}" alt="" class="w-100 h-100">
                                 </a>
                             </div>
-                            <div class="username"><a href="">{{$friend->username}}</a></div>
+                            <div class="username"><a href="user/{{$friend->id}}/info">{{$friend->username}}</a></div>
                         </div>
 
                         <div class="send mt-1"><button class="btn btn-primary w-100 send-request">Thêm bạn

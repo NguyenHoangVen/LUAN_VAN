@@ -14,7 +14,7 @@
 #login .wp-form-login h1 ,.wp-form-register h1{
     font-size: 20px;
     padding: 10px;
-    background: #0548ff;
+    background: var(--root-color);
     margin-bottom: 30px;
     text-align: center;
     color: white;

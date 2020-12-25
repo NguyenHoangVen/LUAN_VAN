@@ -6,9 +6,9 @@
 						if(Auth::check()) echo Auth::user()->id
 						?>">
 						<div class="col-12 d-flex justify-content-between">
-							<div id="logo">
-								<a href="{{url('home')}}" title="" class="d-block"><img src="https://staticproxy.mytourcdn.com/200x58,q90/themes/images/logo-mytour.png?v=1.0.2" alt="" ></a>
-							</div>
+							<!-- <div id="logo"> -->
+								<a href="{{url('home')}}" title="" class="d-block" id="logo"><img src="image/logo/logophuot.png" alt="" ></a>
+							<!-- </div> -->
 							<div id="nav-respon" class="d-block d-md-none">
                                 <i class="fas fa-bars"></i>
                             </div>
@@ -55,7 +55,7 @@
 	                            		
 	                            		<a href="{{url('add-place')}}" class="write-post"><i class="fas fa-pencil-alt"></i></a>
 	                            		
-                            			<a href="{{url('user')}}/{{Auth::user()->id}}/account" class="avatar d-block "><img class="avatar{{Auth::user()->id}}" src="image/image_avatar/{{Auth::user()->avatar}}" alt=""></a>
+                            			<a href="{{url('user')}}/{{Auth::user()->id}}" class="avatar d-block "><img class="avatar{{Auth::user()->id}}" src="image/image_avatar/{{Auth::user()->avatar}}" alt=""></a>
 	                            			
 	                            		</div>
 	                            	</div>
