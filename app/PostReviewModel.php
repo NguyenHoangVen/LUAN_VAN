@@ -14,5 +14,8 @@ class PostReviewModel extends Model
     public function topic(){
     	return $this->belongsTo('App\TopicModel','topic_id','id');
     }
+    public function reports(){
+    	return $this->hasMany('App\ReportPostTopicModel','post_id','id');
+    }
     
 }

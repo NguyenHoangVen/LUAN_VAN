@@ -1,6 +1,9 @@
 @extends('layouts.index')
 @section('content')
-<?php $image_topic = json_decode($topic->image) ?>
+<?php 
+$image_topic = json_decode($topic->image);
+$user_id = Auth::user()->id;
+?>
 <div id="content">
     <div class="overview-place" id="forum">
         <div class="post bk-img overlay"
@@ -177,7 +180,7 @@
                             @if(count($post_review) > 0)
                             <ul class="list-post mb-2">
                                 @foreach($post_review as $post)
-                                <li class="d-flex">
+                                <li class="d-flex pr-2 post-review-{{$post->id}}">
                                     <a href="#" class="avatar d-block mr-3"><img class="img-50"
                                             src="image/image_avatar/{{$post->user->avatar}}" alt=""></a>
                                     <div class="info-desc">
@@ -193,6 +196,49 @@
                                         <div class="time mt-2"><i class="fas fa-calendar-alt mr-1"></i>
                                             {{$post->created_at->format('d-m-Y')}}</div>
                                     </div>
+                                     <div class="report-follow dropdown dropleft ml-auto"><i class="fas fa-ellipsis-h"
+                                            data-toggle='dropdown'></i>
+                                        <div class="dropdown-menu ">
+                                            @if(isCreatePost($post->id,$user_id))
+                                            <a class="dropdown-item" data-toggle="modal" data-target="#reportPostTopic{{$post->id}}">Báo cáo</a>
+                                            <a href="{{url('topic/edit-post')}}/{{$post->id}}" class="dropdown-item">Chỉnh sửa</a>
+                                            <a href="" class="dropdown-item delete-post">Xóa
+                                                <input type="hidden" class="delete-post-id" value="{{$post->id}}">
+                                            </a>
+                                            @else
+                                            <a class="dropdown-item" data-toggle="modal" data-target="#reportPostTopic{{$post->id}}">Báo cáo</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <!-- bao cao noi dung -->
+                                    <div id="reportPostTopic{{$post->id}}" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <form action="" class="form-report-post">
+
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Báo cáo bài viết</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">X</button>
+                                                        
+                                                    </div>
+                                                    <div class="modal-body">
+
+                                                        <textarea class="form-control content-report" name="reason" rows="5" placeholder="Lý do báo cáo bài viết..."></textarea>
+                                                        <!-- success report -->
+                                                        <div class="mt-2 alert alert-default-primary d-none">Đã gửi nội dung báo cáo!</div>
+                                                        <input type="hidden" name="post_id" value="{{$post->id}}" class="id_post_report">
+                                                    </div>
+                                                    
+                                
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-success send-report" disabled="disabled">Gửi</button>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- ./bao cao noi dung -->
                                 </li>
                                 @endforeach
 
@@ -216,7 +262,7 @@
                             @if(count($post_review1) > 0)
                             <ul class="list-post mb-2">
                                 @foreach($post_review1 as $post)
-                                <li class="d-flex">
+                                <li class="d-flex pr-2 post-review-{{$post->id}}">
                                     <a href="#" class="avatar d-block mr-3"><img class="img-50"
                                             src="image/image_avatar/{{$post->user->avatar}}" alt=""></a>
                                     <div class="info-desc">
@@ -232,6 +278,49 @@
                                         <div class="time mt-2"><i class="fas fa-calendar-alt mr-1"></i>
                                             {{$post->created_at->format('d-m-Y')}}</div>
                                     </div>
+                                    <div class="report-follow dropdown dropleft ml-auto"><i class="fas fa-ellipsis-h"
+                                            data-toggle='dropdown'></i>
+                                        <div class="dropdown-menu">
+                                            @if(isCreatePost($post->id,$user_id))
+                                            <a class="dropdown-item" data-toggle="modal" data-target="#reportPostTopic{{$post->id}}">Báo cáo</a>
+                                            <a href="{{url('topic/edit-post')}}/{{$post->id}}" class="dropdown-item">Chỉnh sửa</a>
+                                            <a href="" class="dropdown-item delete-post">Xóa
+                                                <input type="hidden" class="delete-post-id" value="{{$post->id}}">
+                                            </a>
+                                            @else
+                                            <a class="dropdown-item" data-toggle="modal" data-target="#reportPostTopic{{$post->id}}">Báo cáo</a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <!-- bao cao noi dung -->
+                                    <div id="reportPostTopic{{$post->id}}" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <form class="form-report-post" >
+                                                
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">Báo cáo bài viết</h4>
+                                                        <button type="button" class="close" data-dismiss="modal">X</button>
+                                                        
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <textarea class="form-control content-report" name="reason" rows="5" placeholder="Lý do báo cáo bài viết..."></textarea>
+                                                        <!-- success report -->
+                                                        
+                                                        <div class="mt-2 alert alert-default-primary d-none">Đã gửi nội dung báo cáo!</div>
+                                                        <input type="hidden" name="post_id" value="{{$post->id}}" class="id_post_report">
+                                                    </div>
+                                                    
+                                
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-success send-report" disabled="disabled">Gửi</button>
+                                                    </div>
+                                                    
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- ./bao cao noi dung -->
                                 </li>
                                 @endforeach
 
@@ -755,6 +844,79 @@
 <script src="js/uploadfile.js"></script>
 
 <script>
+// ====Delete post review====
+$('.delete-post').click(function(e){
+    var r = confirm("Bạn có chắc muốn xóa bài viết này?");
+    var post_id = $(this).find('.delete-post-id').val();
+    if(r == true){
+        e.preventDefault();
+       
+        var post_id = $(this).find('.delete-post-id').val();
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{url('topic/delete-post')}}",
+            dataType:'json',
+            data: {post_id:post_id},
+            type:'post',
+            success:function(data){
+                console.log(data)
+                $('.post-review-'+post_id).remove();
+            }
+        })
+    }
+    
+})
+// ====REPORT POST ON TOPIC=====
+var user_id = "{{Auth::user()->id}}"
+disableReport();
+sendReport();
+function sendReport(){
+    $('.form-report-post').on('submit',function(e){
+        e.preventDefault()
+        
+        var data = new FormData(this);
+        var post_id = $(this).find('.id_post_report').val();
+    
+        $(this).find('.content-report').val('');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{url('topic/report-post')}}",
+            dataType:'json',
+            data: data,
+            type:'post',
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+                console.log(data)
+                $('.alert-default-primary').removeClass('d-none');
+                var a = setInterval(function(){ 
+                    $('.alert-default-primary').addClass('d-none');
+                    
+                    $('#reportPostTopic'+post_id).modal('hide');   
+                    clearInterval(a);
+                }, 2500);  
+            }
+        })
+       
+       
+    })
+}
+function disableReport(){
+    $('.content-report').on('change keyup paste',function(){
+        
+        if($(this).val() == ''){
+            $('.send-report').attr('disabled','disabled');   
+        }else{
+            $('.send-report').removeAttr('disabled')
+        }
+        
+    })
+}
 // === XOA BINH LUAN=== 
 delete_comment();
 function delete_comment(){

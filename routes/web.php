@@ -9,6 +9,8 @@ Route::group(['prefix'=>'admin-page'],function(){
 	Route::get('/','AdminController@index');
 	Route::post('delete-account','AdminController@deleteAccount');
 	Route::get('search-account','AdminController@searchAaccount');
+	Route::get('post-report','AdminController@postReport');
+	Route::post('delete-post-report','AdminController@deletePostReport');
 });
 // =============MODULE GROUP POST=========
 Route::group(['prefix'=>'group-post'],function(){
@@ -131,6 +133,14 @@ Route::group(['prefix'=>'topic'],function(){
 	Route::post('search-place','HomeController@searchPlaceOnMap');
 	// 3. Xoa binh luan ajax
 	Route::post('delete-comment-ajax','PlaceController@deleteCommentAjax');
+	// 4. Bao cao ve bai viet tren topic
+	Route::post('report-post','PlaceController@reportPost');
+	// 5. Xoa bai viet tren topic
+	Route::post('delete-post','PlaceController@deletePost');
+	// 6. Chinh sua bai viet tren topic
+	Route::get('edit-post/{id}','PlaceController@editPostReview');
+	Route::post('edit-post','PlaceController@postEditPostReview');
+
 	
 });
 

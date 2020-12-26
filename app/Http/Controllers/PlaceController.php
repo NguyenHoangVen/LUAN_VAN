@@ -10,10 +10,42 @@ use App\PostReviewModel;
 use App\RatingTopicModel;
 use App\CommentTopicModel;
 use App\ImagesTopicModel;
+use App\ReportPostTopicModel;
 use Auth;
 use Session;
 class PlaceController extends Controller
 {
+    // 
+    // 6. Chinh sua bai viet tren topic
+    public function editPostReview($id){
+        $post = PostReviewModel::find($id);
+        $region = RegionModel::all();
+        return view('place.edit_place',compact('post','region'));
+    }
+    public function postEditPostReview(Request $request){
+        $post = PostReviewModel::find($request->post_id);
+        $post->title = $request->title;
+        $post->topic_id = $request->id_topic;
+        $post->content = $request->content;
+        $post->category = $request->category;
+        $post->save();
+        Session::flash('update_success','Cập nhật thành công!');
+        return redirect()->back();
+    }
+    // 5. Xoa bai viet tren chu de
+    public function deletePost(Request $request){
+        PostReviewModel::find($request->id)->delete();
+        return Response()->json(array('ok'=>$request->all()));
+    }
+    // 4. Bao cao ve baii viet tren topic
+    public function reportPost(Request $request){
+        $report = new ReportPostTopicModel();
+        $report->user_id = Auth::user()->id;
+        $report->content = $request->reason;
+        $report->post_id = $request->post_id;
+        $report->save();
+        return Response()->json(array('ok'=>$request->all()));
+    }
     // 3. Xoa binh luan ajax
     public function deleteCommentAjax(Request $request){
        
@@ -132,7 +164,7 @@ class PlaceController extends Controller
     // == XEM CAC POST REVIEW VỀ MỘT ĐỊA ĐIỂM (CHỦ ĐỀ)==
     public function topicDetail($id){
         load('Helpfunction','rating');
-        load('Helpfunction','team');
+        load('Helpfunction','topic');
         load('Helpfunction','slug');
         // dd(checkCommentTopic(2,9));
         $sum_star = \DB::table('rating_topic')

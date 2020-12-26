@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Quản lí thành viên trong nhóm</h1>
+            <h1>Quản lí tài khoản người dùng</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="">Home</a></li>
-              <li class="breadcrumb-item active">Danh sách thành viên</li>
+              <li class="breadcrumb-item active">Danh sách tài khoản</li>
             </ol>
           </div>
         </div>
@@ -25,7 +25,7 @@
           <div class="row">
             <div class="btn alert-default-primary mb-2 num_account mr-4">
               <i class="fas fa-users"></i>
-              {{count($list_account)}} Thành viên
+              {{count($list_account)}} Tài khoản
             </div>
             <form action="" class="form-search-account">
               <div class="d-flex">

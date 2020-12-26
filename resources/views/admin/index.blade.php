@@ -44,38 +44,14 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
-              <p>
-                QUẢN LÍ BÀI VIẾT
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="http://localhost:8000/group-post/admin/24/post-pending" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Bài Viết Chờ Duyệt</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="http://localhost:8000/group-post/admin/24/post-report" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Bài Viết Bị Báo Cáo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{url('admin-page')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Tất Cả Bài Viết</p>
-                </a>
-              </li>
-              
-            </ul>
-          </li>
           
+          <li class="nav-header">QUẢN LÍ BÀI VIẾT</li>
+          <li class="nav-item">
+            <a href="{{url('admin-page/post-report')}}" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
+              <p>Bài viết bị báo cáo</p>
+            </a>
+          </li>
           <li class="nav-header">QUẢN LÍ TÀI KHOẢN NGƯỜI DÙNG</li>
           <li class="nav-item">
             <a href="{{url('admin-page')}}" class="nav-link">

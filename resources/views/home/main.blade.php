@@ -252,7 +252,7 @@ console.log(JSON.parse(a)[0])
 <script>
 $(".owl-carousel").owlCarousel({
 
-    autoPlay: 3500,
+    autoPlay: 4000,
     items: 4,
 
     center: true,
