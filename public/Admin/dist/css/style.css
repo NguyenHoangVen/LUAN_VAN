@@ -13,3 +13,55 @@
     margin-left: 10px;
     display: block;
 }
+.card-header{
+	background: #e8e8e894;
+}
+.avatar img {
+    width: 40px;
+    height: 40px;
+}
+.post-content,.card-body {
+    overflow: hidden;
+}
+/* ===STYLE SIDEBAR ====*/
+.brand-link{
+	border-bottom: 1px solid #c1bfbf;
+    background: #eaf4f5;
+}
+.info a{
+	color: #a09d9d;
+    font-weight: bold;
+}
+.user-panel{border-bottom: 1px solid #c1bfbf;}
+.main-sidebar .brand-text,.user-panel{color: black;}
+.main-sidebar li:hover>a{
+	background: #ebebff;
+    border-radius: 3px;
+}
+.form-error {
+    color: #f14f4f;
+    margin-bottom: 10px;
+    font-style: italic;
+    padding: 0px 10px;
+}
+/* ===STYLE UPDATE INFO GROUP=== */
+.title-action h1 {
+    font-size: 20px;
+    font-weight: bold;
+}
+.title-action a {
+    position: relative;
+    width: 80px;
+}
+.input-file-imgcover {
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    opacity: 0;
+    cursor: pointer;
+}
+.image-cover img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}

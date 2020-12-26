@@ -6,12 +6,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>QUẢN LÝ BÀI VIẾT BỊ BÁO CÁO</h1>
+            <h1>QUẢN LÍ BÀI VIẾT</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Bài viết bị báo cáo</li>
+              <li class="breadcrumb-item active">Tất cả bài viết</li>
             </ol>
           </div>
         </div>
@@ -25,11 +25,11 @@
       
         <!-- Post report -->
         <div class="row">
-          @if(count($report_post) > 0)
+          @if(count($list_post) > 0)
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"><b>Danh sách bài viết bị báo cáo</b></h3>
+                <h3 class="card-title"><b>Danh sách bài viết</b></h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
@@ -48,7 +48,7 @@
                   </thead>
                   <tbody>
                     <?php $stt = 0?>
-                    @foreach($report_post as $post)
+                    @foreach($list_post as $post)
                     <?php $stt++?>
                     <tr class="report-post{{$post->id}}">
                       <td style="text-align:center;">
@@ -73,51 +73,7 @@
                         {{$post->updated_at->format('d-m-Y')}}
                       </td>
 
-                      <td style="text-align:center;">
-                       
-                          <div class="btn btn-sm btn-danger" 
-                           title="Các báo cáo" data-toggle='modal' data-target='#report-post{{$post->id}}'
-                          >
-                            <i class="far fa-check-square"></i>
-                          </div>
-                          <!-- Modal cac bao cao ve bai viet -->
-                          <div id="report-post{{$post->id}}" class="modal fade" >
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <h4 class="modal-title">Các báo cáo về bài viết</h4>
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                 
-                                  <div class="col-12">
-                                    <div class="card-footer card-comments">
-                                       @foreach($post->reports as $item)
-                                      <div class="card-comment">
-                                        <!-- User image -->
-                                        <img class="img-circle img-sm" src="{{asset('image/image_avatar')}}/{{$item->user->avatar}}" alt="User Image">
-
-                                        <div class="comment-text text-justify">
-                                          <span class="username text-left">
-                                            {{$item->user->username}}
-                                            <span class="text-muted float-right">{{$item->created_at->format('d-m-Y')}}</span>
-                                          </span><!-- /.username -->
-                                          {{$item->content}}
-                                        </div>
-                                        <!-- /.comment-text -->
-                                      </div>
-                                      @endforeach
-                                     
-                                    </div>
-                                  </div>
-                                  
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                         
-                       
-                      </td>
+                      
 
                       <td style="text-align:center;">
                         <div class="btn btn-sm btn-success" 
@@ -170,18 +126,21 @@
                       </td>
                     </tr>
                     @endforeach
+
                   </tbody>
                 </table>
+
               </div>
 
              
               <!-- /.card-body -->
             </div>
+            <div style="" class="d-flex justify-content-center">{!!$list_post->links()!!}</div>
             <!-- /.card -->
           </div>
           @else
           <div class="col-md-12">
-            <div class="alert alert-default-primary w-100">Không có bài viết nào bị báo cáo</div>
+            <div class="alert alert-success w-100">Không có bài viết nào bị báo cáo</div>
           </div>
           @endif
           <!-- /.col -->
@@ -209,6 +168,7 @@
 <script>
   // === Xóa bài viết bị báo cáo===
   $('.delete-post-report').on('click',function(){
+
     var post_id = $(this).find('.post-id').val();
     var r = confirm("Bạn có muốn xóa bài viết này?");
     if(r==true){
@@ -231,6 +191,7 @@
         }
       })
     }
+    
   })
   //Click chọn tất cả các checkbox
 

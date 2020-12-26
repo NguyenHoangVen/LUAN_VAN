@@ -2,30 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes NguyenHoangVen
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-// Route::get('/', function () {
-// 	// $chuoi1 = "nguyen,hoangven,hoang,ven";
-// 	// $chuoi2 = "nguyen,hoang";
-// 	// $chuoi1 = explode(',',$chuoi1);
-// 	// $chuoi2 = explode(',',$chuoi2);
-// 	$chuoi1 = '["hoangven","nguyen","ven"]';
-// 	$chuoi2 = ['nguyen','ven'];
 
-// 	dd(json_decode($chuoi1));
-// 	$c = json_encode($chuoi1);
-
-// });
-
+// ============= MODULE ADMIN ========
+Route::group(['prefix'=>'admin-page'],function(){
+	Route::get('/','AdminController@index');
+	Route::post('delete-account','AdminController@deleteAccount');
+	Route::get('search-account','AdminController@searchAaccount');
+});
 // =============MODULE GROUP POST=========
 Route::group(['prefix'=>'group-post'],function(){
 	// admin
@@ -34,10 +18,13 @@ Route::group(['prefix'=>'group-post'],function(){
 	Route::post('admin/accept-ajax','GroupPostController@acceptMember');
 	Route::get('admin/{id}/post-pending','GroupPostController@postPending');
 	Route::get('admin/{id}/post-report','GroupPostController@postReport');
+	Route::get('admin/{id}/all-post','GroupPostController@allPost');
 	Route::get('admin/{id}/join-group','GroupPostController@joinGroup');
 	Route::get('admin/{id}','GroupPostController@adminGroup');
 	Route::get('admin/{id}/members','GroupPostController@membersGroup');
 	Route::post('admin/leave-group-member','GroupPostController@leaveGroupMember');
+	Route::post('admin/update-group-post','GroupPostController@updateGroupPost');
+	Route::get('admin/delete-group/{id}','GroupPostController@deleteGroup');
 	// =====USER==== 
 	Route::post('delete-post','GroupPostController@deletePost');
 	// Edit

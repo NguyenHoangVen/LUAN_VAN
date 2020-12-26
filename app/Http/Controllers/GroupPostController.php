@@ -15,6 +15,34 @@ use Session;
 class GroupPostController extends Controller
 {
     // ==QUAN TRI GROUP POST===
+    // Xoa nhom 
+    public function deleteGroup($id){
+        GroupPostModel::find($id)->delete();
+        return redirect('group-post');
+    }
+    // Cap nhat nhom
+    public function updateGroupPost(Request $request){
+        $group = GroupPostModel::find($request->group_id);
+        if($request->hasFile('image')){
+            $filename = $_FILES['image']['name'];
+            $location = $_FILES["image"]["tmp_name"];
+            $group->avatar = $filename;
+            move_uploaded_file($location, public_path('upload/avatar_group/').$filename);
+        } 
+       
+        $group->name = $request->name_group;
+        $group->save(); 
+        return Response()->json(array('ok'=>$request->all()));
+    }
+    // Tat ca bai viet tren nhom
+    public function allPost($group_id){
+        $group = GroupPostModel::find($group_id);
+        $list_post = PostGroupModel::where('group_id',$group_id)
+        ->where('status',1)->paginate(3);
+        
+        return view('group_post.admin_group.all_post',compact('group','list_post'));
+
+    }
     // Moi thanh vien khoi nhom
     public function leaveGroupMember(Request $request){
         MemberGroupPostModel::where('user_id',$request->user_id)

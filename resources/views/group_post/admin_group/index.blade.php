@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="{{asset('Admin/plugins/summernote/summernote-bs4.min.css')}}">
   <script src="{{asset('Admin/plugins/jquery/jquery.min.js')}}"></script>
   <!-- <script src="{{asset('Admin/plugins/summernote/summernote-bs4.min.js')}}"></script> -->
+  <script src="{{asset('js/custom.js')}}"></script>
   <script src="{{asset('Toastr/toastr.min.js')}}"></script>
   <link rel="stylesheet" href="{{asset('Toastr/toastr.min.css')}}">
  
@@ -28,32 +29,6 @@
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light ">
-    <!-- Left navbar links -->
-    
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
-    </ul>
-
-    <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
       <!-- Messages Dropdown Menu -->
@@ -152,9 +127,9 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <aside class="main-sidebar elevation-4">
     <!-- Brand Logo -->
-    <a href="{{url('admin-group')}}/{{$group->id}}" class="brand-link">
+    <a href="{{url('group-post/admin/')}}/{{$group->id}}" class="brand-link">
       <img src="{{asset('upload/avatar_group')}}/{{$group->avatar}}"  class="brand-image img-circle elevation-3" style="opacity: .8">
       <span class="brand-text font-weight-light">{{$group->name}}</span>
     </a>
@@ -196,6 +171,12 @@
                   <p>Bài Viết Bị Báo Cáo</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{url('group-post/admin')}}/{{$group->id}}/all-post" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tất Cả Bài Viết</p>
+                </a>
+              </li>
               
             </ul>
           </li>
@@ -214,6 +195,19 @@
               <p>Danh sách thành viên</p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon far fa-circle text-info"></i>
+              <p class="text" data-toggle='modal' data-target="#modalInfoGroup">Thông tin nhóm</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('group-post/admin/delete-group')}}/{{$group->id}}" class="nav-link" onclick="return confirm('Bạn có chắc muốn xóa nhóm này?')">
+              <i class="nav-icon far fa-circle text-danger"></i>
+              <p class="text">Xóa nhóm</p>
+            </a>
+          </li>
+          
          
         </ul>
       </nav>
@@ -226,6 +220,46 @@
   @yield('content')
 
   <!-- /.content-wrapper -->
+  <!-- modal thong tin nhom -->
+    <div id="modalInfoGroup" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Thông tin về nhóm</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <form method="" id="form-update-group">
+             
+              <div class="row">
+                <div class="col-12 form-group">
+                  <label for="">Tên nhóm <span style="color: red">*</span></label>
+                  <p class="form-error error-name-group"></p>
+                  <input type="text" class="form-control" name="name_group" id="name_group" value="{{$group->name}}">
+                  <input type="hidden" name="group_id" value="{{$group->id}}">
+                </div>
+                <div class="col-12">
+                  <div class="title-action d-flex justify-content-between">
+                    <h1>Ảnh bìa</h1>
+                    <a href="">Chỉnh sửa <input type="file" class="input-file-imgcover" name="image"></a>
+                  </div>
+                </div>
+                <div class="col-12 center-webkit">
+                  <div class="image-cover">
+                    <img class="changeSrcImgCover img_cover1" src="{{asset('image/image_cover')}}/{{$group->avatar}}" alt="">
+                  </div>
+                </div>
+                
+              </div>
+              <div class="alert alert-default-info d-none mt-2">Cập nhật thành công</div>
+              <input class="btn btn-success w-100 mt-2" type="submit" name="submit" value="Cập nhật">
+
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 @yield('script')
 <!-- ./wrapper -->
@@ -237,7 +271,44 @@
 <!-- overlayScrollbars -->
 <!-- AdminLTE App -->
 <script src="{{asset('Admin/dist/js/adminlte.js')}}"></script>
-
+<script type="text/javascript">
+  $('#form-update-group').on('submit',function(e){
+    e.preventDefault();
+    var name = $('#name_group').val();
+    $('.error-name-group').html(' ');
+    if(name == ""){
+      $('.error-name-group').html('Tên nhóm không được trống');
+    }else{
+      var data = new FormData(this);
+      $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: "{{url('group-post/admin/update-group-post')}}",
+        dataType:'json',
+        data: data,
+        type:'post',
+        cache:false,
+        contentType: false,
+        processData: false,
+        success:function(data){
+          console.log(data)
+       
+              
+            $('.alert-default-info').removeClass('d-none');
+            var a = setInterval(function(){ 
+            $('.alert-default-info').addClass('d-none');
+            $('#modalInfoGroup').modal('hide');   
+            clearInterval(a);
+            location.reload()
+            }, 2500);
+          
+        }
+      })
+    }
+    
+  })
+</script>
 
 </body>
 </html>

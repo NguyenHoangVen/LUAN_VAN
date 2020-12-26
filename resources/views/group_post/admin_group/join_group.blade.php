@@ -65,8 +65,8 @@
             @endforeach
             @else
             <div class="col-12 ">
-              <div class="alert alert-success">
-                <strong>Success!</strong> Không có yêu cầu tham gia nào.
+              <div class="alert alert-default-primary">
+                Không có yêu cầu tham gia nào.
               </div>
             </div>
             @endif

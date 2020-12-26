@@ -6,7 +6,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Contacts</h1>
+            <h1>QUẢN LÍ BÀI VIẾT CHƯA DUYỆT</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -17,6 +17,7 @@
           </div>
         </div>
       </div><!-- /.container-fluid -->
+     
     </section>
 
     <!-- Main content -->
@@ -29,7 +30,7 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title"><b>QUẢN LÝ BÀI VIẾT CHƯA DUYỆT</b></h3>
+                <h3 class="card-title"><b>Danh sách bài viết chưa duyệt</b></h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
@@ -89,68 +90,40 @@
                         <div id="view-post-detail{{$post->id}}" class="modal fade" >
                           <div class="modal-dialog modal-lg">
                             <div class="modal-content">
-                              <div class="modal-header">
-                                
-                              </div>
-                              <div class="modal-body">
-                                 <div class="col-12">
-                                    <!-- Box Comment -->
-                                    <div class="card card-widget">
-                                      <div class="card-header">
-                                        <div class="user-block">
-                                          <img class="img-circle" src="{{asset('image/image_avatar')}}/{{$post->user->avatar}}" alt="User Image">
-                                          <span class="username"><a href="#">{{$post->user->username}}</a></span>
-                                          <span class="description">{{$post->created_at->format('d-m-Y')}}</span>
-                                        </div>
-                                      
-                                        <!-- /.card-tools -->
-                                      </div>
-                                      <!-- /.card-header -->
-                                      <div class="card-body">
-                                        <!-- post text -->
-                                        {!!$post->content!!}
 
-                                      </div>
-                                      <!-- /.card-body -->
-                                      <div class="card-footer card-comments">
-                                        <div class="card-comment">
-                                          <!-- User image -->
-                                          <img class="img-circle img-sm" src="{{asset('Admin/dist/img/user1-128x128.jpg')}}" alt="User Image">
+                            <!-- Modal Header -->
+                                <div class="modal-header">
+                                  <h4 class="modal-title">Chi tiết bài viết</h4>
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
 
-                                          <div class="comment-text">
-                                            <span class="username">
-                                              Maria Gonzales
-                                              <span class="text-muted float-right">8:03 PM Today</span>
-                                            </span><!-- /.username -->
-                                            It is a long established fact that a reader will be distracted
-                                            by the readable content of a page when looking at its layout.
-                                          </div>
-                                          <!-- /.comment-text -->
-                                        </div>
-                                        <!-- /.card-comment -->
-                                        <div class="card-comment">
-                                          <!-- User image -->
-                                          <img class="img-circle img-sm" src="{{asset('Admin/dist/img/user1-128x128.jpg')}}" alt="User Image">
-
-                                          <div class="comment-text">
-                                            <span class="username">
-                                              Nora Havisham
-                                              <span class="text-muted float-right">8:03 PM Today</span>
-                                            </span><!-- /.username -->
-                                            The point of using Lorem Ipsum is that it hrs a morer-less
-                                            normal distribution of letters, as opposed to using
-                                            'Content here, content here', making it look like readable English.
-                                          </div>
-                                          <!-- /.comment-text -->
-                                        </div>
-                                        <!-- /.card-comment -->
-                                      </div>
-                                      
-                                    </div>
-                                    <!-- /.card -->
+                            <!-- Modal body -->
+                                <div class="modal-body post-group">
+                                  <div class="post-item">
+                                <div class="info-user d-flex">
+                                  <div class="image-avatar mr-3">
+                                    <a href="" class="avatar d-block img-circle"><img src="{{asset('image/image_avatar')}}/{{$post->user->avatar}}" alt=""></a>
                                   </div>
+                                  <div class="create">
+                                    <div class="username">{{$post->user->username}}</div>
+                                    <div class="time">{{$post->created_at->format('d-m-Y')}}</div>
+                                  </div>
+                                </div>
+                                <!-- post content -->
+                                <div class="post-content">
+                                  <div class="title">{{$post->title}}</div>
+                                  <div>{!!$post->content!!}</div>
+                                  
+                                </div>
+
                               </div>
+                                <!-- comment post -->
+                                
                             </div>
+                            </div>
+
+                          
+
                           </div>
                         </div>
                         <!-- /.Modal view post detail -->
@@ -168,7 +141,7 @@
           </div>
           @else
           <div class="col-md-12">
-            <div class="alert alert-success w-100">Không có bài viết nào chờ duyệt</div>
+            <div class="alert alert-default-primary w-100">Không có bài viết nào chờ duyệt</div>
           </div>
           @endif
           
