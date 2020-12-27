@@ -7,6 +7,7 @@ use App\GroupPostModel;
 use App\MemberGroupPostModel;
 use App\UserModel;
 use App\PostGroupModel;
+use App\NotificationModel;
 use App\CommentPostGroupModel;
 use App\ReportPostGroupModel;
 use App\Events\CommentPostGroupEvent;
@@ -150,6 +151,7 @@ class GroupPostController extends Controller
     }
     // -- Binh luan bai viet tren nhom
     public function commentPostGroup(Request $request){
+        $user_id = Auth::user()->id;
         $comment = new CommentPostGroupModel();
         $comment->parent_id = $request->parent_id;
         $comment->user_id = $request->user_comment;
@@ -157,7 +159,18 @@ class GroupPostController extends Controller
         $comment->content = $request->content;
         $comment->save();
         $idInserted = $comment->id;
-        
+        // Tao thong bao cho nguoi viet bai viet
+        $user_id_create_post = PostGroupModel::where('id',$request->post_id)
+            ->get(['user_id'])->first();
+        if($user_id_create_post->user_id != $user_id){
+            $notification = new NotificationModel();
+            $notification->from_user = Auth::user()->id;
+            $notification->to_user = $user_id_create_post->user_id;
+            $notification->content = "Đã bình luận về bài viết của bạn";
+            $notification->is_read = 0;
+            $notification->link = 'group-post/detail/'.$request->group_id;
+            $notification->save();
+        }
         // Xu li du lieu tra ve client
         $data_html = '';
         $comment = CommentPostGroupModel::find($idInserted);
@@ -230,6 +243,7 @@ class GroupPostController extends Controller
         event(
             $e = new CommentPostGroupEvent($result)
         );
+        return Response()->json(array('ok'=>$request->all(),'k'=>$user_id_create_post->user_id));
     }
     // -- Viet bai len nhom
     public function createPost(Request $request){

@@ -12,6 +12,7 @@ use App\ComfirmToolModel;
 use App\PostShareModel;
 use App\ImgPostshareModel;
 use App\CommentPostShareModel;
+use App\NotificationModel;
 use Auth;
 use App\Events\MessageRoom;
 use App\Events\CommentPostShareEvent;
@@ -23,6 +24,8 @@ class TeamController extends Controller
     public function __construct(){
         Carbon\Carbon::setLocale('vi');
         load('Helpfunction','team');
+        
+       
     }
     // 27. Xoa, giai tan nhom
     public function deleteTeam($team_id){
@@ -123,11 +126,27 @@ class TeamController extends Controller
     }
     // 20. Binh luan tren bai chia se
     public function commentPostShare(Request $request){
+        $user_id = Auth::user()->id;
         $comment = new CommentPostShareModel();
         $comment->content = $request->content;
         $comment->post_share_id = $request->post_share_id;
         $comment->user_id = Auth::user()->id;
         $comment->save();
+        // Tao thong bao
+        $user_id_create_post = PostShareModel::where('id',$request->post_share_id)
+            ->get(['user_id'])->first();
+        if($user_id_create_post->user_id != $user_id){
+            $notification = new NotificationModel();
+            $notification->from_user = Auth::user()->id;
+            $notification->to_user = $user_id_create_post->user_id;
+            $notification->content = "Đã bình luận về bài viết của bạn";
+            $notification->is_read = 0;
+            $notification->link = 'user/'.$user_id_create_post->user_id;
+            $notification->save();
+        }
+        
+
+        // ===========
         $html = '<div class="card-comment">
         <img class="img-circle img-sm"
             src="image/image_avatar/'.Auth::user()->avatar.'"
@@ -148,7 +167,7 @@ class TeamController extends Controller
         event(
             $e = new CommentPostShareEvent($data)
         );
-        return Response()->json(array('ok'=>$request->all(),'html'=>$html));
+        return Response()->json(array('ok'=>$user_id_create_post->user_id,'html'=>$html));
     }
     // 19. Bai viet chia se, check in dia diem
     public function postCheckinShare(Request $request){

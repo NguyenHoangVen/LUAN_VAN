@@ -12,6 +12,7 @@ use App\InviteFriendModel;
 use App\FriendsModel;
 use App\SocialNetworksModel;
 use App\PostShareModel;
+use App\NotificationModel;
 use App\Events\AddFriendEvent;
 use App\Events\UnfriendEvent;
 use App\Events\AcceptAddFriendEvent;
@@ -88,7 +89,58 @@ class UserController extends Controller
 
 
     }
-
+    // 12. Xoa thong bao
+    public function deleteNotification(Request $request){
+        NotificationModel::where('id',$request->notification_id)->delete();
+        return Response()->json(array('ok'=>$request->all()));
+    }
+    // 11. Danh dau thong bao da doc
+    public function notificationUpdate(Request $request){
+        $id_notifi = $request->id_notifi;
+        NotificationModel::where('id',$id_notifi)->update(['is_read'=>1]);
+        return Response()->json(array('ok'=>'Cap nhat thanh cong'));
+    }
+    // 10. Tu dong thong bao cho user
+    public function notificationAction(Request $request){
+        $notication = NotificationModel::where('to_user',Auth::user()->id)->get();
+        $new_notification = NotificationModel::where('to_user',Auth::user()->id)
+            ->where('is_read',0)->count();
+        $html = '';
+       
+        if(count($notication) >0){
+          
+            foreach ($notication as $item) {
+                if($item->is_read == 0){
+                    $is_read = '';
+                }else{
+                    $is_read = 'is-read';
+                }
+                $html .='<div class="notifi-item notification'.$item->id.'"><a href="'.$item->link.'" class="dropdown-item">
+                    <input type="hidden" class="notification_id" value="'.$item->id.'">
+                    <div class="media">
+                        <img src="image/image_avatar/'.$item->user->avatar.'" 
+                            class="img-size-50 img-circle mr-3">
+                        <div class="media-body">
+                            <h3 class="dropdown-item-title '.$is_read.'">
+                            '.$item->user->username.'
+                            </h3>
+                            <p class="text-sm '.$is_read.'">'.$item->content.'</p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>'.Carbon\Carbon::parse($item->created_at)->diffForHumans().'</p>
+                        </div>
+                    </div>
+                </a>
+                <div class="dropdown dropdown-delete">
+                <i class="fas fa-ellipsis-h"></i>
+                <input type="hidden" class="notification_id" value="'.$item->id.'">
+                </div>
+                </div>
+                <div class="dropdown-divider"></div>';
+            }
+        }else{
+            $html .= '<a class="dropdown-item dropdown-footer">Không có thông báo</a>';
+        }
+        return Response()->json(array('number'=>$new_notification,'html'=>$html));
+    }
     // 9. Lay tab ban be co the quen biet
     public function friendSuggestions(){
         $list_user = UserModel::where('id','!=',Auth::user()->id)->get();
@@ -195,6 +247,14 @@ class UserController extends Controller
         $invite->id_send = Auth::user()->id;
         $invite->id_receive = $request->receive_id;
         $invite->save();
+        // Tao thong bao gui moi loi
+        $notification = new NotificationModel();
+        $notification->from_user = Auth::user()->id;
+        $notification->to_user = $request->receive_id;
+        $notification->content = "Đã gửi lời mời kết bạn";
+        $notification->is_read = 0;
+        $notification->link = 'user/'.$request->receive_id.'friends';
+        $notification->save();
        
         return Response()->json(array('result'=>$request->all()));
     }
@@ -218,6 +278,14 @@ class UserController extends Controller
         $friend->save();
         // 3. Xoa bang loi moi 
         InviteFriendModel::where('id_send',$request->send_id)->where('id_receive',Auth::user()->id)->delete();
+        // Tao thong bao gui moi loi
+        $notification = new NotificationModel();
+        $notification->from_user = Auth::user()->id;
+        $notification->to_user = $request->send_id;
+        $notification->content = "Đã chấp nhận lời mời kết bạn";
+        $notification->is_read = 0;
+        $notification->link = 'user/'.$request->send_id.'friends';
+        $notification->save();
         return Response()->json(array('ok'=>'Thanh cong'));
       
        

@@ -1,5 +1,76 @@
 $(document).ready(function(){
 
+	// ====TU DONG LOAD THONG BAO====
+	function deleteNotication(){
+		$('.dropdown-delete').click(function(){
+			var notification_id = $(this).find('.notification_id').val();
+			$.ajax({
+		        headers: {
+		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        },
+		        url: 'user/delete-notification',
+		        dataType:'json',
+		        data: {notification_id:notification_id},
+		        type: "post",
+		        success: function(data) {
+		        	$('.notification'+notification_id).remove();
+		        	// console.log(data)
+		        }
+		    });
+		})
+	}
+	function clickDropdown(){
+		$('.notification .notifi-item').click(function(e){
+			e.stopPropagation();
+		})
+	}
+    setInterval(function () {
+        NotificationFunction();
+    }, 5000); // 1000 ==> 1 second
+	var user_id = '{{Auth::user()->id}}';
+	function readNotification(){
+		$('.dropdown-notification a').click(function(){
+			var id_notifi = $(this).find('.notification_id').val();
+			$.ajax({
+		        headers: {
+		          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		        },
+		        url: 'user/notification-update',
+		        dataType:'json',
+		        data: {id_notifi:id_notifi},
+		        type: "post",
+		        success: function(data) {
+		        	console.log(data)
+		        }
+		    });
+			// return false;
+		})
+	}
+	function NotificationFunction() {
+		var user_id = $('.user_id_login').val();
+	   
+	    $.ajax({
+	        headers: {
+	          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	        },
+	        url: 'user/notification',
+	        dataType:'json',
+	        // data: {user_id:user_id},
+	        type: "post",
+	        success: function(data) {
+	        	// $('#post-share-id-'+post_share_id+' .card-comments').append(data.html)
+	        	// scrollToBottomFunc()
+	        	$('.dropdown-notification').html(data.html);
+	        	if(data.number !=0){
+	        		$('.badge-danger').html(data.number);
+	        	}
+	            readNotification();
+	            clickDropdown();
+	            deleteNotication();
+	        },
+	        
+	    });
+	}
 	// ==== MODULE POST SHARE ===
 	// 1. Click xem hinh anh bai viet chia se
 	$('.image-review').click(function(){
@@ -27,7 +98,7 @@ $(document).ready(function(){
 				        success: function(data) {
 				        	$('#post-share-id-'+post_share_id+' .card-comments').append(data.html)
 				        	// scrollToBottomFunc()
-				            // console.log(data)
+				            console.log(data)
 				        },
 				        
 				    });

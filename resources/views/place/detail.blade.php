@@ -2,7 +2,10 @@
 @section('content')
 <?php 
 $image_topic = json_decode($topic->image);
-$user_id = Auth::user()->id;
+if(Auth::check()){
+   $user_id = Auth::user()->id; 
+}
+
 ?>
 <div id="content">
     <div class="overview-place" id="forum">
@@ -55,8 +58,10 @@ $user_id = Auth::user()->id;
                     </div>
                 </div>
                 <!-- Them hinh anh cho dia diem -->
+                @if(Auth::check())
                 <div class="add-images btn" data-toggle="modal" data-target="#modalAddImages"><i
                         class="fas fa-camera"></i> Thêm hình ảnh</div>
+                @endif
                 <div id="modalAddImages" class=modal>
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -196,7 +201,8 @@ $user_id = Auth::user()->id;
                                         <div class="time mt-2"><i class="fas fa-calendar-alt mr-1"></i>
                                             {{$post->created_at->format('d-m-Y')}}</div>
                                     </div>
-                                     <div class="report-follow dropdown dropleft ml-auto"><i class="fas fa-ellipsis-h"
+                                    @if(Auth::check())
+                                    <div class="report-follow dropdown dropleft ml-auto"><i class="fas fa-ellipsis-h"
                                             data-toggle='dropdown'></i>
                                         <div class="dropdown-menu ">
                                             @if(isCreatePost($post->id,$user_id))
@@ -210,6 +216,7 @@ $user_id = Auth::user()->id;
                                             @endif
                                         </div>
                                     </div>
+                                    @endif
                                     <!-- bao cao noi dung -->
                                     <div id="reportPostTopic{{$post->id}}" class="modal fade">
                                         <div class="modal-dialog">
@@ -278,6 +285,7 @@ $user_id = Auth::user()->id;
                                         <div class="time mt-2"><i class="fas fa-calendar-alt mr-1"></i>
                                             {{$post->created_at->format('d-m-Y')}}</div>
                                     </div>
+                                    @if(Auth::check())
                                     <div class="report-follow dropdown dropleft ml-auto"><i class="fas fa-ellipsis-h"
                                             data-toggle='dropdown'></i>
                                         <div class="dropdown-menu">
@@ -292,6 +300,7 @@ $user_id = Auth::user()->id;
                                             @endif
                                         </div>
                                     </div>
+                                    @endif
                                     <!-- bao cao noi dung -->
                                     <div id="reportPostTopic{{$post->id}}" class="modal fade">
                                         <div class="modal-dialog">
@@ -869,7 +878,15 @@ $('.delete-post').click(function(e){
     
 })
 // ====REPORT POST ON TOPIC=====
-var user_id = "{{Auth::user()->id}}"
+<?php
+if(Auth::check()){
+?>
+var user_id = '{{Auth::user()->id}}';
+
+<?php
+}
+?>
+
 disableReport();
 sendReport();
 function sendReport(){

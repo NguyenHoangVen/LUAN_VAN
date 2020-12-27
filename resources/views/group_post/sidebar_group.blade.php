@@ -17,7 +17,7 @@ $user = Auth::user();
 					<button class="icon-search" style="
 					position: absolute;
 				    right: 1px;
-				    top: 2px;
+				    top: 1px;
 				    padding: 7px;
 				    font-size: 20px;
 				    cursor: pointer;

@@ -1176,3 +1176,44 @@ figure {
     font-size: 18px;
     background: rgb(196 244 255 / 20%);
 }
+/* ====Notification==== */
+.fa-bell{font-size: 20px}
+.img-size-50 {
+    width: 40px;
+    height: 40px;
+}
+.navbar-badge{top: 17px}
+.notification .media-body h3, .notification .media-body .text-sm{
+    color: #383737;
+    /* padding-bottom: 3px; */
+}
+.notification .media-body .text-muted{
+    font-size: 11px !important;
+    padding-top: 7px;
+}
+.is-read{
+    color: #a9a9a9!important;
+}
+.notification .dropdown-menu-lg{
+    width: 350px;
+    max-height: 300px;
+    overflow: auto;
+}
+/* === Delete notification==== */
+.notification .notifi-item{position: relative}
+.dropdown-delete {
+    position: absolute;
+    top: 17px;
+    right: 1px;
+    background: #d4d4d4;
+    width: 29px;
+    padding: 5px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: none
+}
+.dropdown-delete .fa-ellipsis-h{
+    margin: 0px;
+}
+.notification .notifi-item:hover .dropdown-delete{display: block}

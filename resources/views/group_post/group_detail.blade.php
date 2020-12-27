@@ -419,9 +419,10 @@
     }
 
     // ================QUẢN LÍ BÀI VIẾT CÁ NHÂN=============
+    var id_group = "{{$group->id}}";
     // 1. Bai viet da dong gop
     $('.my-post').click(function(e){
-    	var id_group = "{{$group->id}}";
+    	
     	var user_id = "{{Auth::user()->id}}";
     	$.ajax({
 			headers: {
@@ -656,8 +657,9 @@
 					var content = $(this).val();
 					var parent_id = $(this).nextAll('.parent_id').val();
 					var user_comment = $(this).nextAll('.user_comment').val();
+					var group_id = id_group;
 					console.log(parent_id)
-					var data = {user_comment:user_comment,parent_id:parent_id,post_id:post_id,content:content};
+					var data = {user_comment:user_comment,parent_id:parent_id,post_id:post_id,content:content,group_id:group_id};
 					console.log(data);
 					
 					$.ajax({
@@ -679,7 +681,7 @@
 				      		// 	clickmodel();
 				      		// }
 				      		
-				        // 	console.log(data);
+				        	console.log(data);
 				      	}
 					})
 					$(this).val('');

@@ -38,7 +38,7 @@ Route::group(['prefix'=>'group-post'],function(){
 	Route::post('post/comment','GroupPostController@commentPostGroup');
 	Route::post('create-post','GroupPostController@createPost');
 	Route::get('detail/{id}','GroupPostController@groupPostDetail');
-	Route::get('/','GroupPostController@group');
+	Route::get('/','GroupPostController@group')->middleware('loginMiddle');
 	Route::post('join-group-ajax','GroupPostController@joinGroupAjax');
 	Route::get('search','GroupPostController@searchGroup');
 	Route::post('create-ajax','GroupPostController@createGroupAjax');
@@ -201,6 +201,12 @@ Route::group(['prefix'=>'user'],function(){
 	Route::get('{id}/info/friends','UserController@frinedAccountUser');
 	// 9. Lay view ajax ban be co the pjt
 	Route::get('get-view-friend/suggestions','UserController@friendSuggestions');
+	// 10. Thong bao 
+	Route::post('notification','UserController@notificationAction');
+	// 11. Danh dau thong bao da doc
+	Route::post('notification-update','UserController@notificationUpdate');
+	// 12. Xoa thong bao
+	Route::post('delete-notification','UserController@deleteNotification');
 
 });
 // Route::get('get-view-friend-suggestions','UserController@friendSuggestions');

@@ -23,7 +23,7 @@ class AdminController extends Controller
     	return view('admin.account',compact('list_account'));
     }
     public function deleteAccount(Request $request){
-    	// UserModel::find($request->user_id)->delete();
+    	UserModel::find($request->user_id)->delete();
     	$number = UserModel::all()->count();
     	return Response()->json(array('number'=>$number-1));
     }

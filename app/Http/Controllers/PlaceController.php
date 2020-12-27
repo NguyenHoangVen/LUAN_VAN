@@ -88,9 +88,9 @@ class PlaceController extends Controller
                 }
                 
             }
-            
+            return Response()->json(array('ok'=>$request->all(),'success'=>'ok'));  
         }
-        return Response()->json(array('ok'=>$request->all(),'success'=>'ok'));   
+         
     }
     // == BINH LUAN TOPIC ===
     public function commentTopic(Request $request){
