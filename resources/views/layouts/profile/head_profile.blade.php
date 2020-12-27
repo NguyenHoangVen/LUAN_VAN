@@ -13,7 +13,7 @@ $user = Auth::user();
 						<div class="col-12  d-flex justify-content-center">
 							<div class="v">
 								<div class="border-avatar">
-									<a href="" class="avatar "><img class="avatar{{$user->id}}" src="image/image_avatar/{{$user->avatar}}" alt=""></a>
+									<a href="" class="avatar "><img class="avatar{{$user->id}}" src="<?php checkFile(Auth::user()->avatar) ?>" alt=""></a>
 								</div>
 								<div class="username">
 									<h1>{{$user->username}}</h1>

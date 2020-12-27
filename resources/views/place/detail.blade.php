@@ -58,10 +58,13 @@ if(Auth::check()){
                     </div>
                 </div>
                 <!-- Them hinh anh cho dia diem -->
-                @if(Auth::check())
-                <div class="add-images btn" data-toggle="modal" data-target="#modalAddImages"><i
-                        class="fas fa-camera"></i> Thêm hình ảnh</div>
-                @endif
+                <div class="d-flex justify-content-between">
+                    @if(Auth::check())
+                    <div class="add-images btn" data-toggle="modal" data-target="#modalAddImages"><i
+                            class="fas fa-camera"></i> Thêm hình ảnh</div>
+                    @endif
+                    <div class="btn btn-default text-danger" data-toggle="modal" data-target="#ModalReportTopic">! Báo cáo</div>
+                </div>
                 <div id="modalAddImages" class=modal>
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -104,6 +107,32 @@ if(Auth::check()){
                         </div>
                     </div>
                 </div>
+                <!-- Modal report topic -->
+                <div id="ModalReportTopic" class="modal fade">
+                    <div class="modal-dialog">
+                        <form action="" class="form-report-topic">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Báo cáo chủ đề này</h4>
+                                    <button type="button" class="close" data-dismiss="modal">X</button>
+                                    
+                                </div>
+                                <div class="modal-body">
+
+                                    <textarea class="form-control content-report" name="reason" rows="5" placeholder="Lý do báo cáo chủ đề này..."></textarea>
+                                    <!-- success report -->
+                                    <div class="mt-2 alert alert-default-primary d-none">Đã gửi nội dung báo cáo!</div>
+                                    <input type="hidden" name="topic_id" value="{{$topic->id}}" class="id_topic_report">
+                                </div>        
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success send-report" disabled="disabled">Gửi</button>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- ./Modal report topic -->
             </div>
             <div class="col-lg-4 col-md-12 sidebar border-left">
                 <div class="location " style="padding: 15px 0px">
@@ -886,7 +915,38 @@ var user_id = '{{Auth::user()->id}}';
 <?php
 }
 ?>
-
+var topic_id = '{{$topic->id}}'
+// report topic
+reportTopic();
+function reportTopic(){
+    $('.form-report-topic').on('submit',function(e){
+        e.preventDefault();
+        var data = new FormData(this);
+        $(this).find('.content-report').val('');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: "{{url('topic/report-topic')}}",
+            dataType:'json',
+            data: data,
+            type:'post',
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+                console.log(data)
+                $('.alert-default-primary').removeClass('d-none');
+                var a = setInterval(function(){ 
+                    $('.alert-default-primary').addClass('d-none');
+                    
+                    $('#ModalReportTopic').modal('hide');   
+                    clearInterval(a);
+                }, 2500);  
+            }
+        })
+    })
+}
 disableReport();
 sendReport();
 function sendReport(){

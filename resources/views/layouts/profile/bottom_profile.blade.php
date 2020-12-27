@@ -7,7 +7,7 @@
 							@if($friend->id_user_accept == Auth::user()->id)
 							<li class="d-flex user">
 								<div class="avatar">
-									<img src="image/image_avatar/{{$friend->user_accept->avatar}}" alt="">
+									<img alt="" src="<?php checkFile($friend->user_accept->avatar) ?>">
 									<div class="online"></div>
 								</div>
 								<div class="username"><h1>{{$friend->user_accept->username}}</h1></div>
@@ -16,7 +16,7 @@
 							@else
 							<li class="d-flex user">
 								<div class="avatar">
-									<img src="image/image_avatar/{{$friend->user_send->avatar}}" alt="">
+									<img src="<?php checkFile($friend->user_send->avatar) ?>" alt="">
 									<div class="online"></div>
 								</div>
 								<div class="username"><h1>{{$friend->user_send->username}}</h1></div>

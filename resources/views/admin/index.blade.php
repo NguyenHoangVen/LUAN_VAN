@@ -46,10 +46,17 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           
           <li class="nav-header">QUẢN LÍ BÀI VIẾT</li>
+
           <li class="nav-item">
             <a href="{{url('admin-page/post-report')}}" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>Bài viết bị báo cáo</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('admin-page/topic-report')}}" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
+              <p>Chủ đề bài viết bị báo cáo</p>
             </a>
           </li>
           <li class="nav-header">QUẢN LÍ TÀI KHOẢN NGƯỜI DÙNG</li>

@@ -5,8 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\UserModel;
 use App\PostReviewModel;
+use App\ReportTopicModel;
+use App\TopicModel;
 class AdminController extends Controller
 {
+    public function deleteTopic(Request $request){
+        TopicModel::where('id',$request->topic_id)->delete();
+        return Response()->json(array('success'=>'ok'));
+    }
+    public function topicReport(){
+        $report_topic = TopicModel::where('report',1)->get();
+        return view('admin.topic_report',compact('report_topic'));
+    }
     // Bai viet bao cao
     public function deletePostReport(Request $request){
         PostReviewModel::find($request->post_id)->delete();

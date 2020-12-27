@@ -11,11 +11,22 @@ use App\RatingTopicModel;
 use App\CommentTopicModel;
 use App\ImagesTopicModel;
 use App\ReportPostTopicModel;
+use App\ReportTopicModel;
 use Auth;
 use Session;
 class PlaceController extends Controller
 {
     // 
+    public function reportTopic(Request $request){
+        $report = new ReportTopicModel();
+        $report->user_id = Auth::user()->id;
+        $report->content = $request->reason;
+        $report->topic_id = $request->topic_id;
+        $report->save();
+        // Gan co topic bi bao cao
+        \DB::table('topic')->where('id',$request->topic_id)->update(['report'=>1]);
+        return Response()->json(array('ok'=>$request->all()));
+    }
     // 6. Chinh sua bai viet tren topic
     public function editPostReview($id){
         $post = PostReviewModel::find($id);

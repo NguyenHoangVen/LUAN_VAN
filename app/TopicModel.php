@@ -26,4 +26,7 @@ class TopicModel extends Model
     public function images(){
     	return $this->hasMany('App\ImagesTopicModel','id_topic','id');
     }
+    public function reports(){
+        return $this->hasMany('App\ReportTopicModel','topic_id','id');
+    }
 }

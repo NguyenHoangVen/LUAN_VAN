@@ -13,3 +13,10 @@ function load($type,$name){
 		echo "{$type}:{$name} không tồn tại";
 	}
 }
+function checkFile($path){
+	if(file_exists('image/image_avatar/'.$path)){
+		echo "image/image_avatar/".$path;
+	}else{
+		echo $path;
+	}
+}

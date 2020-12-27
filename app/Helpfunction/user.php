@@ -43,6 +43,7 @@ function checkSendInvite($user_id1,$user_id2){
 		return false;
 	}
 }
+
 function checkReceiveInvite($user_id1,$user_id2){
 	$row = \DB::table('invite_friend')
 		->where('id_receive', '=', $user_id1)
