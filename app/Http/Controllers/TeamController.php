@@ -13,6 +13,7 @@ use App\PostShareModel;
 use App\ImgPostshareModel;
 use App\CommentPostShareModel;
 use App\NotificationModel;
+use App\PostReviewModel;
 use Auth;
 use App\Events\MessageRoom;
 use App\Events\CommentPostShareEvent;
@@ -211,8 +212,10 @@ class TeamController extends Controller
     }
     // I. chia se bai viet cong khai
     public function postShare(){
+        $post_reviews = PostReviewModel::orderBy('created_at','DESC')->get()->take(10);
+        // dd($post_reviews);
         $post_shares = PostShareModel::orderBy('created_at','DESC')->get();
-        return view('team._post_share',compact('post_shares'));
+        return view('team.post_share',compact('post_shares','post_reviews'));
     }
     public function updateInfoTripTeam(Request $request){
         $team = TeamModel::find($request->team_id);
@@ -428,7 +431,7 @@ class TeamController extends Controller
         
         $a = infoTeamEmpty($id);
         $post_shares = PostShareModel::where('team_id',$id)->orderBy('created_at','DESC')->get();
-        
+       
         return view('team.detail',compact('team','post_shares'));
     }
     //

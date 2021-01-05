@@ -102,7 +102,7 @@ class UserController extends Controller
     }
     // 10. Tu dong thong bao cho user
     public function notificationAction(Request $request){
-        $notication = NotificationModel::where('to_user',Auth::user()->id)->get();
+        $notication = NotificationModel::orderBy('created_at','DESC')->where('to_user',Auth::user()->id)->get();
         $new_notification = NotificationModel::where('to_user',Auth::user()->id)
             ->where('is_read',0)->count();
         $html = '';

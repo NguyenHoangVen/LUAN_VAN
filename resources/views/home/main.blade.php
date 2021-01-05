@@ -49,13 +49,13 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="main-title">
-                        <h1>bao la miền Bắc</h1>
+                        <h1>Miền Nam thân thương</h1>
                     </div>
                     <p class="main-sub-title">Bất tận những cảnh đẹp Việt Nam </p>
                 </div>
             </div>
             <div class="row list-places owl-carousel ">
-                @foreach($topic as $item)
+                @foreach($topic_nam as $item)
                 <div class="item-place item">
                     <a href="topic/{{$item->id}}" title=""><img src="image/image_place/{{json_decode($item->image)[0]}}"
                             alt="" class="img-fluid rounded h-200"></a>
@@ -94,51 +94,31 @@
             </div>
 
             <!-- Owlcarowsel -->
-            <div class="row list-places">
-                <div class="owl-carousel">
-                    @for($i=1;$i<=5;$i++) <div class="item">
-                        <a href="" title="">
-                            <img src="https://www.hoaanit.com/travelshare/public/upload_image_blog/khach-san-gan-trung-tam.png"
-                                alt="" class="h-200">
-
-                        </a>
-                        <div class="info">
-                            <a href="" class="title">Chợ nổi cái răng </a>
-                            <div class="star-date d-flex justify-content-between">
-                                <span class="star">
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                    <i class="fa fa-star checked"></i>
-                                </span>
-                                <span class="date">
-                                    <i class="fas fa-calendar-alt">15/09/2020</i>
-                                </span>
-                            </div>
-                        </div>
-                </div>
-                <div class="item">
-                    <a href="" title=""><img
-                            src="https://www.hoaanit.com/travelshare/public/upload_image_blog/khach-san-gan-trung-tam.png"
-                            alt="" class="img-fluid rounded"></a>
+            <div class="row list-places owl-carousel ">
+                @foreach($topic_trung as $item)
+                <div class="item-place item">
+                    <a href="topic/{{$item->id}}" title=""><img src="image/image_place/{{json_decode($item->image)[0]}}"
+                            alt="" class="img-fluid rounded h-200"></a>
                     <div class="info">
-                        <a href="" class="title">Chợ nổi cái răng2 </a>
+                        <a href="" class="title">{{$item->name}}</a>
                         <div class="star-date d-flex justify-content-between">
+                            <?php
+
+                            $num_star = floor(avgStartTopic($item->id));
+                            ?>
                             <span class="star">
+                                @for($i= 1;$i<=5;$i++)
                                 <i class="fa fa-star checked"></i>
-                                <i class="fa fa-star checked"></i>
-                                <i class="fa fa-star checked"></i>
-                                <i class="fa fa-star checked"></i>
-                                <i class="fa fa-star checked"></i>
+                                @endfor
                             </span>
                             <span class="date">
-                                <i class="fas fa-calendar-alt">15/09/2020</i>
+                                <i class="fas fa-calendar-alt">{{$item->created_at->format('d-m-Y')}}</i>
                             </span>
                         </div>
                     </div>
                 </div>
-                @endfor
+                @endforeach
+
 
             </div>
         </div>
@@ -148,97 +128,38 @@
         <div class="row">
             <div class="col-md-12 text-center">
                 <div class="main-title">
-                    <h1>Miền Nam thân thương</h1>
+                    <h1>Bao la miền Bắc</h1>
                 </div>
                 <p class="main-sub-title">Bất tận những cảnh đẹp Việt Nam </p>
             </div>
         </div>
-        <div class="row list-places owl-carousel">
-            <div class="item-place item">
-                <a href="" title="">
-                    <img src="https://www.hoaanit.com/travelshare/public/upload_image_blog/khach-san-gan-trung-tam.png"
-                        alt="" class="img-fluid rounded">
+        <div class="row list-places owl-carousel ">
+                @foreach($topic_bac as $item)
+                <div class="item-place item">
+                    <a href="topic/{{$item->id}}" title=""><img src="image/image_place/{{json_decode($item->image)[0]}}"
+                            alt="" class="img-fluid rounded h-200"></a>
+                    <div class="info">
+                        <a href="" class="title">{{$item->name}}</a>
+                        <div class="star-date d-flex justify-content-between">
+                            <?php
 
-                </a>
-                <div class="info">
-                    <a href="" class="title">Chợ nổi cái răng </a>
-                    <div class="star-date d-flex justify-content-between">
-                        <span class="star">
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                        </span>
-                        <span class="date">
-                            <i class="fas fa-calendar-alt">15/09/2020</i>
-                        </span>
+                            $num_star = floor(avgStartTopic($item->id));
+                            ?>
+                            <span class="star">
+                                @for($i= 1;$i<=5;$i++)
+                                <i class="fa fa-star checked"></i>
+                                @endfor
+                            </span>
+                            <span class="date">
+                                <i class="fas fa-calendar-alt">{{$item->created_at->format('d-m-Y')}}</i>
+                            </span>
+                        </div>
                     </div>
                 </div>
+                @endforeach
+
 
             </div>
-            <div class="item-place item">
-                <a href="" title=""><img
-                        src="https://kenh14cdn.com/crop/640_360/2017/201707171029208104-1500637821156-564-0-1189-1000-crop-1500638323245.jpg"
-                        alt="" class="img-fluid rounded"></a>
-                <div class="info">
-                    <a href="" class="title">Chợ nổi cái răng </a>
-                    <div class="star-date d-flex justify-content-between">
-                        <span class="star">
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                        </span>
-                        <span class="date">
-                            <i class="fas fa-calendar-alt">15/09/2020</i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="item-place item">
-                <a href="" title=""><img
-                        src="https://www.hoaanit.com/travelshare/public/upload_image_blog/khach-san-gan-trung-tam.png"
-                        alt="" class="img-fluid rounded"></a>
-                <div class="info">
-                    <a href="" class="title">Chợ nổi cái răng </a>
-                    <div class="star-date d-flex justify-content-between">
-                        <span class="star">
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                        </span>
-                        <span class="date">
-                            <i class="fas fa-calendar-alt">15/09/2020</i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="item-place item">
-                <a href="" title=""><img
-                        src="https://kenh14cdn.com/crop/640_360/2017/201707171029208104-1500637821156-564-0-1189-1000-crop-1500638323245.jpg"
-                        alt="" class="img-fluid rounded"></a>
-                <div class="info">
-                    <a href="" class="title">Chợ nổi cái răng nguyen hoang veng nguai gnnga gann</a>
-                    <div class="star-date d-flex justify-content-between">
-                        <span class="star">
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                            <i class="fa fa-star checked"></i>
-                        </span>
-                        <span class="date">
-                            <i class="fas fa-calendar-alt">15/09/2020</i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-        </div>
     </div>
 
 </div>
@@ -252,7 +173,7 @@ console.log(JSON.parse(a)[0])
 <script>
 $(".owl-carousel").owlCarousel({
 
-    autoPlay: 4000,
+    // autoPlay: 4000,
     items: 4,
 
     center: true,

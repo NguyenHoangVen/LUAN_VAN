@@ -145,7 +145,7 @@
 								</div>
 								
 								<div class="form-group">
-									<button class="btn btn-success w-100">Send</button>
+									<button class="btn btn-success w-100">Tạo</button>
 								</div>
 								
 							</form>

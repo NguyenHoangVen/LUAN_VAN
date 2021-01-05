@@ -798,10 +798,10 @@ if(Auth::check()){
                                 @csrf
                                 <textarea id="content-comment" class="w-100" rows="10" placeholder="Mời bạn nhập..."
                                     name="content_comment"></textarea>
-                                <button class="btn btn-primary send-comment" disabled="true">Send</button>
+                                <button class="btn btn-primary send-comment" disabled="true">Gửi</button>
 
 
-                                <button class="btn btn-danger" data-dismiss="modal">Huy</button>
+                                <button class="btn btn-danger" data-dismiss="modal">Hủy</button>
                             </form>
                         </div>
                     </div>
@@ -1045,6 +1045,16 @@ if (exist) {
         position: 'center',
         icon: 'success',
         title: 'Đã gửi đánh giá !',
+        // timer: 1500,
+        button:'ok'
+    })
+}
+var checkin = '{{Session::has('checkin_success')}}';
+if (checkin) {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Đăng bài thành công !',
         // timer: 1500,
         button:'ok'
     })

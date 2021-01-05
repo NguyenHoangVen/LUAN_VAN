@@ -68,4 +68,12 @@ function selected($value1,$value2){
         echo 'selected="selected"';
     }
 }
-
+// == HAM KIEM TRA TRANG THAI TEAM===
+function checkStatusTeam($id){
+    $row = \DB::table('team')->where('id',$id)->where('status',2)->count();
+    if($row > 0){
+        return true;
+    }else{
+        return false;
+    }
+}

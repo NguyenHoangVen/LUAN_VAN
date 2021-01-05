@@ -72,25 +72,12 @@
                                     <h2>giới thiệu</h2>
                                 </div>
                                 <div class="content">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum magnam velit maxime
-                                    sequi doloribus, odit consequuntur explicabo earum modi fugit!
+                                    ThichPhuot là kết quả của quá trình thực hiện đề tài luận văn "Xây dựng hệ thống chia sẻ và gợi ý điểm đến dành cho du lịch phượt sử dụng Laravel Framework và Google API"
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="footer-inner info">
-                                <div class="title">
-                                    <h2>thông tin</h2>
-                                </div>
-                                <div class="content">
-                                    <ul>
-                                        <li><a href="">Trang Chu</a></li>
-                                        <li><a href="">Trang Chu</a></li>
-                                        <li><a href="">Trang Chu</a></li>
-                                        <li><a href="">Trang Chu</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                          
                         </div>
                         <div class="col-md-4">
                             <div class="footer-inner contact">

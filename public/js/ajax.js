@@ -26,7 +26,7 @@ $(document).ready(function(){
 	}
     setInterval(function () {
         NotificationFunction();
-    }, 5000); // 1000 ==> 1 second
+    }, 2000); // 1000 ==> 1 second
 	var user_id = '{{Auth::user()->id}}';
 	function readNotification(){
 		$('.dropdown-notification a').click(function(){

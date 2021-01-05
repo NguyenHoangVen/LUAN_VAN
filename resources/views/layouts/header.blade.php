@@ -24,13 +24,14 @@
 
                             </ul>
                         </li>
-                        <li class="dropdown"><a href="" class="dropdown-toggle" data-toggle='dropdown'>Diễn Đàn</a>
+                        <!-- <li class="dropdown"><a href="" class="dropdown-toggle" data-toggle='dropdown'>Diễn Đàn</a>
                             <ul class="dropdown-menu sub-menu">
                                 <li><a href="?page=forum&topic=team" class="dropdown-item">Lập team</a></li>
                                 <li><a href="{{url('team/post-share')}}" class="dropdown-item">Chia sẻ</a></li>
                                 <li><a href="?page=forum&topic=question" class="dropdown-item">Hỏi đáp</a></li>
                             </ul>
-                        </li>
+                        </li> -->
+                        <li><a href="{{url('team/post-share')}}">Diễn đàn</a></li>
                         <li class="dropdown"><a href="{{url('group-post')}}">Nhóm</a>
 
                         </li>

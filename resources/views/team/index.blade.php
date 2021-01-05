@@ -36,20 +36,7 @@
 	        		</div>
 				</div>
 				@endforeach
-				@for($i=1;$i<=10;$i++)
-				<div class="col-lg-6 col-md-12">
-	        		<div class="team-item d-flex">
-	        			<a href="" class="avatar d-block mr-3"><img class="img-50" src="https://img3.thuthuatphanmem.vn/uploads/2019/06/08/hinh-nen-hotgirl-duyen-dang_125438813.jpg" alt=""></a>
-					<div class="info-desc">
-						<div class="topic-title">
-							<span class="topic">[chưa chốt đoàn]</span>
-							<a href="?page=detail_post_forum" class="title">Mien Nam than thuong Lập team, tìm bạn đồng hành trên mọi nẽo đường</a>
-						</div>
-						<div class="time mt-2"><i class="fas fa-calendar-alt mr-1"></i> 10/13/2020</div>
-					</div>
-	        		</div>
-				</div>
-				@endfor
+			
 				
 			</div>
         </div>

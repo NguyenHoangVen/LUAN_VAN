@@ -12,14 +12,12 @@ class HomeController extends Controller
 
     public function home_view(){
         load('Helpfunction','rating');
-       	$topic = TopicModel::all();
-        // if(Auth::check()){
-        //     dd('ok');
-        // }else{
-        //     dd('nook');
-        // }
-        // dd(floor(avgStartTopic(15)));
-    	return view('home.main',compact('topic'));
+       	$topic_bac = TopicModel::where('region_id',1)->get();
+        $topic_trung = TopicModel::where('region_id',2)->get();
+        $topic_nam = TopicModel::where('region_id',3)->get();
+
+        
+    	return view('home.main',compact('topic_bac','topic_trung','topic_nam'));
     }
     // HIỂN THỊ MARKER CÁC ĐỊA ĐIỂM LÊN BẢN ĐỒ
     public function mapsInfomation(){
