@@ -226,6 +226,7 @@ Route::post('register','UserController@postRegister')->name('register');
 // xac minh tai khoan
 Route::get('account-vertifi','UserController@accountVertifi');
 Route::post('post-account-vertifi','UserController@postAccountVertifi');
-
+// gui lai ma xac minh tai khoan
+Route::get('resend/{email}','UserController@resendAccountVertifi');
 Route::get('login/{provider}', 'UserController@redirect');
 Route::get('login/callback/{provider}', 'UserController@callback');

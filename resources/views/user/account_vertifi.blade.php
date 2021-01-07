@@ -22,8 +22,8 @@
 					<input type="hidden" name="email" value="{{session('email')}}">
 					<input type="hidden" name="username" value="{{session('username')}}">
 					<input type="hidden" name="password" value="{{session('password')}}">
-					<input type="submit" value="Xac minh" name="btn-submit" class="btn btn-success">
-					<a href="receive-code/nguyenhoangve97@gmail.com" class="btn btn-primary">Gui lai ma</a>
+					<input type="submit" value="Xác minh" name="btn-submit" class="btn btn-success">
+					<a href="resend/{{session('email')}}" class="btn btn-primary">Gửi lại mã</a>
 				</div>
 			</form>
 		</div>
@@ -31,4 +31,19 @@
 	<!--  -->
 
 </div>
+@endsection
+@section('script')
+<script type="text/javascript">
+	var exist = '{{Session::has('resend')}}';
+    if(exist){
+        Swal.fire({
+	        position: 'center',
+	        icon: 'success',
+	        title: 'Đã gửi lại mã xác nhận !',
+	        // showConfirmButton: false,
+	        button:'ok'
+	        // timer: 1800
+	    })
+    }
+</script>
 @endsection

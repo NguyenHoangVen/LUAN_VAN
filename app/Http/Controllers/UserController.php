@@ -18,6 +18,7 @@ use App\Events\UnfriendEvent;
 use App\Events\AcceptAddFriendEvent;
 use Socialite;
 // use Auth;
+use Session;
 use Illuminate\Support\Facades\Auth;
 use Carbon;
 Carbon\Carbon::setLocale('vi');
@@ -804,10 +805,12 @@ class UserController extends Controller
             // 3. Gui mail kich hoat
             \Mail::to($request->email)->send(new SendMail($details));
             // chuyen den trang kich hoat
-            return redirect('account-vertifi')
-                ->with('email',$request->email)
-                ->with('username',$request->username)
-                ->with('password',$request->password);
+            session([
+                'email' => $request->email,
+                'password'=>$request->password,
+                'fullname'=>$request->fullname
+            ]);
+            return redirect('account-vertifi');
         }else{
             if(checkMailActive($request->email)){
                 $error1 = array('email'=>'unique:users,email');
@@ -844,15 +847,22 @@ class UserController extends Controller
                 \Mail::to($request->email)->send(new SendMail($details));
                 // echo 'kiem tra email kich hoat';
                 // 4. Chuyen huong den tran xac minh
-                return redirect('account-vertifi')
-                    ->with('email',$request->email)
-                    ->with('username',$request->username)
-                    ->with('password',$request->password);
+                session([
+                    'email' => $request->email,
+                    'password'=>$request->password,
+                    'fullname'=>$request->fullname
+                ]);
+                return redirect('account-vertifi');
+                    
             }
         }
     }
     // === ACTIVE ACCOUNT======
+    
     public function accountVertifi(){
+        
+        // dd(session()->all());
+       
     	return view('user.account_vertifi');
     }
     public function postAccountVertifi(Request $request){
@@ -863,7 +873,7 @@ class UserController extends Controller
         
         if(checkActiveAccount($request->email,$request->code_number)){
             $data = array(
-                'username' => $request->username,
+                'email' => $request->email,
                 'password' => $request->password,
                 'is_active' => '1',
             );
@@ -871,6 +881,24 @@ class UserController extends Controller
                 return redirect('home');
             }  
         }  
+    }
+    // Gui lai ma xac minh tai khoan
+    public function resendAccountVertifi($email){
+       
+        $active_token = random_int(100000,999999);
+        \DB::table('users')->where('email',$email)->update(['active_token'=>$active_token]);
+        // 3. Gui mail kich hoat
+        $details = [
+            'title' => 'KICH HOAT TAI KHOAN',
+            'body' => 'Xin chao ban '.session('fullname'),
+            'active_token' => $active_token,
+            'name_view' => 'sendmail',
+        ];
+       
+        \Mail::to($email)->send(new SendMail($details));
+        session(['resend'=>'true']);
+        
+        return redirect()->back();
     }
    
 }
