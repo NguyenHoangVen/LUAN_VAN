@@ -49,7 +49,7 @@
                                         <img src="{{asset('image/image_avatar')}}/{{$item->avatar}}" alt="" class="w-100 h-100">
                                     </a>
                                 </div>
-                                <div class="username"><a href="user/2/info" target="_blank">{{$item->username}}</a></div>
+                                <div class="username"><a href="user/{{$item->id}}/info" target="_blank">{{$item->username}}</a></div>
                             </div>
                             <div class="pt-2">
                               <div class="btn bg-danger delete-account"><i class="fas fa-user"></i>   Xóa

@@ -49,15 +49,7 @@
 				@error('password')
 				<p class="form-error">{{$message}}</p>
 				@enderror
-				<div class="input-group mb-3">
-					<input type="password" class="form-control" name="password_comfirm" placeholder="Nhập lại password" value="{{ old('password_comfirm') }}">
-					<div class="input-group-append">
-						<span class="input-group-text"><i class="fas fa-lock"></i></span>
-					</div>
-				</div>
-				@error('password_comfirm')
-				<p class="form-error">{{$message}}</p>
-				@enderror
+				
 				<div class="input-group mb-3">
 					<input type="date" class="form-control" name="birthday" placeholder="Nhập Password" value="{{ old('birthday') }}">
 					

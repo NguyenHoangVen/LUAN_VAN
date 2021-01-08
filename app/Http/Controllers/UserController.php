@@ -54,8 +54,9 @@ class UserController extends Controller
         $email = $getInfo->email;
         $social_id = SocialNetworksModel::where('social_type',$provider)
             ->where('social_id',$getInfo->id)->first();
-       
+        
         if($social_id){
+            // dd($social_id);
             Auth::loginUsingId($social_id->user_id);
         }else{
             $user = UserModel::where('email',$email)->first();
@@ -177,6 +178,7 @@ class UserController extends Controller
         $user = UserModel::find($user_id);
         // 1. Bai viet cua user (status)
         $posts = PostShareModel::where('user_id',$user_id)->orderBy('created_at','DESC')->get(); 
+        // dd($posts);
         $data = array(
             'user' => $user,
             'posts' => $posts
@@ -687,7 +689,8 @@ class UserController extends Controller
             ];
             // 3. Gui mail kich hoat
             \Mail::to($request->email)->send(new SendMail($details));
-            return redirect('newpass-vertifi')->with('email',$request->email);
+            session(['email'=>$request->email]);
+            return redirect('newpass-vertifi');
 
         }else{
             return redirect()->back()->with('error','Email này chưa được đăng kí ');
@@ -695,21 +698,27 @@ class UserController extends Controller
     }
     // ========VERTIFI NEW PASS=====
     public function getNewPassVertifi(){
+       
+        // dd(session('email'));
         return view('user.newpass_vertifi');
     }
     public function postNewPassVertifi(Request $request){
         if(checkActiveAccount($request->email,$request->code_number)){
-            return redirect('set-new-pass');
+            session(['email'=>$request->email]);
+            // return redirect('set-new-pass');
+           return Response()->json(array('success'=>$request->all()));
         }else{
-            return redirect('forgot-pass');
+            return Response()->json(array('error'=>$request->all()));
         }
         // dd($request);
     }
     // ======= SET NEW PASS=====
     public function getSetNewPass(){
+        // dd(session('email'));
         return view('user.set_new_pass');
     }
     public function postSetNewPass(Request $request){
+        // dd($request);
         $this->validate($request,
             [
                 'password'=>'min:6',
@@ -758,7 +767,6 @@ class UserController extends Controller
             'username' => 'required|between:6,60',
             'email' => 'required|email',
             'password' => 'required|between:6,60',
-            'password_comfirm' => 'required|same:password',
             'gender' => 'required',
             'birthday' => 'required',
             'address' => 'required'
@@ -772,8 +780,6 @@ class UserController extends Controller
             'email.email' => 'Email không đúng định dạng',
             'password.required' => 'Password không được trống',
             'password.between' => 'Password từ 6-60 kí tự',
-            'password_comfirm.required' => 'Xác nhận mật khẩu không được trống',
-            'password_comfirm.same' => 'Xác nhận mật khẩu không đúng',
             'gender.required' => 'Bạn chưa chọn giới tính',
             'birthday.required' => 'Ngày sinh không được trống',
             'address.required' => 'Địa chỉ không được trống'
@@ -860,16 +866,11 @@ class UserController extends Controller
     // === ACTIVE ACCOUNT======
     
     public function accountVertifi(){
-        
         // dd(session()->all());
-       
+
     	return view('user.account_vertifi');
     }
     public function postAccountVertifi(Request $request){
-        $this->validate($request,
-            ['code_number'=>'required'],
-            ['code_number.required'=>'Mã xác minh là bắt buộc']
-        );
         
         if(checkActiveAccount($request->email,$request->code_number)){
             $data = array(
@@ -878,9 +879,13 @@ class UserController extends Controller
                 'is_active' => '1',
             );
             if(Auth::attempt($data)){
-                return redirect('home');
+                return Response()->json(array('success'=>'Thanh cong'));
+                
             }  
-        }  
+            // return Response()->json(array('success'=>'Thanh cong'));
+        }else{
+            return Response()->json(array('error'=>$request->all()));
+        }
     }
     // Gui lai ma xac minh tai khoan
     public function resendAccountVertifi($email){

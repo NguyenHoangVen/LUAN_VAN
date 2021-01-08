@@ -7,8 +7,30 @@ use App\UserModel;
 use App\PostReviewModel;
 use App\ReportTopicModel;
 use App\TopicModel;
+use Auth;
 class AdminController extends Controller
 {
+
+    public function logout(){
+        Auth::logout();
+        return redirect('admin-page/login');
+    }
+    public function login(){
+        return view('admin.login');
+    }
+    public function postLogin(Request $request){
+        
+        $data = array(
+            'email' => $request->email,
+            'password' => $request->password,
+        );
+
+        if(Auth::attempt($data)){
+            return redirect('admin-page');
+        }else{
+            return redirect('admin-page/login')->with('error','Tài khoản hoặc mật khẩu không đúng');
+        }
+    }
     public function deleteTopic(Request $request){
         TopicModel::where('id',$request->topic_id)->delete();
         return Response()->json(array('success'=>'ok'));
@@ -29,7 +51,7 @@ class AdminController extends Controller
     }
     // Tai khoan nguoi dung
     public function index(){
-    	$list_account = UserModel::all();
+    	$list_account = UserModel::where('id','!=',Auth::user()->id)->get();
     	return view('admin.account',compact('list_account'));
     }
     public function deleteAccount(Request $request){

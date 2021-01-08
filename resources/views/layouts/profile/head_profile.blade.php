@@ -67,9 +67,7 @@ $user = Auth::user();
 											</div>
 											<div class="modal-body">
 												<!-- message success -->
-												<div id="success-msg" class="d-none">
-                    								<div class="alert alert-success">Cập nhật tài khoản thành công!</div>
-                								</div>
+												
 												<div class="row">
 													<div class="col-md-4 center-webkit">
 														<div class="avatar-edit">
@@ -133,7 +131,13 @@ $user = Auth::user();
 														</div>
 													</div>
 												</div>
+												<!-- message success -->
+												<div id="success-msg" class="d-none">
+                    								<div class="alert alert-default-primary">Cập nhật tài khoản thành công!</div>
+                								</div>
 											</div>
+											
+
 											<div class="modal-footer">
 												<input type="hidden" name="image_avatar" id="image_avatar">
 	        									<button type="button" class="btn btn-danger" data-dismiss="modal">Hủy</button>

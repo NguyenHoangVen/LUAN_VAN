@@ -34,7 +34,7 @@
 				</div>
 				<a href="login/facebook" class="btn w-100 mb-1 d-flex justify-content-center bx">
 					<img src="image/logo/facebook-icon.png" id="image-fb">
-					<span>Đăng nhập bằng Facabook</span>
+					<span>Đăng nhập bằng Facebook</span>
 				</a>
 				<a href="{{url('login/google')}}" class="btn w-100 mb-1 d-flex justify-content-center bv">
 					<img src="image/logo/google-icon.png" id="image-gg">

@@ -5,7 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 
 // ============= MODULE ADMIN ========
-Route::group(['prefix'=>'admin-page'],function(){
+// 9. Dang nhap admin
+Route::get('admin-page/login','AdminController@login');
+Route::post('admin-page/login','AdminController@postLogin');
+Route::get('admin-page/logout','AdminController@logout');
+Route::group(['prefix'=>'admin-page','middleware'=>'LoginAdmin'],function(){
 	Route::get('/','AdminController@index');
 	Route::post('delete-account','AdminController@deleteAccount');
 	Route::get('search-account','AdminController@searchAaccount');
@@ -14,6 +18,7 @@ Route::group(['prefix'=>'admin-page'],function(){
 	Route::get('topic-report','AdminController@topicReport');
 	// 8. Xoa chu de 
 	Route::post('delete-topic-report','AdminController@deleteTopic');
+	
 });
 // =============MODULE GROUP POST=========
 Route::group(['prefix'=>'group-post'],function(){

@@ -146,7 +146,7 @@
                                                 <span class="create-post">Tạo bài viết</span>
                                                 <div class="new-postbox">
                                                     <div class="avatar d-block float-left"><img
-                                                            src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                                                            src="image/image_avatar/{{Auth::user()->avatar}}"
                                                             alt=""></div>
                                                     <div class="newpst-input">
                                                         <!-- <form method="post"> -->
@@ -439,23 +439,7 @@
                                                 action="team/update-post-share" method="post">
                                                 @csrf
                                                 <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="info-user d-flex">
-                                                            <div class="avatar d-block mr-3">
-                                                                <img class="img-50"
-                                                                    src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
-                                                                    alt="">
-                                                            </div>
-                                                            <div class="info-desc">
-                                                                <p>
-                                                                    <span class="title">Hoang Ven</span>
-                                                                    <span class="location"></span>
-                                                                </p>
-
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
+                                                    
 
 
                                                     <div class="content-post-share col-12">

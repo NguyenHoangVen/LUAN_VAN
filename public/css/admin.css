@@ -1,0 +1,23 @@
+#content{
+	background: #eaeaea;
+	min-height: 620px;
+}
+#login{
+	max-width: 400px;
+    margin: 0px auto;
+    padding: 50px 15px;
+}
+#login h1{
+	text-align: center;
+    border: 1px solid #44ada1;
+    margin-top: 5px;
+    background: #27ccc0;
+    color: white;
+}
+.logo{text-align: center}
+.wp-form-login{
+	padding: 10px;
+    border: 2px solid #bfcaff;
+    border-radius: 5px;
+    background: #e4f3f7;
+}

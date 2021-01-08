@@ -26,6 +26,7 @@
 				<p class="form-error">{{$message}}</p>
 				@enderror
 				<div class="input-group mb-3">
+					<input type="hidden" name="email" value="{{session('email')}}">
 					<input type="submit" name="" class="btn btn-success w-100" name="submit" value="Xác Nhận">
 				</div>
 				<div class="input-group text-center">

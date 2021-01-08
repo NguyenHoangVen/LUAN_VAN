@@ -48,6 +48,10 @@ a:hover {
     width: 22px;
     margin-right: 4px;
 }
+.fa-lock{
+    color: #989595;
+    margin-left: 5px;
+}
 #header {
     border-bottom: 1px solid #50cff5;
     background: #e9fbff;

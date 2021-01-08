@@ -1,26 +1,34 @@
 @extends('layouts.index')
 @section('content')
 @include('layouts.profile.head_profile')
+<?php 
+$user = Auth::user();
+$gender = array(
+    'male' => 'Nam',
+    'female' => 'Nữ'
+);
+?>
 <div class="col-lg-3 d-none d-md-block">
     <div class="row bg-padding">
         <div class="introduce">
             <div class="col-lg-12">
-                <h1>Gioi Thieu</h1>
+                <h1>Thông tin</h1>
                 <div class="address">
-                    <span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
+                    <span><i class="fas fa-map-marker-alt mr-3"></i>{{$user->address}},Viet Nam</span>
                 </div>
-                <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia 15/09/2020</span></div>
+                <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Đã tham gia {{$user->created_at->format('d-m-Y')}}</span></div>
+                <div class="time-join"><span><i class="fas fa-genderless mr-3"></i>Giới tính  {{$gender[$user->gender]}}</span></div>
             </div>
         </div>
     </div>
     <div class="row bg-padding mt-3">
         <div class="introduce">
             <div class="col-lg-12">
-                <h1>Chia sẻ các điểm du lịch</h1>
+                <h1>Giới thiệu</h1>
                 <div class="address">
-                    <span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
+                    <span>{{$user->introduce}}</span>
                 </div>
-                <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia 15/09/2020</span></div>
+                
             </div>
         </div>
     </div>
@@ -63,7 +71,7 @@
                 <span class="create-post">Tạo bài viết</span>
                 <div class="new-postbox">
                     <div class="avatar d-block float-left"><img
-                            src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                            src="image/image_avatar/{{Auth::user()->avatar}}"
                             alt=""></div>
                     <div class="newpst-input">
                         <!-- <form method="post"> -->
@@ -94,7 +102,7 @@
                                 <div class="info-user d-flex">
                                     <div class="avatar d-block mr-3">
                                         <img class="img-50"
-                                            src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                                            src="image/image_avatar/{{Auth::user()->avatar}}"
                                             alt="">
                                     </div>
                                     <div class="info-desc">
@@ -129,12 +137,7 @@
                                             <i class="fas fa-map-marker-alt"></i>
                                         </span>
                                     </li>
-                                    <li>
-                                        <i class="fa fa-music"></i>
-                                        <label class="fileContainer">
-                                            <input type="file">
-                                        </label>
-                                    </li>
+                                   
                                     <li>
                                         <i class="fa fa-image"></i>
                                         <label class="fileContainer">
@@ -202,6 +205,9 @@
                         </p>
                         <p style="font-size:13px;margin-top:2px"><span
                                 class="time mt-1">{{Carbon\Carbon::parse($post->created_at)->diffForHumans()}}</span>
+                                @if($post->status == 2)
+                                <i class="fas fa-lock"></i>
+                                @endif
                         </p>
 
                     </div>
@@ -332,23 +338,7 @@
                     method="post">
                     @csrf
                     <div class="row">
-                        <div class="col-12">
-                            <div class="info-user d-flex">
-                                <div class="avatar d-block mr-3">
-                                    <img class="img-50"
-                                        src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
-                                        alt="">
-                                </div>
-                                <div class="info-desc">
-                                    <p>
-                                        <span class="title">Hoang Ven</span>
-                                        <span class="location"></span>
-                                    </p>
-
-                                </div>
-
-                            </div>
-                        </div>
+                        
 
 
                         <div class="content-post-share col-12">
@@ -405,7 +395,7 @@
                             <button type="button" class="btn btn-danger mr-auto" data-dismiss="modal">Hủy</button>
                             <select class="form-control" name="status">
                                 <option value="0">Công khai</option>
-                                <option value="1">Chỉ trong nhóm</option>
+                                <option value="2">Chỉ mình tôi</option>
                             </select>
                             <button class="btn btn-success">Lưu</button>
 

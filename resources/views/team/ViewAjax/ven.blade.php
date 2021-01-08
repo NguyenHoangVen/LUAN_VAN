@@ -1,27 +1,5 @@
-<div class="col-12">
-    <div class="info-user d-flex">
-        <div class="avatar d-block mr-3">
-            <img class="img-50"
-                src="image/image_avatar/{{Auth::user()->avatar}}"
-                alt="">
-        </div>
-        <div class="info-desc">
-            <p>
-                <span class="title">{{Auth::user()->username}}</span>
-                <span class="location">
-                @if(!empty($post_share->address))
-                <span>Đang ở </span><span class="title">{{$post_share->address}}</span>
-                @endif
-                </span>
-            </p>
-
-        </div>
-
-    </div>
-</div>
-<!--  -->
 <div class="col-12" style="min-height:60px">
-    <input type="hidden" name="checkin_location" class="checkin-location" value="{{$post_share->address}}">
+    <input type="hidden" name="checkin_location" class="checkin-location">
     <textarea name="content" class="content" class="w-100" rows="5"
         placeholder="Hôm nay bạn thế nào...">{{$post_share->content}}</textarea>
 </div>

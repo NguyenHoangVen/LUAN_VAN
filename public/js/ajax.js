@@ -467,6 +467,7 @@ $(document).ready(function(){
 					setInterval(function(){
                         $('#success-msg').addClass('d-none');
                     }, 3000);
+                    location.reload();
 				}
 			}
 		})

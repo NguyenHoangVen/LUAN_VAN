@@ -10,10 +10,10 @@
                             <img src="{{asset('image/image_avatar')}}/{{$item->avatar}}" alt="" class="w-100 h-100">
                         </a>
                     </div>
-                    <div class="username"><a href="user/2/info" target="_blank">{{$item->username}}</a></div>
+                    <div class="username"><a href="user/{{$item->id}}/info" target="_blank">{{$item->username}}</a></div>
                 </div>
                 <div class="pt-2">
-                  <div class="btn bg-teal delete-account"><i class="fas fa-user"></i>   Mời rời nhóm
+                  <div class="btn bg-danger delete-account"><i class="fas fa-user"></i>   Xóa
                     <input type="hidden" name="user_id" class="user_id" value="{{$item->id}}">
                     
                   </div>

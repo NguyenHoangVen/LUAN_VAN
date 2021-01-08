@@ -219,23 +219,7 @@
                         method="post">
                         @csrf
                         <div class="row">
-                            <div class="col-12">
-                                <div class="info-user d-flex">
-                                    <div class="avatar d-block mr-3">
-                                        <img class="img-50"
-                                            src="image/image_avatar//{{Auth::user()->avatar}}"
-                                            alt="">
-                                    </div>
-                                    <div class="info-desc">
-                                        <p>
-                                            <span class="title">{{Auth::user()->username}}</span>
-                                            <span class="location"></span>
-                                        </p>
-
-                                    </div>
-
-                                </div>
-                            </div>
+                          
 
 
                             <div class="content-post-share col-12">
