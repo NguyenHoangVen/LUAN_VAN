@@ -676,24 +676,28 @@ class UserController extends Controller
     }
     public function postForgotPass(Request $request){
         // dd($request);
-        if(mailIsset($request->email)){
-            // 1.Tao random chuoi so active_tokent
-            $active_token = random_int(100000,999999);
-            \DB::table('users')->where('email',$request->email)->update(['active_token'=>$active_token]);
+        if(!empty($request->email)){
+            if(mailIsset($request->email)){
+                // 1.Tao random chuoi so active_tokent
+                $active_token = random_int(100000,999999);
+                \DB::table('users')->where('email',$request->email)->update(['active_token'=>$active_token]);
 
-            $details = [
-                'title' => 'QUÊN MẬT KHẨU TÀI KHOẢN',
-                'body' => 'Xin chao ban! Đây là mã xác nhận lấy lại mật khẩu của bạn.',
-                'active_token' => $active_token,
-                'name_view' => 'forgot_pass',
-            ];
-            // 3. Gui mail kich hoat
-            \Mail::to($request->email)->send(new SendMail($details));
-            session(['email'=>$request->email]);
-            return redirect('newpass-vertifi');
+                $details = [
+                    'title' => 'QUÊN MẬT KHẨU TÀI KHOẢN',
+                    'body' => 'Xin chao ban! Đây là mã xác nhận lấy lại mật khẩu của bạn.',
+                    'active_token' => $active_token,
+                    'name_view' => 'forgot_pass',
+                ];
+                // 3. Gui mail kich hoat
+                \Mail::to($request->email)->send(new SendMail($details));
+                session(['email'=>$request->email]);
+                return redirect('newpass-vertifi');
 
+            }else{
+                return redirect()->back()->with('error','Email chưa được đăng kí ');
+            }
         }else{
-            return redirect()->back()->with('error','Email này chưa được đăng kí ');
+            return redirect()->back()->with('error','Bạn chưa nhập email');
         }
     }
     // ========VERTIFI NEW PASS=====

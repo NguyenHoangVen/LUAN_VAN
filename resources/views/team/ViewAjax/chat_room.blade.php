@@ -3,13 +3,11 @@
         <h3 class="card-title">Phòng chat {{$team_id}}</h3>
 
         <div class="card-tools">
-            <span title="3 New Messages" class="badge badge-primary">3</span>
+          
             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                 <i class="fas fa-minus"></i>
             </button>
-            <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
-                <i class="fas fa-comments"></i>
-            </button>
+            
             <button type="button" class="btn btn-tool" data-card-widget="remove">
                 <i class="fas fa-times"></i>
             </button>

@@ -80,7 +80,7 @@
 	                      		<input type="hidden" class="send_id" value="{{Auth::user()->id}}">
 	                        	<input type="text" name="message" placeholder="Nhập tin nhắn..." class="form-control input-message">
 	                        	<span class="input-group-append">
-	                         	 	<button type="button" class="btn btn-warning">Send</button>
+	                         	 	<button type="button" class="btn btn-warning">Gửi</button>
 	                        	</span>
 	                      	</div>
 		                    

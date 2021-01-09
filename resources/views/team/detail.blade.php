@@ -328,12 +328,12 @@
                                                         <div class="info-user d-flex">
                                                             <div class="avatar d-block mr-3">
                                                                 <img class="img-50"
-                                                                    src="image/image_avatar/1542276278-405-kieu-trinh-3-1542275166-width650height433.jpg"
+                                                                    src="image/image_avatar/{{Auth::user()->avatar}}"
                                                                     alt="">
                                                             </div>
                                                             <div class="info-desc">
                                                                 <p>
-                                                                    <span class="title">Hoang Ven</span>
+                                                                    <span class="title">{{Auth::user()->username}}</span>
                                                                     <span class="location"></span>
                                                                 </p>
 
@@ -1287,6 +1287,7 @@ function createTool() {
                         $('#tool-list ul').append(data.html);
                         checkChecked();
                         getViewThongKe();
+                        deleteTool();
                     }
                 }
             })

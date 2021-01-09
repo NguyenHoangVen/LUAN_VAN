@@ -37,7 +37,14 @@ class TeamController extends Controller
     }
     // 26. Moi thanh vien ra khoi nhom
     public function deleteMemberAjax($user_id,$team_id){
-        MemberTeamModel::where('user_id',$user_id)->where('team_id',$team_id)->delete();
+        MemberTeamModel::where('user_id',$user_id)
+            ->where('team_id',$team_id)->delete();
+        \DB::table('comfirm_tool')
+            ->leftJoin('tool','tool.id','=','comfirm_tool.tool_id')
+            ->leftJoin('team','team.id','=','tool.team_id')
+            ->where('comfirm_tool.user_id',$user_id)
+            ->where('team.id',$team_id)
+            ->delete();
         return Response()->json(array('user_id'=>$user_id,'d'=>$team_id));
     }
     // 25. Chuyển quyền nhóm trưởng
@@ -61,10 +68,15 @@ class TeamController extends Controller
         $row = \DB::table('comfirm_tool')
             ->leftJoin('tool','tool.id','=','comfirm_tool.tool_id')
             ->leftJoin('team','team.id','=','tool.team_id')
-            ->where('comfirm_tool.user_id',1)
+            ->where('comfirm_tool.user_id',Auth::user()->id)
             ->where('team.id',$team_id)
             ->delete();
-       
+       // Xoa bo cac bai viet cua nguo do tren team
+        PostShareModel::where('user_id',Auth::user()->id)
+            ->where('team_id',$team_id)->delete();
+        // Xoa tin nhan tren nhom
+        MessageTeamModel::where('team_id',$team_id)
+            ->where('user_id',Auth::user()->id)->delete();
         return redirect()->back();
     }
     // ========= CAC BAI CHIA SE, CHECK IN TU TRONG TEAM ====
@@ -329,8 +341,8 @@ class TeamController extends Controller
             </div>
             <span class="text">'.$tool_result->name.'</span>
             <div class="tools">
-                <i class="fas fa-edit"></i>
-                <i class="fas fa-trash-o"></i>
+                <i class="fas fa-trash delete-tool" id="'.$tool->id.'">
+                </i>
             </div>
             </li>';
         return Response()->json(array('ok'=>$tool_result,'success'=>'ok','html'=>$html));

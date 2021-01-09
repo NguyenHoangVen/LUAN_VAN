@@ -44,10 +44,10 @@
 
                     </div>
 
-                    <div class="form-group">
+                   <!--  <div class="form-group">
                         <label for="content">Nội dung</label>
                         <textarea name="" id="" class="summernote" cols="30" rows="10"></textarea>
-                    </div>
+                    </div> -->
                     <div class="alert alert-default-info d-none">Tạo team thành công</div>
                     <div class="form-group">
                         <input type="submit" class="btn btn-success w-100" value="Tạo">
