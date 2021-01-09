@@ -30,14 +30,17 @@
 		                     	<div class="direct-chat-msg right">
 			                        <div class="direct-chat-infos clearfix">
 			                          	<span class="direct-chat-name float-right">{{$message->user_send->username}}</span>
-			                          	<span class="direct-chat-timestamp float-left">{{Carbon\Carbon::parse($message->created_at)->diffForHumans()}}</span>
+			                          	
 			                        </div>
 			                        <!-- /.direct-chat-infos -->
 			                        <img class="direct-chat-img" src="image/image_avatar/{{$message->user_send->avatar}}">
 			                        <!-- /.direct-chat-img -->
 			                        <div class="direct-chat-text">
-			                          {{$message->content}}
-
+			                          <div>{{$message->content}}</div>
+			                          <div class="direct-chat-infos clearfix">
+			                          	
+			                          	<span class="mt-2 direct-chat-timestamp float-right">{{Carbon\Carbon::parse($message->created_at)->diffForHumans()}}</span>
+			                        </div>
 			                        </div>
 			                        <!-- /.direct-chat-text -->
 		                      	</div>
@@ -45,13 +48,15 @@
 		                      	<div class="direct-chat-msg">
 			                        <div class="direct-chat-infos clearfix">
 			                          	<span class="direct-chat-name float-left">{{$message->user_send->username}}</span>
-			                          	<span class="direct-chat-timestamp float-right">{{Carbon\Carbon::parse($message->created_at)->diffForHumans()}}</span>
+			                         
 			                        </div>
 			                        <!-- /.direct-chat-infos -->
 			                        <img class="direct-chat-img" src="image/image_avatar/{{$message->user_send->avatar}}">
 			                        <!-- /.direct-chat-img -->
 			                        <div class="direct-chat-text">
-			                          	{{$message->content}}
+			                          	<div>{{$message->content}}</div>
+				                         <span class="direct-chat-timestamp">{{Carbon\Carbon::parse($message->created_at)->diffForHumans()}}</span>
+				                        
 			                        </div>
 			                        <!-- /.direct-chat-text -->
 		                      	</div>
@@ -73,7 +78,7 @@
 	                      	<div class="input-group">
 	                      		<input type="hidden" class="receive_id" value="{{$user->id}}">
 	                      		<input type="hidden" class="send_id" value="{{Auth::user()->id}}">
-	                        	<input type="text" name="message" placeholder="Type Message ..." class="form-control input-message">
+	                        	<input type="text" name="message" placeholder="Nhập tin nhắn..." class="form-control input-message">
 	                        	<span class="input-group-append">
 	                         	 	<button type="button" class="btn btn-warning">Send</button>
 	                        	</span>

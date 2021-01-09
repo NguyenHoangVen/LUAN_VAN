@@ -71,6 +71,12 @@ class PlaceController extends Controller
         }
         return Response()->json(array('ok'=>$request->all()));
     }
+    public function deleteRatingAjax(Request $request){
+       
+        RatingTopicModel::where('id',$request->id)->delete();
+        $number = RatingTopicModel::where('topic_id',$request->topic_id)->count();
+        return Response()->json(array('success'=>$request->all(),'number'=>$number-1));
+    }
     // ===DONG GOP HINH ANH CHO DIA DIEM===
     // 1. AddImages
     public function addImages(Request $request){

@@ -1,5 +1,11 @@
 @extends('layouts.index')
 @section('content')
+<?php 
+$gender = array(
+    'male' => 'Nam',
+    'female' => 'Nữ'
+);
+?>
 <div id="content">
     <div id="profile-user">
         <div class="cover-image">
@@ -54,24 +60,23 @@
                     <div class="row bg-padding">
                         <div class="introduce">
                             <div class="col-lg-12">
-                                <h1>Gioi Thieu</h1>
+                                <h1>Thông tin</h1>
                                 <div class="address">
-                                    <span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
+                                    <span><i class="fas fa-map-marker-alt mr-3"></i>{{$user->address}},Viet Nam</span>
                                 </div>
-                                <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia
-                                        15/09/2020</span></div>
+                                <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Đã tham gia {{$user->created_at->format('d-m-Y')}}</span></div>
+                                <div class="time-join"><span><i class="fas fa-genderless mr-3"></i>Giới tính  {{$gender[$user->gender]}}</span></div>
                             </div>
                         </div>
                     </div>
                     <div class="row bg-padding mt-3">
                         <div class="introduce">
-                            <div class="col-lg-12">
-                                <h1>Chia sẻ các điểm du lịch</h1>
+                           <div class="col-lg-12">
+                                <h1>Giới thiệu</h1>
                                 <div class="address">
-                                    <span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
+                                    <span>{{$user->introduce}}</span>
                                 </div>
-                                <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia
-                                        15/09/2020</span></div>
+                                
                             </div>
                         </div>
                     </div>

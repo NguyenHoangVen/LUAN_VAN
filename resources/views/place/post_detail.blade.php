@@ -98,36 +98,28 @@
         </div>
 
         <!-- form comment -->
-        <div class="form-comment" data-toggle='modal' data-target='#myComentPost'>
-            <i class="far fa-comment-alt"></i>
+        <div class="back-to-top form-comment">
+            <i class="fas fa-arrow-alt-circle-up"></i>
         </div>
-        <div id="myComentPost" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title"><i class="fas fa-edit mr-2 "></i>Đặt câu hỏi, bình luận</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <h1>Mời bạn đặt câu hỏi hoặc bình luận</h1>
-                        <div class="wp-form-comment d-flex">
-                            <a href="" class="avatar d-inline-block mr-2"><img
-                                    src="https://img3.thuthuatphanmem.vn/uploads/2019/06/08/hinh-nen-hotgirl-duyen-dang_125438813.jpg"
-                                    alt=""></a>
-                            <form action="" method="post" class="w-100">
-                                <textarea name="" id="" class="w-100" rows="10"
-                                    placeholder="Mời bạn nhập..."></textarea>
-                                <button class="btn btn-primary">Send</button>
-                                <button class="btn btn-danger" data-dismiss="modal">Huy</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
     </div>
 </div>
 </div>
 <!-- XU LÝ HIỂN THỊ CÁC ĐỊA ĐIỂM GẦN LÊN BẢN ĐỒ -->
 
+@endsection
+@section('script')
+<script type="text/javascript">
+    $(window).scroll(function(){
+        if($(window).scrollTop() >=100){
+           
+            $(".back-to-top").fadeIn(500);
+        }else{
+            $(".back-to-top").fadeOut(500);  
+        }
+    });
+    $(".back-to-top").click(function(){
+        $("html,body").animate({scrollTop:0},100);
+    })
+</script>
 @endsection

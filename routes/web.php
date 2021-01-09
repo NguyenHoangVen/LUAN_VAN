@@ -141,6 +141,7 @@ Route::group(['prefix'=>'topic'],function(){
 	Route::post('search-place','HomeController@searchPlaceOnMap');
 	// 3. Xoa binh luan ajax
 	Route::post('delete-comment-ajax','PlaceController@deleteCommentAjax');
+	Route::post('delete-rating-ajax','PlaceController@deleteRatingAjax');
 	// 4. Bao cao ve bai viet tren topic
 	Route::post('report-post','PlaceController@reportPost');
 	// 5. Xoa bai viet tren topic

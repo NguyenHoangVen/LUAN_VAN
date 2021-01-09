@@ -62,8 +62,9 @@ if(Auth::check()){
                     @if(Auth::check())
                     <div class="add-images btn" data-toggle="modal" data-target="#modalAddImages"><i
                             class="fas fa-camera"></i> Thêm hình ảnh</div>
-                    @endif
+                    
                     <div class="btn btn-default text-danger" data-toggle="modal" data-target="#ModalReportTopic">! Báo cáo</div>
+                    @endif
                 </div>
                 <div id="modalAddImages" class=modal>
                     <div class="modal-dialog">
@@ -235,7 +236,7 @@ if(Auth::check()){
                                             data-toggle='dropdown'></i>
                                         <div class="dropdown-menu ">
                                             @if(isCreatePost($post->id,$user_id))
-                                            <a class="dropdown-item" data-toggle="modal" data-target="#reportPostTopic{{$post->id}}">Báo cáo</a>
+                                            
                                             <a href="{{url('topic/edit-post')}}/{{$post->id}}" class="dropdown-item">Chỉnh sửa</a>
                                             <a href="" class="dropdown-item delete-post">Xóa
                                                 <input type="hidden" class="delete-post-id" value="{{$post->id}}">
@@ -319,7 +320,7 @@ if(Auth::check()){
                                             data-toggle='dropdown'></i>
                                         <div class="dropdown-menu">
                                             @if(isCreatePost($post->id,$user_id))
-                                            <a class="dropdown-item" data-toggle="modal" data-target="#reportPostTopic{{$post->id}}">Báo cáo</a>
+                                           
                                             <a href="{{url('topic/edit-post')}}/{{$post->id}}" class="dropdown-item">Chỉnh sửa</a>
                                             <a href="" class="dropdown-item delete-post">Xóa
                                                 <input type="hidden" class="delete-post-id" value="{{$post->id}}">
@@ -554,7 +555,7 @@ if(Auth::check()){
                         <li class="nav-item col-6 bg-ignfo text-center">
                             <a class="nav-link active d-flex flex-column" data-toggle="tab" href="#rating">
                                 <span><i class="fas fa-edit"></i></span>
-                                <span class="number">{{count($topic->ratings)}}</span>
+                                <span class="number number-rating">{{count($topic->ratings)}}</span>
                                 <span class="name">Đánh giá</span>
                             </a>
                         </li>
@@ -594,7 +595,7 @@ if(Auth::check()){
                         <div class="info-user-content">
                             @if(count($ratings) > 0)
                             @foreach($ratings as $rating)
-                            <div class="row padding">
+                            <div class="row padding rating-{{$rating->id}}">
                                 <div class="col-12">
                                     <div class="info-user d-flex mb-3">
                                         <a href="" class="avatar d-block"><img
@@ -605,13 +606,19 @@ if(Auth::check()){
                                                 <span class="time">đã viết bài viêt này vào
                                                     {{$rating->created_at->format('d-m-Y')}}</span>
                                             </div>
+                                            @if(Auth::check())
+                                            @if(checkRatingTopic(Auth::user()->id,$rating->id))
                                             <div class="report-follow dropdown dropleft"><i class="fas fa-ellipsis-h"
                                                     data-toggle='dropdown'></i>
                                                 <div class="dropdown-menu ">
-                                                    <a href="" class="dropdown-item">Bao cao noi dung</a>
-                                                    <a href="" class="dropdown-item">Theo doi</a>
+                                                    
+                                                    <a href="" class="dropdown-item delete-rating">Xóa
+                                                        <input type="hidden" class="hidden-rating-id" value="{{$rating->id}}">
+                                                    </a>
                                                 </div>
                                             </div>
+                                            @endif
+                                            @endif
                                         </div>
 
                                     </div>
@@ -619,11 +626,9 @@ if(Auth::check()){
 
                                         <div class="num-star">
                                             <span class="star">
+                                                @for($i=1;$i<=$rating->num_star;$i++)
                                                 <i class="fa fa-star checked"></i>
-                                                <i class="fa fa-star checked"></i>
-                                                <i class="fa fa-star checked"></i>
-                                                <i class="fa fa-star checked"></i>
-                                                <i class="fa fa-star checked"></i>
+                                                @endfor
                                             </span>
                                         </div>
                                         <div class="content">
@@ -685,7 +690,7 @@ if(Auth::check()){
                                                 <div class="report-follow dropdown dropleft"><i
                                                         class="fas fa-ellipsis-h" data-toggle='dropdown'></i>
                                                     <div class="dropdown-menu ">
-                                                        <a href="" class="dropdown-item">Bao cao noi dung</a>
+                                                       
                                                         <a  class="delete-comment dropdown-item">Xóa
                                                             <input type="hidden" class="hidden-comment" value="parent">
                                                             <input type="hidden" class="hidden-comment-id" value="{{$comment->id}}">
@@ -752,7 +757,7 @@ if(Auth::check()){
                                         <form method="post" class="w-100 pl-2 form-comment-child">
                                             
                                             <textarea name="content" class="w-50 input-text"
-                                                placeholder="Nhap noi dung vao day..."></textarea>
+                                                placeholder="Nhập nội dung vào đây..."></textarea>
                                             
                                             <input type="hidden" class="parent-id" value="{{$comment->id}}">
                                             <input type="hidden" class="topic-id" value="{{$topic->id}}">
@@ -1026,6 +1031,41 @@ function delete_comment(){
                     if(data.ok.level == 'child'){
                         $('.child-comment-'+data.ok.id).remove();
                     }
+                }
+            })
+        }
+      
+    })
+}
+// === XOA DANH GIA ====
+delete_rating();
+function delete_rating(){
+    $('.delete-rating').on('click',function(e){
+        
+        e.preventDefault();
+        var check = confirm("Bạn có muốn xóa đánh giá này?");
+        var id = $(this).find('.hidden-rating-id').val();
+
+        if (check == true) {
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: 'topic/delete-rating-ajax',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    topic_id:topic_id,
+                },
+                type: 'post',
+                success: function(data) {
+                    console.log(data);
+                    $('.number-rating').html(data.number);
+                    if(data.success){
+                        $('.rating-'+data.success.id).remove();
+
+                    }
+                    
                 }
             })
         }

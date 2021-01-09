@@ -20,6 +20,7 @@ ul {
     margin: 0;
     padding: 0;
 }
+.back-to-top{display: none}
 .form-error {
     color: #f14f4f;
     margin-bottom: 10px;

@@ -354,12 +354,7 @@ $gender = array(
                                         <i class="fas fa-map-marker-alt"></i>
                                     </span>
                                 </li>
-                                <li>
-                                    <i class="fa fa-music"></i>
-                                    <label class="fileContainer">
-                                        <input type="file">
-                                    </label>
-                                </li>
+                               
                                 <li>
                                     <i class="fa fa-image"></i>
                                     <label class="fileContainer">

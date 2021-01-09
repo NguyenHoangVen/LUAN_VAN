@@ -10,14 +10,15 @@
 				<!-- group search  -->
 				@if(count($list_group) > 0)
 				@foreach($list_group as $item)
+				<?php $num = count($item->members)?>
 				<div class="group-item g-select d-flex justify-content-between">
 					<a href="{{url('group-post')}}/detail/{{$item->id}}" class="d-flex">
 						<div class="avatar-group avatar mr-3">
 							<img src="upload/avatar_group/{{$item->avatar}}" alt="">
 						</div>
 						<div class="name-group">
-							<h2>{{ucfirst($item->name)}}</h2>
-							<p class="num-member"><i class="fas fa-users"></i> 145 thanh vien</p>
+							<h2>{{$item->name}}</h2>
+							<p class="num-member"><i class="fas fa-users"></i> {{$num}} thanh vien</p>
 						</div>
 					</a>
 					<!-- new post -->
@@ -34,7 +35,7 @@
 							<input type="hidden" name="status" class="status-request" value="join">
 						</div>
 						@else
-						<div type="text" class="btn btn-success">Thanh Vien
+						<div type="text" class="btn btn-default">Thành viên
 							
 						</div>
 						@endif
@@ -57,7 +58,7 @@
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
-									<?php $num = count($item->members)?>
+									
 									<h4 class="modal-title">Thành viên của nhóm ({{$num}} Thành viên)</h4>
 									<button type="button" class="close" data-dismiss="modal">&times;</button>
 									

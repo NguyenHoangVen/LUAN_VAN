@@ -1,5 +1,7 @@
 @extends('layouts.index')
 @section('content')
+
+
 <div id="content">
     <div id="profile-user">
         <div class="cover-image">
@@ -26,14 +28,7 @@
         </div>
         <div class="container action-setting bg-padding">
             <div class="row introduce d-block d-lg-none">
-                <div class="col-md-12">
-                    <h1>Gioi Thieu</h1>
-                    <div class="address">
-                        <span><i class="fas fa-map-marker-alt mr-3"></i>Can Tho,Viet Nam</span>
-                    </div>
-                    <div class="time-join"><span><i class="fas fa-calendar-alt mr-3"></i>Da tham gia 15/09/2020</span>
-                    </div>
-                </div>
+              
             </div>
             <div class="row menu-profile">
                 <div class="col-lg-8 col-md-12 menu">
@@ -44,14 +39,7 @@
 
                     </ul>
                 </div>
-                <div class="col-lg-4 col-md-12">
-                    <div class="setting-profile d-flex mt-2">
-                        <a href="" class="btn btn-success w-100" data-toggle="modal" data-target="#editProfile">Sửa hồ
-                            sơ</a>
-
-                    </div>
-
-                </div>
+                
             </div>
         </div>
         <div class="container action-show mt-3">
@@ -120,6 +108,13 @@
                                                                     <input type="hidden" class="send_id" value="{{$friend->user_accept->id}}">
                                                                     </button></div>
                                                                 </div>
+                                                                @elseif($friend->user_accept->id == Auth::user()->id)
+                                                                <div class="action">
+                                                                   <div class="send mt-1 dropdown">
+                                                                        <button class="btn btn-light w-100" data-toggle="dropdown" aria-expanded="false">Bạn bè</button>
+                                                                        
+                                                                    </div>
+                                                                </div>
                                                                 @else
                                                                 <div class="action">
                                                                     <div class="send mt-1"><button class="btn btn-primary w-100 send-request">Thêm bạn
@@ -150,7 +145,7 @@
                                                                             href="">{{$friend->user_send->username}}</a>
                                                                     </div>
                                                                 </div>
-                                                                @if(checkFriend(Auth::user()->id,$friend->user_send->id))
+                                                                @if(checkFriend(Auth::user()->id,$friend->user_send->id) )
                                                                 <div class="action">
                                                                    <div class="send mt-1 dropdown">
                                                                         <button class="btn btn-light w-100" data-toggle="dropdown" aria-expanded="false">Bạn bè</button>
@@ -172,6 +167,13 @@
                                                                     <div class="send mt-1"><button class="btn btn-success w-100 received-request">Chấp nhận
                                                                     <input type="hidden" class="send_id" value="{{$friend->user_send->id}}">
                                                                     </button></div>
+                                                                </div>
+                                                                @elseif($friend->user_send->id == Auth::user()->id)
+                                                                <div class="action">
+                                                                   <div class="send mt-1 dropdown">
+                                                                        <button class="btn btn-light w-100" data-toggle="dropdown" aria-expanded="false">Bạn bè</button>
+                                                                        
+                                                                    </div>
                                                                 </div>
                                                                 @else
                                                                 <div class="action">

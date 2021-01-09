@@ -385,9 +385,11 @@
 
 					</div>
 				</div>
+				@if(checkMember(Auth::user()->id,$group->id))
 				<div class="modal-footer">
 		          	<a href="group-post/leave-group/{{Auth::user()->id}}/{{$group->id}}" class="btn btn-danger" onclick="return confirm('Bạn có muốn rời khỏi nhóm ?')">Rời nhóm</a>
 		        </div>
+		        @endif
 			</div>
 		</div>
 	</div>

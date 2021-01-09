@@ -50,4 +50,13 @@ function checkCommentTopic($user_id,$comment_id){
 		return false;
 	}
 }
+// == KIEM TRA DANH GIA CUA MINH
+function checkRatingTopic($user_id,$rating_id){
+	$row = \DB::table('rating_topic')->where('id',$rating_id)->where('user_id',$user_id)->count();
+	if($row>0){
+		return true;
+	}else{
+		return false;
+	}
+}
 ?>

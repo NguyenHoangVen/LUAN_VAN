@@ -7,6 +7,8 @@ use App\UserModel;
 use App\MessagesModel;
 use App\Events\MessagesEvent;
 use Auth;
+use Carbon;
+Carbon\Carbon::setLocale('vi');
 class ChatController extends Controller
 {
     //
@@ -37,29 +39,33 @@ class ChatController extends Controller
     	$html_result = '<div class="direct-chat-msg right">
                         <div class="direct-chat-infos clearfix">
                           	<span class="direct-chat-name float-right">'.$mes->user_send->username.'</span>
-                          	<span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                          	
                         </div>
                         <!-- /.direct-chat-infos -->
                         <img class="direct-chat-img" src="image/image_avatar/'.$mes->user_send->avatar.'" alt="message user image">
                         <!-- /.direct-chat-img -->
                         <div class="direct-chat-text">
-                          '.$mes->content.'
+                          <div>'.$mes->content.'</div>
+                          <div class="direct-chat-infos clearfix">
+                            
+                            <span class="mt-2 direct-chat-timestamp float-right">'.Carbon\Carbon::parse($mes->created_at)->diffForHumans().'</span>
                         </div>
                         <!-- /.direct-chat-text -->
                   	</div>';
     	// Tao du lieu gui trong su kien messages
         // 1. Tra html ve cho nguoi nhan
         $html_receive_user = '<div class="direct-chat-msg">
-		                        <div class="direct-chat-infos clearfix">
-		                          	<span class="direct-chat-name float-left">'.$mes->user_send->username.'</span>
-		                          	<span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-		                        </div>
-		                        <img class="direct-chat-img" src="image/image_avatar/'.$mes->user_send->avatar.'" alt="message user image">
-		                        <div class="direct-chat-text">
-		                          	'.$mes->content.'
-		                        </div>
-		                        
-	                      	</div>';
+            <div class="direct-chat-infos clearfix">
+              	<span class="direct-chat-name float-left">'.$mes->user_send->username.'</span>
+              	
+            </div>
+            <img class="direct-chat-img" src="image/image_avatar/'.$mes->user_send->avatar.'" alt="message user image">
+            <div class="direct-chat-text">
+              	<div>'.$mes->content.'</div>
+                 <span class="direct-chat-timestamp">'.Carbon\Carbon::parse($mes->created_at)->diffForHumans().'</span>
+            </div>
+            
+      	</div>';
     	$data = array(
     		'from' => Auth::user()->id,
     		'to' => $request->receive_id,

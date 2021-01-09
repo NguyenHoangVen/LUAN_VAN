@@ -214,7 +214,7 @@ class TeamController extends Controller
     public function postShare(){
         $post_reviews = PostReviewModel::orderBy('created_at','DESC')->get()->take(10);
         // dd($post_reviews);
-        $post_shares = PostShareModel::orderBy('created_at','DESC')->get();
+        $post_shares = PostShareModel::where('status',0)->orderBy('created_at','DESC')->get();
         return view('team.post_share',compact('post_shares','post_reviews'));
     }
     public function updateInfoTripTeam(Request $request){

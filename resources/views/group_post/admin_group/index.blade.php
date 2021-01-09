@@ -246,7 +246,7 @@
                 </div>
                 <div class="col-12 center-webkit">
                   <div class="image-cover">
-                    <img class="changeSrcImgCover img_cover1" src="{{asset('image/image_cover')}}/{{$group->avatar}}" alt="">
+                    <img class="changeSrcImgCover img_cover1" src="{{asset('upload/avatar_group')}}/{{$group->avatar}}" alt="">
                   </div>
                 </div>
                 
