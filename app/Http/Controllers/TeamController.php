@@ -45,6 +45,12 @@ class TeamController extends Controller
             ->where('comfirm_tool.user_id',$user_id)
             ->where('team.id',$team_id)
             ->delete();
+        // Xoa bo cac bai viet cua nguo do tren team
+        PostShareModel::where('user_id',$user_id)
+            ->where('team_id',$team_id)->delete();
+        // Xoa tin nhan tren nhom
+        MessageTeamModel::where('team_id',$team_id)
+            ->where('user_id',$user_id)->delete();
         return Response()->json(array('user_id'=>$user_id,'d'=>$team_id));
     }
     // 25. Chuyển quyền nhóm trưởng
@@ -390,8 +396,7 @@ class TeamController extends Controller
             alt="message user image">
         <div class="direct-chat-text">
             <div>'.$request->content.'</div>
-            <span class="direct-chat-timestamp float-left mt-2">2:05
-            </span>
+            
         </div>
         </div>';
         // Tra ve html cho tat ca nhung nguoi trong nhom

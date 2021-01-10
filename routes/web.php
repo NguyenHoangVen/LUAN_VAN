@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::get('khoangcach','HomeController@khoangCach');
 // ============= MODULE ADMIN ========
 // 9. Dang nhap admin
 Route::get('admin-page/login','AdminController@login');

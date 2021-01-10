@@ -165,7 +165,7 @@ class UserController extends Controller
     public function infoAccountUser($user_id){
         $user = UserModel::find($user_id);
         // 1. Bai viet cua user (status)
-        $posts = PostShareModel::where('user_id',$user_id)->orderBy('created_at','DESC')->get(); 
+        $posts = PostShareModel::where('user_id',$user_id)->where('status',0)->orderBy('created_at','DESC')->get(); 
         $data = array(
             'user' => $user,
             'posts' => $posts

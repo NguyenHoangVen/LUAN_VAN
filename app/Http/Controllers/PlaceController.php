@@ -203,7 +203,9 @@ class PlaceController extends Controller
         // Goi y cac dia diem xung quanh
         // 1. Lay du lieu truyen url tim kiem
         $a = create_slug($topic->province);
+
         $city = str_replace('-','+',$a);
+        // carwlData($city);
         $data_carwl = carwlData($city);//Carwl data Mytour
         // 2. Lay du lieu API TripAdvisor
         $cat_tripadvisor = array(

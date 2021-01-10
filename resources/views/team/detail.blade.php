@@ -171,7 +171,7 @@
                                                         <div class="bg-white pt-pb-15 w-100">
 
                                                             <div class="col-12 info-user d-flex mb-2">
-                                                                <a href="" class="avatar d-block ">
+                                                                <a href="user/{{$post_share->user->id}}/info" class="avatar d-block ">
                                                                     <img src="image/image_avatar/{{$post_share->user->avatar}}"
                                                                         alt="">
                                                                 </a>
@@ -725,6 +725,7 @@
                             aria-labelledby="custom-tabs-four-profile-tab">
                             <div id="wp-map-route">
                                 <div class="row">
+                                    @if(!infoTeamEmpty($team->id))
                                     <div class="col-lg-8 col-sm-12">
                                         <input type="text" id="input-start-route" class="form-control mt-1 ml-1 w-50">
                                         <button class="custom-map-control-button" id="button-location"
@@ -732,6 +733,7 @@
                                         <div id="mapRoute" style="height:550px" class="bg-primary"
                                             placeholder="Nhập vào vị trí của bạn..."></div>
                                     </div>
+                                    
                                     <div class="col-lg-4 col-md-12">
                                         <div class="alert tutorial-direction">Hướng dẫn đường đi</div>
                                         <!-- Tra ve ket qua chi duong -->
@@ -739,6 +741,9 @@
                                             
                                         </div>
                                     </div>
+                                    @else
+                                    <div class="alert alert-default-primary text-danger">Xin lỗi, vì thông tin chuyến đi chưa đầy đủ nên bạn không thể xem được bản đồ lộ trình</div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -1231,6 +1236,7 @@ function delete_member_out_team(){
                 success: function(data) {
                     console.log(data);
                     $('#member-team .member-'+data.user_id).remove();
+                    location.reload();
                 },
             });
         }

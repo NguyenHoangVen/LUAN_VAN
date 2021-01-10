@@ -13,7 +13,7 @@
                 <ul class="list-post mb-2 scroll-sidebar-group">
                     @foreach($post_reviews as $post)
                     <li class="d-flex pr-2 post-review-{{$post->id}}" target="_blank">
-                        <a href="#" class="avatar d-block mr-3"><img class="img-50"
+                        <a href="user/{{$post->user->id}}/info" class="avatar d-block mr-3"><img class="img-50"
                                 src="image/image_avatar/{{$post->user->avatar}}" alt="" ></a>
                         <div class="info-desc">
                             <div class="topic-title">
@@ -23,7 +23,7 @@
                                 <span class="topic">[Kinh nghiệm]</span>
                                 @endif
                                 <a href="{{url('topic/post/detail')}}/{{$post->id}}"
-                                    class="title">{{$post->title}}</a>
+                                    class="title" target="_blank">{{$post->title}}</a>
                             </div>
                             <div class="time mt-2"><i class="fas fa-calendar-alt mr-1"></i>
                                 {{$post->created_at->format('d-m-Y')}}</div>
@@ -59,7 +59,7 @@
                             <div class="bg-white pt-pb-15 w-100">
 
                                 <div class="col-12 info-user d-flex mb-2">
-                                    <a href="" class="avatar d-block ">
+                                    <a href="user/{{$post_share->user->id}}/info" class="avatar d-block ">
                                         <img src="image/image_avatar/{{$post_share->user->avatar}}" alt="">
                                     </a>
                                     <div class="username-time ml-3 d-flex justify-content-between w-100">
@@ -120,9 +120,10 @@
                                     @endif
                                     @if($i == 4)
                                     <div class="col-sm-6 col-md-6 thumb thumb-relative">
-                                        <img src="upload/image_post/{{$img->filename}}" alt="">
+                                        <img src="upload/image_post/{{$img->filename}}" alt="" >
                                         <div class="overlayy">
-                                            <div class="number"><span>+
+                                            <div class="number" data-toggle="modal"
+                                                data-target="#modalReviewImagePostShare{{$post_share->id}}"><span>+
                                                     {{$num_img-4}}</span></div>
                                         </div>
                                     </div>
@@ -336,12 +337,7 @@
                                             <i class="fas fa-map-marker-alt"></i>
                                         </span>
                                     </li>
-                                    <li>
-                                        <i class="fa fa-music"></i>
-                                        <label class="fileContainer">
-                                            <input type="file">
-                                        </label>
-                                    </li>
+                                   
                                     <li>
                                         <i class="fa fa-image"></i>
                                         <label class="fileContainer">

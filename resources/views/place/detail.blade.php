@@ -380,7 +380,7 @@ if(Auth::check()){
             <div class="col-md-12 col-lg-4 sidebar  border-left">
 
                 <div class="best-nieghtborhood">
-                    <div class="title">Tốt nhất lân cận</div>
+                    <div class="title">Địa điểm lân cận</div>
 
                     <div class="category">
 

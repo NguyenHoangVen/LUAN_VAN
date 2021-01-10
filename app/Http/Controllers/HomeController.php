@@ -9,9 +9,21 @@ use Auth;
 class HomeController extends Controller
 {
     //
+    public function khoangCach(){
+        load('Helpfunction','lib');
+        $a = getDistanceBetweenPointsNew(9.764710, 105.693318, 9.803264, 105.657773, $unit='Km');
+        dd($a);
+    }
 
     public function home_view(){
         load('Helpfunction','rating');
+        // $projects = \DB::table('topic')
+        //     ->select('topic.*',\DB::raw('avg(num_star) as avg_star'))
+        //     ->join('rating_topic', 'topic.id', '=', 'rating_topic.topic_id')
+        //     ->groupBy('rating_topic.topic_id')
+        //     ->orderByDesc('avg_star')
+        //     ->get()->take(1);
+        
        	$topic_bac = TopicModel::where('region_id',1)->get();
         $topic_trung = TopicModel::where('region_id',2)->get();
         $topic_nam = TopicModel::where('region_id',3)->get();

@@ -2,7 +2,7 @@
     @foreach($team->members as $member)
     <div class="col-lg-6 col-md-12">
         <div class="team-item member-{{$member->user_id}} d-flex">
-            <a href="" class="avatar d-block mr-3"><img class="img-50"
+            <a href="user/{{$member->user->id}}/info" class="avatar d-block mr-3"><img class="img-50"
                     src="image/image_avatar/{{$member->user->avatar}}" alt=""></a>
             <div class="info-desc">
                 <div class="topic-title">
@@ -11,7 +11,7 @@
                     @else
                     <span class="topic">[Thành viên]</span>
                     @endif
-                    <a href="team/8" class="title">{{$member->user->username}}</a>
+                    <a href="user/{{$member->user->id}}/info" class="title">{{$member->user->username}}</a>
                 </div>
                 <div class="time mt-2"><i class="fas fa-calendar-alt mr-1"></i>
                     {{$member->created_at->format('d-m-Y')}}</div>
